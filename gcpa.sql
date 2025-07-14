@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
 -- SO del servidor:              Win64
--- HeidiSQL Versión:             12.6.0.6765
+-- HeidiSQL Versión:             12.11.0.7065
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Volcando estructura de base de datos para geca
-CREATE DATABASE IF NOT EXISTS `geca` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `geca`;
+-- Volcando estructura de base de datos para gcpa
+CREATE DATABASE IF NOT EXISTS `gcpa` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `gcpa`;
 
--- Volcando estructura para tabla geca.cache
+-- Volcando estructura para tabla gcpa.cache
 CREATE TABLE IF NOT EXISTS `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `cache` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.cache: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.cache: ~11 rows (aproximadamente)
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Cache:all:1_hour', 'a:3:{i:0;O:8:"stdClass":2:{s:4:"hits";s:5:"21.00";s:6:"misses";i:0;}i:1;d:35.3296;i:2;s:19:"2025-07-09 16:27:44";}', 1752078469),
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Cache:keys:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:0;O:8:"stdClass":3:{s:3:"key";s:23:"spatie.permission.cache";s:4:"hits";s:5:"21.00";s:6:"misses";i:0;}}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:7.3351;i:2;s:19:"2025-07-09 16:27:45";}', 1752078470),
@@ -39,9 +39,9 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Usage:requests:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:0;O:8:"stdClass":3:{s:3:"key";s:1:"1";s:4:"user";O:8:"stdClass":3:{s:4:"name";s:28:"Marco Antonio Espinoza Rojas";s:5:"extra";s:29:"marco.espinoza@correos.gob.bo";s:6:"avatar";s:97:"https://gravatar.com/avatar/f37a6ca5fae038f24777da3902c897f4d49fd108e665719ec6daaee86cc1079c?d=mp";}s:5:"count";i:78;}}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:96.2727;i:2;s:19:"2025-07-09 16:27:42";}', 1752078467),
 	('laravel_cache_lv:v3.17.1:file:970a4c3d-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1752683266),
 	('laravel_cache_lv:v3.17.1:file:c3206927-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1751985000),
-	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1752183352);
+	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1752616670);
 
--- Volcando estructura para tabla geca.cache_locks
+-- Volcando estructura para tabla gcpa.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `cache_locks` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.cache_locks: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.cache_locks: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.empresa
+-- Volcando estructura para tabla gcpa.empresa
 CREATE TABLE IF NOT EXISTS `empresa` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) DEFAULT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla geca.empresa: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.empresa: ~10 rows (aproximadamente)
 INSERT INTO `empresa` (`id`, `nombre`, `tipo`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(11, 'FUNDACION AYUDA EN ACCION', 'NUEVO', '2025-06-23 17:54:48', '2025-06-23 17:54:48', NULL),
 	(12, 'ALDEAS INFANTILES SOS', 'NUEVO', '2025-06-23 18:16:13', '2025-06-23 18:16:13', NULL),
@@ -75,7 +75,7 @@ INSERT INTO `empresa` (`id`, `nombre`, `tipo`, `created_at`, `updated_at`, `dele
 	(19, 'MESAJE DE PAZ', 'ANTIGUO', '2025-07-09 20:19:12', '2025-07-09 20:19:12', NULL),
 	(20, 'FUNDACION JESUITAS DE BOLIVIA', 'ANTIGUO', '2025-07-09 20:21:21', '2025-07-09 20:24:05', '2025-07-09 20:24:05');
 
--- Volcando estructura para tabla geca.eventos
+-- Volcando estructura para tabla gcpa.eventos
 CREATE TABLE IF NOT EXISTS `eventos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `accion` varchar(50) DEFAULT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla geca.eventos: ~167 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.eventos: ~167 rows (aproximadamente)
 INSERT INTO `eventos` (`id`, `accion`, `user_id`, `codigo`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, NULL, 'Marco Antonio Espinoza Rojas', 'LH248642596US', 'Paquete Registrado', '2025-06-24 01:34:52', '2025-06-24 01:35:48', '2025-06-24 01:35:48'),
 	(3, 'ENCONTRADO', 'Marco Antonio Espinoza Rojas', 'LH248642596US', 'Paquete Registrado', '2025-06-24 01:35:39', '2025-06-24 01:35:39', NULL),
@@ -258,7 +258,7 @@ INSERT INTO `eventos` (`id`, `accion`, `user_id`, `codigo`, `descripcion`, `crea
 	(167, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:16:30', '2025-07-10 20:16:30', NULL),
 	(168, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:17:29', '2025-07-10 20:17:29', NULL);
 
--- Volcando estructura para tabla geca.failed_jobs
+-- Volcando estructura para tabla gcpa.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) NOT NULL,
@@ -271,9 +271,9 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.failed_jobs: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.failed_jobs: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.jobs
+-- Volcando estructura para tabla gcpa.jobs
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) NOT NULL,
@@ -286,9 +286,9 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   KEY `jobs_queue_index` (`queue`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.jobs: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.jobs: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.job_batches
+-- Volcando estructura para tabla gcpa.job_batches
 CREATE TABLE IF NOT EXISTS `job_batches` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -303,9 +303,9 @@ CREATE TABLE IF NOT EXISTS `job_batches` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.job_batches: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.job_batches: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.migrations
+-- Volcando estructura para tabla gcpa.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) NOT NULL,
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.migrations: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.migrations: ~5 rows (aproximadamente)
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '0001_01_01_000000_create_users_table', 1),
 	(2, '0001_01_01_000001_create_cache_table', 1),
@@ -321,7 +321,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(4, '2025_06_11_195557_create_permission_tables', 1),
 	(5, '2025_06_11_221208_create_pulse_tables', 1);
 
--- Volcando estructura para tabla geca.model_has_permissions
+-- Volcando estructura para tabla gcpa.model_has_permissions
 CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) NOT NULL,
@@ -331,9 +331,9 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.model_has_permissions: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.model_has_permissions: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.model_has_roles
+-- Volcando estructura para tabla gcpa.model_has_roles
 CREATE TABLE IF NOT EXISTS `model_has_roles` (
   `role_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) NOT NULL,
@@ -343,12 +343,13 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.model_has_roles: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.model_has_roles: ~2 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\User', 1),
+	(1, 'App\\Models\\User', 3),
 	(2, 'App\\Models\\User', 2);
 
--- Volcando estructura para tabla geca.paquetes
+-- Volcando estructura para tabla gcpa.paquetes
 CREATE TABLE IF NOT EXISTS `paquetes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigo` varchar(50) DEFAULT NULL,
@@ -373,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `paquetes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla geca.paquetes: ~24 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.paquetes: ~24 rows (aproximadamente)
 INSERT INTO `paquetes` (`id`, `codigo`, `destinatario`, `estado`, `cuidad`, `peso`, `precio`, `origen`, `destino`, `user`, `observacion`, `photo`, `certificacion`, `almacenaje`, `cantidad`, `grupo`, `pda`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'UY160984636DE', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.63, 17.21, NULL, 'local', 'MARCO ANTONIO ESPINOZA ROJAS', 'X', NULL, 1, NULL, 1, NULL, NULL, '2025-06-18 00:44:22', '2025-07-10 20:04:00', '2025-07-10 20:04:00'),
 	(2, 'UY160984634DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.63, 9.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', 'X', NULL, 0, 0, 1, 0, NULL, '2025-06-18 00:44:22', '2025-07-10 18:32:04', NULL),
@@ -400,7 +401,7 @@ INSERT INTO `paquetes` (`id`, `codigo`, `destinatario`, `estado`, `cuidad`, `pes
 	(24, 'UP400165047LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'ORURO', 0.45, 14.8, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2441, '2025-07-10 19:35:33', '2025-07-10 20:16:06', NULL),
 	(25, 'UP400165045LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'BENI', 0.65, 17.21, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 0, 1, 0, 2441, '2025-07-10 19:36:41', '2025-07-10 20:08:37', NULL);
 
--- Volcando estructura para tabla geca.password_reset_tokens
+-- Volcando estructura para tabla gcpa.password_reset_tokens
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -408,9 +409,9 @@ CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
   PRIMARY KEY (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.password_reset_tokens: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.password_reset_tokens: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.permissions
+-- Volcando estructura para tabla gcpa.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -421,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.permissions: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.permissions: ~5 rows (aproximadamente)
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'tarifario', 'web', '2025-06-24 23:06:49', '2025-06-24 23:06:49'),
 	(2, 'enviar', 'web', '2025-06-24 23:07:03', '2025-06-24 23:07:03'),
@@ -429,7 +430,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 	(4, 'visor', 'web', '2025-06-24 23:14:18', '2025-06-24 23:14:18'),
 	(5, 'usuarios', 'web', '2025-06-24 23:24:55', '2025-06-24 23:24:55');
 
--- Volcando estructura para tabla geca.peso
+-- Volcando estructura para tabla gcpa.peso
 CREATE TABLE IF NOT EXISTS `peso` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `max` float DEFAULT NULL,
@@ -440,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `peso` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla geca.peso: ~30 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.peso: ~30 rows (aproximadamente)
 INSERT INTO `peso` (`id`, `max`, `min`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(4, 0.02, 0.001, '2025-06-23 17:55:40', '2025-06-23 17:55:40', NULL),
 	(5, 0.05, 0.021, '2025-06-23 17:55:54', '2025-06-23 17:55:54', NULL),
@@ -473,7 +474,7 @@ INSERT INTO `peso` (`id`, `max`, `min`, `created_at`, `updated_at`, `deleted_at`
 	(32, 0.05, 0.041, '2025-06-23 18:48:56', '2025-06-23 18:48:56', NULL),
 	(33, 1, 0.001, '2025-06-25 19:15:22', '2025-06-25 19:15:22', NULL);
 
--- Volcando estructura para tabla geca.pulse_aggregates
+-- Volcando estructura para tabla gcpa.pulse_aggregates
 CREATE TABLE IF NOT EXISTS `pulse_aggregates` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `bucket` int(10) unsigned NOT NULL,
@@ -489,9 +490,9 @@ CREATE TABLE IF NOT EXISTS `pulse_aggregates` (
   KEY `pulse_aggregates_period_bucket_index` (`period`,`bucket`),
   KEY `pulse_aggregates_type_index` (`type`),
   KEY `pulse_aggregates_period_type_aggregate_bucket_index` (`period`,`type`,`aggregate`,`bucket`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.pulse_aggregates: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_aggregates: ~50 rows (aproximadamente)
 INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggregate`, `value`, `count`) VALUES
 	(1, 1752165420, 60, 'user_request', '1', 'count', 1.00, NULL),
 	(2, 1752165360, 360, 'user_request', '1', 'count', 1.00, NULL),
@@ -500,9 +501,93 @@ INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggreg
 	(5, 1752165420, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
 	(6, 1752165360, 360, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
 	(7, 1752164640, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
-	(8, 1752156000, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL);
+	(8, 1752156000, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(9, 1752530220, 60, 'slow_request', '["GET","\\/","Closure"]', 'count', 1.00, NULL),
+	(10, 1752530040, 360, 'slow_request', '["GET","\\/","Closure"]', 'count', 1.00, NULL),
+	(11, 1752528960, 1440, 'slow_request', '["GET","\\/","Closure"]', 'count', 1.00, NULL),
+	(12, 1752528960, 10080, 'slow_request', '["GET","\\/","Closure"]', 'count', 1.00, NULL),
+	(13, 1752530220, 60, 'slow_request', '["GET","\\/","Closure"]', 'max', 2355.00, NULL),
+	(14, 1752530040, 360, 'slow_request', '["GET","\\/","Closure"]', 'max', 2355.00, NULL),
+	(15, 1752528960, 1440, 'slow_request', '["GET","\\/","Closure"]', 'max', 2355.00, NULL),
+	(16, 1752528960, 10080, 'slow_request', '["GET","\\/","Closure"]', 'max', 2355.00, NULL),
+	(17, 1752530220, 60, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'count', 1.00, NULL),
+	(18, 1752530040, 360, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'count', 1.00, NULL),
+	(19, 1752528960, 1440, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'count', 1.00, NULL),
+	(20, 1752528960, 10080, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'count', 1.00, NULL),
+	(21, 1752530220, 60, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'max', 1965.00, NULL),
+	(22, 1752530040, 360, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'max', 1965.00, NULL),
+	(23, 1752528960, 1440, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'max', 1965.00, NULL),
+	(24, 1752528960, 10080, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 'max', 1965.00, NULL),
+	(25, 1752530220, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(26, 1752530040, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(27, 1752528960, 1440, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(28, 1752528960, 10080, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(29, 1752530220, 60, 'slow_user_request', '1', 'count', 2.00, NULL),
+	(30, 1752530040, 360, 'slow_user_request', '1', 'count', 3.00, NULL),
+	(31, 1752528960, 1440, 'slow_user_request', '1', 'count', 3.00, NULL),
+	(32, 1752528960, 10080, 'slow_user_request', '1', 'count', 4.00, NULL),
+	(33, 1752530220, 60, 'user_request', '1', 'count', 2.00, NULL),
+	(34, 1752530040, 360, 'user_request', '1', 'count', 7.00, NULL),
+	(35, 1752528960, 1440, 'user_request', '1', 'count', 7.00, NULL),
+	(36, 1752528960, 10080, 'user_request', '1', 'count', 12.00, NULL),
+	(37, 1752530220, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1876.00, NULL),
+	(38, 1752530040, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1876.00, NULL),
+	(39, 1752528960, 1440, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1876.00, NULL),
+	(40, 1752528960, 10080, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1876.00, NULL),
+	(41, 1752530220, 60, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'count', 1.00, NULL),
+	(42, 1752530040, 360, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'count', 1.00, NULL),
+	(43, 1752528960, 1440, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'count', 1.00, NULL),
+	(44, 1752528960, 10080, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'count', 1.00, NULL),
+	(45, 1752530220, 60, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(46, 1752530040, 360, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(47, 1752528960, 1440, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(48, 1752528960, 10080, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(57, 1752530220, 60, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'max', 2995.00, NULL),
+	(58, 1752530040, 360, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'max', 2995.00, NULL),
+	(59, 1752528960, 1440, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'max', 2995.00, NULL),
+	(60, 1752528960, 10080, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 'max', 2995.00, NULL),
+	(61, 1752530280, 60, 'user_request', '1', 'count', 1.00, NULL),
+	(65, 1752530340, 60, 'user_request', '1', 'count', 4.00, NULL),
+	(69, 1752530340, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(70, 1752530040, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(71, 1752528960, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(72, 1752528960, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 6.00, NULL),
+	(77, 1752530340, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(78, 1752530040, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(79, 1752528960, 1440, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(80, 1752528960, 10080, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(81, 1752530340, 60, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(93, 1752530340, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1364.00, NULL),
+	(94, 1752530040, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1364.00, NULL),
+	(95, 1752528960, 1440, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1364.00, NULL),
+	(96, 1752528960, 10080, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1364.00, NULL),
+	(105, 1752530400, 60, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(106, 1752530400, 360, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(107, 1752530400, 1440, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(108, 1752528960, 10080, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(109, 1752530400, 60, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(110, 1752530400, 360, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(111, 1752530400, 1440, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(112, 1752530400, 60, 'user_request', '1', 'count', 5.00, NULL),
+	(113, 1752530400, 360, 'user_request', '1', 'count', 5.00, NULL),
+	(114, 1752530400, 1440, 'user_request', '1', 'count', 5.00, NULL),
+	(115, 1752530400, 60, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(116, 1752530400, 360, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(117, 1752530400, 1440, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(118, 1752528960, 10080, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(121, 1752530400, 60, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 5398.00, NULL),
+	(122, 1752530400, 360, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 5398.00, NULL),
+	(123, 1752530400, 1440, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 5398.00, NULL),
+	(124, 1752528960, 10080, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 5398.00, NULL),
+	(125, 1752530400, 60, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1752530435.00, NULL),
+	(126, 1752530400, 360, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1752530435.00, NULL),
+	(127, 1752530400, 1440, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1752530435.00, NULL),
+	(128, 1752528960, 10080, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1752530435.00, NULL),
+	(129, 1752530400, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(130, 1752530400, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(131, 1752530400, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL);
 
--- Volcando estructura para tabla geca.pulse_entries
+-- Volcando estructura para tabla gcpa.pulse_entries
 CREATE TABLE IF NOT EXISTS `pulse_entries` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `timestamp` int(10) unsigned NOT NULL,
@@ -515,14 +600,44 @@ CREATE TABLE IF NOT EXISTS `pulse_entries` (
   KEY `pulse_entries_type_index` (`type`),
   KEY `pulse_entries_key_hash_index` (`key_hash`),
   KEY `pulse_entries_timestamp_type_key_hash_value_index` (`timestamp`,`type`,`key_hash`,`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.pulse_entries: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_entries: ~12 rows (aproximadamente)
 INSERT INTO `pulse_entries` (`id`, `timestamp`, `type`, `key`, `value`) VALUES
 	(1, 1752165455, 'user_request', '1', NULL),
-	(2, 1752165455, 'cache_hit', 'spatie.permission.cache', NULL);
+	(2, 1752165455, 'cache_hit', 'spatie.permission.cache', NULL),
+	(3, 1752530252, 'slow_request', '["GET","\\/","Closure"]', 2355),
+	(4, 1752530254, 'slow_request', '["GET","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@create"]', 1965),
+	(5, 1752530267, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 1876),
+	(6, 1752530267, 'slow_user_request', '1', NULL),
+	(7, 1752530267, 'user_request', '1', NULL),
+	(8, 1752530269, 'slow_request', '["GET","\\/dashboard","\\\\App\\\\Http\\\\Controllers\\\\DashboardController@index"]', 2995),
+	(9, 1752530269, 'slow_user_request', '1', NULL),
+	(10, 1752530269, 'user_request', '1', NULL),
+	(11, 1752530270, 'cache_miss', 'spatie.permission.cache', NULL),
+	(12, 1752530288, 'user_request', '1', NULL),
+	(13, 1752530346, 'user_request', '1', NULL),
+	(14, 1752530347, 'user_request', '1', NULL),
+	(15, 1752530347, 'cache_hit', 'spatie.permission.cache', NULL),
+	(16, 1752530367, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 1364),
+	(17, 1752530367, 'slow_user_request', '1', NULL),
+	(18, 1752530367, 'user_request', '1', NULL),
+	(19, 1752530369, 'cache_hit', 'spatie.permission.cache', NULL),
+	(20, 1752530372, 'user_request', '1', NULL),
+	(21, 1752530372, 'cache_hit', 'spatie.permission.cache', NULL),
+	(22, 1752530434, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 5398),
+	(23, 1752530434, 'slow_user_request', '1', NULL),
+	(24, 1752530434, 'user_request', '1', NULL),
+	(25, 1752530435, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 1752530435),
+	(26, 1752530447, 'user_request', '1', NULL),
+	(27, 1752530447, 'cache_hit', 'spatie.permission.cache', NULL),
+	(28, 1752530451, 'user_request', '1', NULL),
+	(29, 1752530451, 'cache_hit', 'spatie.permission.cache', NULL),
+	(30, 1752530458, 'user_request', '1', NULL),
+	(31, 1752530459, 'user_request', '1', NULL),
+	(32, 1752530459, 'cache_hit', 'spatie.permission.cache', NULL);
 
--- Volcando estructura para tabla geca.pulse_values
+-- Volcando estructura para tabla gcpa.pulse_values
 CREATE TABLE IF NOT EXISTS `pulse_values` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `timestamp` int(10) unsigned NOT NULL,
@@ -536,9 +651,9 @@ CREATE TABLE IF NOT EXISTS `pulse_values` (
   KEY `pulse_values_type_index` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.pulse_values: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_values: ~0 rows (aproximadamente)
 
--- Volcando estructura para tabla geca.roles
+-- Volcando estructura para tabla gcpa.roles
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -549,13 +664,13 @@ CREATE TABLE IF NOT EXISTS `roles` (
   UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.roles: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.roles: ~3 rows (aproximadamente)
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 	(1, 'Administrador', 'web', '2025-06-24 23:04:30', '2025-06-24 23:04:30'),
 	(2, 'Cartero', 'web', '2025-06-24 23:04:50', '2025-06-24 23:04:50'),
 	(3, 'Informacion', 'web', '2025-06-24 23:14:06', '2025-06-24 23:14:06');
 
--- Volcando estructura para tabla geca.role_has_permissions
+-- Volcando estructura para tabla gcpa.role_has_permissions
 CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `role_id` bigint(20) unsigned NOT NULL,
@@ -565,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.role_has_permissions: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.role_has_permissions: ~9 rows (aproximadamente)
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(1, 1),
 	(2, 1),
@@ -577,7 +692,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(4, 3),
 	(5, 1);
 
--- Volcando estructura para tabla geca.sessions
+-- Volcando estructura para tabla gcpa.sessions
 CREATE TABLE IF NOT EXISTS `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
@@ -590,11 +705,11 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.sessions: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.sessions: ~2 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('jFjfcD3XkyWAybF2eVnY1jyuGLcz3gQNGy9812x0', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiSkw4YTZ5NTBFdFNlakNYNnlNV3hxT0JzVHMwREM5NmRJZlM2bUdENiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYWxtYWNlbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1752165455);
+	('63CgNoSJFHN5KVUfqBG7TKMuU6UzHQcIvoAHF5ah', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSWY3bnpiRmQ1NjR5UWJwYzFRa0g4UGVWTnpQQzR1SFA4cmdVQWR4OCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VycyI7fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1752530459);
 
--- Volcando estructura para tabla geca.tarifario
+-- Volcando estructura para tabla gcpa.tarifario
 CREATE TABLE IF NOT EXISTS `tarifario` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `peso` int(11) DEFAULT NULL,
@@ -613,7 +728,7 @@ CREATE TABLE IF NOT EXISTS `tarifario` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla geca.tarifario: ~95 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.tarifario: ~95 rows (aproximadamente)
 INSERT INTO `tarifario` (`id`, `peso`, `empresa`, `local`, `nacional`, `camiri`, `sud`, `norte`, `centro`, `euro`, `asia`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(20, 4, 11, NULL, NULL, NULL, 14.8, 20.8, 16.8, 23.8, 26.8, '2025-06-23 18:05:02', '2025-06-23 18:05:02', NULL),
 	(21, 5, 11, NULL, NULL, NULL, 26.4, 38.4, 27.6, 40.8, 56.3, '2025-06-23 18:06:38', '2025-06-23 18:06:38', NULL),
@@ -711,7 +826,7 @@ INSERT INTO `tarifario` (`id`, `peso`, `empresa`, `local`, `nacional`, `camiri`,
 	(113, 9, 19, NULL, NULL, NULL, 126, 194, 148, 235, 337, '2025-06-23 18:46:25', '2025-06-23 18:46:25', NULL),
 	(114, 10, 19, NULL, NULL, NULL, 239, 271, 244, 316, 505, '2025-06-23 18:46:49', '2025-06-23 18:46:49', NULL);
 
--- Volcando estructura para tabla geca.users
+-- Volcando estructura para tabla gcpa.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -726,12 +841,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla geca.users: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.users: ~2 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `email`, `city`, `ci`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Marco Antonio Espinoza Rojas', 'marco.espinoza@correos.gob.bo', 'LA PAZ', 10909669, NULL, '$2y$12$6o996n9VkbL6kW7yTLini.kURmIXU/nSmEfgk8afXS3bt1ntpFjji', NULL, '2025-06-12 18:47:07', '2025-06-23 22:38:38', NULL),
-	(2, 'Edgar Javier Gironda Chiri', 'edgar.gironda@correos.gob.bo', 'LA PAZ', 4850032, NULL, '$2y$12$0x2IubG6nEVnZ6mu/OcwnOjPn7HM4OZskYC/bgbJ6sXsxSdCoWf3G', 'cuU880jcQGZH1JkO0ZYoTr04woy54zyFxn9hJ8c9AZs5ZBd5bOmh5nVvwvFv', '2025-06-24 23:13:05', '2025-06-24 23:13:05', NULL);
+	(2, 'Edgar Javier Gironda Chiri', 'edgar.gironda@correos.gob.bo', 'LA PAZ', 4850032, NULL, '$2y$12$0x2IubG6nEVnZ6mu/OcwnOjPn7HM4OZskYC/bgbJ6sXsxSdCoWf3G', 'cuU880jcQGZH1JkO0ZYoTr04woy54zyFxn9hJ8c9AZs5ZBd5bOmh5nVvwvFv', '2025-06-24 23:13:05', '2025-06-24 23:13:05', NULL),
+	(3, 'Josue Manriquez', 'josue.manriquez@correos.gob.bo', 'LA PAZ', 9134479, NULL, '$2y$12$O8NJ3h2Bx0wBvr0.vooFBeZd46jMuFYPrwoEHh28bA9ORJtOaj3/O', NULL, '2025-07-15 02:00:35', '2025-07-15 02:00:59', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
