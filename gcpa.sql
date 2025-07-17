@@ -27,8 +27,10 @@ CREATE TABLE IF NOT EXISTS `cache` (
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.cache: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.cache: ~13 rows (aproximadamente)
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+	('laravel_cache_josue.manriquez@correos.gob.bo|127.0.0.1', 'i:1;', 1752785601),
+	('laravel_cache_josue.manriquez@correos.gob.bo|127.0.0.1:timer', 'i:1752785601;', 1752785601),
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Cache:all:1_hour', 'a:3:{i:0;O:8:"stdClass":2:{s:4:"hits";s:5:"21.00";s:6:"misses";i:0;}i:1;d:35.3296;i:2;s:19:"2025-07-09 16:27:44";}', 1752078469),
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Cache:keys:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:0;O:8:"stdClass":3:{s:3:"key";s:23:"spatie.permission.cache";s:4:"hits";s:5:"21.00";s:6:"misses";i:0;}}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:7.3351;i:2;s:19:"2025-07-09 16:27:45";}', 1752078470),
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Exceptions:count:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:0:{}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:3.3023;i:2;s:19:"2025-07-09 16:27:44";}', 1752078469),
@@ -39,7 +41,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Usage:requests:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:0;O:8:"stdClass":3:{s:3:"key";s:1:"1";s:4:"user";O:8:"stdClass":3:{s:4:"name";s:28:"Marco Antonio Espinoza Rojas";s:5:"extra";s:29:"marco.espinoza@correos.gob.bo";s:6:"avatar";s:97:"https://gravatar.com/avatar/f37a6ca5fae038f24777da3902c897f4d49fd108e665719ec6daaee86cc1079c?d=mp";}s:5:"count";i:78;}}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:96.2727;i:2;s:19:"2025-07-09 16:27:42";}', 1752078467),
 	('laravel_cache_lv:v3.17.1:file:970a4c3d-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1752683266),
 	('laravel_cache_lv:v3.17.1:file:c3206927-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1751985000),
-	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1752616670);
+	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1752871948);
 
 -- Volcando estructura para tabla gcpa.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
@@ -343,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.model_has_roles: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.model_has_roles: ~3 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\User', 1),
 	(1, 'App\\Models\\User', 3),
@@ -490,9 +492,9 @@ CREATE TABLE IF NOT EXISTS `pulse_aggregates` (
   KEY `pulse_aggregates_period_bucket_index` (`period`,`bucket`),
   KEY `pulse_aggregates_type_index` (`type`),
   KEY `pulse_aggregates_period_type_aggregate_bucket_index` (`period`,`type`,`aggregate`,`bucket`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.pulse_aggregates: ~50 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_aggregates: ~112 rows (aproximadamente)
 INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggregate`, `value`, `count`) VALUES
 	(1, 1752165420, 60, 'user_request', '1', 'count', 1.00, NULL),
 	(2, 1752165360, 360, 'user_request', '1', 'count', 1.00, NULL),
@@ -585,7 +587,39 @@ INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggreg
 	(128, 1752528960, 10080, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1752530435.00, NULL),
 	(129, 1752530400, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
 	(130, 1752530400, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
-	(131, 1752530400, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL);
+	(131, 1752530400, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(157, 1752785520, 60, 'user_request', '1', 'count', 7.00, NULL),
+	(158, 1752785280, 360, 'user_request', '1', 'count', 7.00, NULL),
+	(159, 1752785280, 1440, 'user_request', '1', 'count', 7.00, NULL),
+	(160, 1752780960, 10080, 'user_request', '1', 'count', 7.00, NULL),
+	(161, 1752785520, 60, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(162, 1752785280, 360, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(163, 1752785280, 1440, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(164, 1752780960, 10080, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(169, 1752785520, 60, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(170, 1752785280, 360, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(171, 1752785280, 1440, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(172, 1752780960, 10080, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(173, 1752785520, 60, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(174, 1752785280, 360, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(175, 1752785280, 1440, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(176, 1752780960, 10080, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(177, 1752785520, 60, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'count', 1.00, NULL),
+	(178, 1752785280, 360, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'count', 1.00, NULL),
+	(179, 1752785280, 1440, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'count', 1.00, NULL),
+	(180, 1752780960, 10080, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'count', 1.00, NULL),
+	(185, 1752785520, 60, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'max', 3158.00, NULL),
+	(186, 1752785280, 360, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'max', 3158.00, NULL),
+	(187, 1752785280, 1440, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'max', 3158.00, NULL),
+	(188, 1752780960, 10080, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 'max', 3158.00, NULL),
+	(189, 1752785520, 60, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'max', 1752785552.00, NULL),
+	(190, 1752785280, 360, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'max', 1752785552.00, NULL),
+	(191, 1752785280, 1440, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'max', 1752785552.00, NULL),
+	(192, 1752780960, 10080, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 'max', 1752785552.00, NULL),
+	(193, 1752785520, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(194, 1752785280, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(195, 1752785280, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(196, 1752780960, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL);
 
 -- Volcando estructura para tabla gcpa.pulse_entries
 CREATE TABLE IF NOT EXISTS `pulse_entries` (
@@ -600,9 +634,9 @@ CREATE TABLE IF NOT EXISTS `pulse_entries` (
   KEY `pulse_entries_type_index` (`type`),
   KEY `pulse_entries_key_hash_index` (`key_hash`),
   KEY `pulse_entries_timestamp_type_key_hash_value_index` (`timestamp`,`type`,`key_hash`,`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.pulse_entries: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_entries: ~46 rows (aproximadamente)
 INSERT INTO `pulse_entries` (`id`, `timestamp`, `type`, `key`, `value`) VALUES
 	(1, 1752165455, 'user_request', '1', NULL),
 	(2, 1752165455, 'cache_hit', 'spatie.permission.cache', NULL),
@@ -635,7 +669,21 @@ INSERT INTO `pulse_entries` (`id`, `timestamp`, `type`, `key`, `value`) VALUES
 	(29, 1752530451, 'cache_hit', 'spatie.permission.cache', NULL),
 	(30, 1752530458, 'user_request', '1', NULL),
 	(31, 1752530459, 'user_request', '1', NULL),
-	(32, 1752530459, 'cache_hit', 'spatie.permission.cache', NULL);
+	(32, 1752530459, 'cache_hit', 'spatie.permission.cache', NULL),
+	(33, 1752785547, 'user_request', '1', NULL),
+	(34, 1752785548, 'user_request', '1', NULL),
+	(35, 1752785548, 'cache_miss', 'spatie.permission.cache', NULL),
+	(36, 1752785552, 'slow_request', '["POST","\\/users","via \\/livewire\\/update"]', 3158),
+	(37, 1752785552, 'slow_user_request', '1', NULL),
+	(38, 1752785552, 'user_request', '1', NULL),
+	(39, 1752785552, 'exception', '["Livewire\\\\Exceptions\\\\MethodNotFoundException","vendor\\\\livewire\\\\livewire\\\\src\\\\Mechanisms\\\\HandleComponents\\\\HandleComponents.php:470"]', 1752785552),
+	(40, 1752785559, 'user_request', '1', NULL),
+	(41, 1752785559, 'cache_hit', 'spatie.permission.cache', NULL),
+	(42, 1752785562, 'user_request', '1', NULL),
+	(43, 1752785562, 'cache_hit', 'spatie.permission.cache', NULL),
+	(44, 1752785577, 'user_request', '1', NULL),
+	(45, 1752785577, 'user_request', '1', NULL),
+	(46, 1752785578, 'cache_hit', 'spatie.permission.cache', NULL);
 
 -- Volcando estructura para tabla gcpa.pulse_values
 CREATE TABLE IF NOT EXISTS `pulse_values` (
@@ -707,7 +755,8 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 
 -- Volcando datos para la tabla gcpa.sessions: ~2 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-	('63CgNoSJFHN5KVUfqBG7TKMuU6UzHQcIvoAHF5ah', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSWY3bnpiRmQ1NjR5UWJwYzFRa0g4UGVWTnpQQzR1SFA4cmdVQWR4OCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VycyI7fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1752530459);
+	('63CgNoSJFHN5KVUfqBG7TKMuU6UzHQcIvoAHF5ah', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSWY3bnpiRmQ1NjR5UWJwYzFRa0g4UGVWTnpQQzR1SFA4cmdVQWR4OCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VycyI7fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1752530459),
+	('DYRuorMlE37IFsCMIjDPxrthUJyFs94KnnwOJP0m', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiVlFlcmlqWEpvdkVBMG5IUzdBbURrQklIQTlWQWhVTVBVUzU2cm51OSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXNlcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjE4OiJmbGFzaGVyOjplbnZlbG9wZXMiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1752785578);
 
 -- Volcando estructura para tabla gcpa.tarifario
 CREATE TABLE IF NOT EXISTS `tarifario` (
@@ -843,7 +892,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.users: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.users: ~3 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `email`, `city`, `ci`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Marco Antonio Espinoza Rojas', 'marco.espinoza@correos.gob.bo', 'LA PAZ', 10909669, NULL, '$2y$12$6o996n9VkbL6kW7yTLini.kURmIXU/nSmEfgk8afXS3bt1ntpFjji', NULL, '2025-06-12 18:47:07', '2025-06-23 22:38:38', NULL),
 	(2, 'Edgar Javier Gironda Chiri', 'edgar.gironda@correos.gob.bo', 'LA PAZ', 4850032, NULL, '$2y$12$0x2IubG6nEVnZ6mu/OcwnOjPn7HM4OZskYC/bgbJ6sXsxSdCoWf3G', 'cuU880jcQGZH1JkO0ZYoTr04woy54zyFxn9hJ8c9AZs5ZBd5bOmh5nVvwvFv', '2025-06-24 23:13:05', '2025-06-24 23:13:05', NULL),
