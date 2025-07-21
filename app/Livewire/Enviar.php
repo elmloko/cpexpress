@@ -37,7 +37,6 @@ class Enviar extends Component
     public $certificacion = false;
     public $grupo = false;
     public $almacenaje = false;
-    public $pda;
 
 
     protected $paginationTheme = 'bootstrap';
@@ -51,7 +50,6 @@ class Enviar extends Component
         'peso'          => 'nullable|numeric',
         'cantidad'      => 'required|integer|min:1',
         'observacion'   => 'nullable|string|max:255',
-        'pda'           => 'nullable|numeric',
         'certificacion' => 'boolean',
         'grupo'         => 'boolean',
         'almacenaje'    => 'boolean',
@@ -200,7 +198,6 @@ class Enviar extends Component
         $this->peso         = $p->peso;
         $this->cantidad     = $p->cantidad;
         $this->observacion  = $p->observacion;
-        $this->pda          = $p->pda;
         $this->certificacion = (bool)$p->certificacion;
         $this->grupo         = (bool) $p->grupo;
         $this->almacenaje   = (bool) $p->almacenaje;
@@ -219,7 +216,6 @@ class Enviar extends Component
             'destino'       => $this->destino,
             'peso'          => $this->peso,
             'cantidad'      => $this->cantidad,
-            'pda'           => $this->pda,
             'observacion'   => strtoupper($this->observacion),
             'certificacion' => $this->certificacion ? 1 : 0,
             'grupo'         => $this->grupo ? 1 : 0,

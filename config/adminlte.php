@@ -343,28 +343,7 @@ return [
                 ],
             ],
         ],
-        [
-            'text' => 'Tarifario',
-            'icon'   => 'fas fa-money-check-alt',
-            'can'  => 'tarifario',
-            'submenu' => [
-                [
-                    'text' => 'Ajustes Tarifarios',
-                    'url' => '/tarifa',
-                    'icon' => 'fas fa-money-bill-wave', // Ícono de tarifas / finanzas
-                ],
-                [
-                    'text' => 'Ajustes Pesos',
-                    'url' => '/peso',
-                    'icon' => 'fas fa-weight', // Ícono de peso
-                ],
-                [
-                    'text' => 'Ajustes Empresas',
-                    'url' => '/empresa',
-                    'icon' => 'fas fa-building', // Ícono de empresa
-                ],
-            ],
-        ],
+
         [
                     'text' => 'Todos los paquetes',
                     'url'  => '/todos',

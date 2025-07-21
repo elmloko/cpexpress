@@ -38,7 +38,6 @@ class Almacen extends Component
     public $certificacion = false;
     public $grupo = false;
     public $almacenaje = false;
-    public $pda;
     public $selected = [];
     public $cantidad = 1;
 
@@ -51,7 +50,6 @@ class Almacen extends Component
         'peso'         => 'nullable|numeric',
         'observacion'  => 'nullable|string|max:255',
         'destino'      => 'required|string|max:50',
-        'pda'           => 'nullable|numeric',
         'certificacion' => 'boolean',
         'grupo'         => 'boolean',
         'almacenaje'    => 'boolean',
@@ -99,7 +97,6 @@ class Almacen extends Component
             'certificacion',
             'almacenaje',
             'cantidad',
-            'pda',
         ]);
         $this->modal = true;
     }
@@ -121,7 +118,6 @@ class Almacen extends Component
             'peso'          => $this->peso,
             'destino'       => $this->destino,
             'observacion'   => strtoupper($this->observacion),
-            'pda'           => $this->pda,
             'certificacion' => $this->certificacion ? 1 : 0,
             'grupo'         => $this->grupo ? 1 : 0,
             'almacenaje'    => $this->almacenaje ? 1 : 0,
@@ -213,7 +209,6 @@ class Almacen extends Component
         $this->cuidad       = $p->cuidad;
         $this->peso         = $p->peso;
         $this->observacion  = $p->observacion;
-        $this->pda          = $p->pda;
         $this->modal        = true;
         $this->certificacion = (bool) $p->certificacion;
         $this->grupo         = (bool) $p->grupo;
