@@ -34,9 +34,7 @@ class Enviar extends Component
     public $peso;
     public $cantidad = 1;
     public $observacion;
-    public $certificacion = false;
     public $grupo = false;
-    public $almacenaje = false;
 
 
     protected $paginationTheme = 'bootstrap';
@@ -50,9 +48,7 @@ class Enviar extends Component
         'peso'          => 'nullable|numeric',
         'cantidad'      => 'required|integer|min:1',
         'observacion'   => 'nullable|string|max:255',
-        'certificacion' => 'boolean',
         'grupo'         => 'boolean',
-        'almacenaje'    => 'boolean',
     ];
 
     public function mount()
@@ -118,13 +114,10 @@ class Enviar extends Component
             }
 
             // 3) Extra 
-            if ($p->certificacion) {
+            /* if ($p->certificacion) {
                 $unit += 8;
-            }
+            } */
 
-            if ($p->almacenaje) {
-                $unit += 15;
-            }
 
             // 4) Determinamos cuántas unidades multiplicar:
             //    - Si grupo == 1: multiplicamos por la cantidad real
@@ -178,7 +171,7 @@ class Enviar extends Component
 
     public function abrirModal()
     {
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'destino', 'peso', 'cantidad', 'observacion', 'grupo', 'certificacion', 'almacenaje', 'pda']);
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'destino', 'peso', 'cantidad', 'observacion', 'grupo']);
         $this->modal = true;
     }
 
@@ -198,9 +191,7 @@ class Enviar extends Component
         $this->peso         = $p->peso;
         $this->cantidad     = $p->cantidad;
         $this->observacion  = $p->observacion;
-        $this->certificacion = (bool)$p->certificacion;
         $this->grupo         = (bool) $p->grupo;
-        $this->almacenaje   = (bool) $p->almacenaje;
         $this->modal        = true;
     }
 
@@ -217,9 +208,7 @@ class Enviar extends Component
             'peso'          => $this->peso,
             'cantidad'      => $this->cantidad,
             'observacion'   => strtoupper($this->observacion),
-            'certificacion' => $this->certificacion ? 1 : 0,
             'grupo'         => $this->grupo ? 1 : 0,
-            'almacenaje'    => $this->almacenaje ? 1 : 0,
         ];
 
         // 1) Extraemos las dos últimas letras del código

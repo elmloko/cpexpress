@@ -27,13 +27,11 @@ class Recibir extends Component
     public $paquete_id;
     public $codigo;
     public $destinatario;
-    public $cuidad;
+    /* public $cuidad; */
     public $peso;
     public $origen;
     public $destino;
     public $observacion;
-    public $pda;
-    public $certificacion = false;
     public $grupo = false;
     public $almacenaje = false;
 
@@ -47,16 +45,24 @@ class Recibir extends Component
         'destino'      => 'required|string|max:50',
         'origen'        => 'nullable|string|max:100',
         'observacion'  => 'nullable|string|max:255',
-        'pda'           => 'nullable|numeric',
-        'certificacion' => 'boolean',
         'grupo'         => 'boolean',
         'almacenaje'    => 'boolean',
     ];
 
-    public function mount()
+   /*  public function mount()
     {
         $this->searchInput = $this->search;
+    } */
+
+
+    public $cuidad;
+
+    public function mount(){
+    $this->cuidad = auth()->user()->city;
     }
+
+
+
 
     public function buscar()
     {
@@ -187,9 +193,9 @@ class Recibir extends Component
                 }
             }
 
-            if ($paquete->certificacion) {
+            /*if ($paquete->certificacion) {
                 $precio += 8;
-            }
+            }*/
 
 
             // 5. Actualizar paquete
@@ -230,7 +236,7 @@ class Recibir extends Component
     // --- Lógica Crear / Editar ---
     public function abrirModal()
     {
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'destino', 'observacion', 'certificacion', 'almacenaje', 'pda']);
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'destino', 'observacion', 'almacenaje']);
         $this->modal = true;
     }
 
@@ -250,8 +256,6 @@ class Recibir extends Component
         $this->peso        = $p->peso;
         $this->observacion = $p->observacion;
         $this->modal       = true;
-        $this->pda          = $p->pda;
-        $this->certificacion = (bool) $p->certificacion;
         $this->grupo         = (bool) $p->grupo;
         $this->almacenaje   = (bool) $p->almacenaje;
     }
@@ -266,9 +270,7 @@ class Recibir extends Component
             'cuidad'       => strtoupper($this->cuidad),
             'destino'      => $this->destino,
             'peso'         => $this->peso,
-            'pda'           => $this->pda,
             'observacion'  => strtoupper($this->observacion),
-            'certificacion' => $this->certificacion ? 1 : 0,
             'grupo'         => $this->grupo ? 1 : 0,
             'almacenaje'    => $this->almacenaje ? 1 : 0,
             'cantidad'      => '1',
@@ -305,7 +307,7 @@ class Recibir extends Component
         }
 
         $this->cerrarModal();
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion', 'certificacion']);
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion']);
     }
 
     private function getCountryTranslation(string $iso): string

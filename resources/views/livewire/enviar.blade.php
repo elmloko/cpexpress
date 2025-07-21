@@ -50,7 +50,6 @@
                             </th>
                             <th>Cantidad</th>
                             <th>Código</th>
-                            <th>PDA</th>
                             <th>Empresa</th>
                             <th>Peso</th>
                             <th>Tarifa</th>
@@ -69,7 +68,6 @@
                                 </td>
                                 <td>{{ $p->cantidad }}</td>
                                 <td>{{ $p->codigo }}</td>
-                                <td>{{ $p->pda }}</td>
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->peso }} kg</td>
                                 <td>{{ strtoupper($p->destino) }}</td>
@@ -213,14 +211,7 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label for="pda">PDA</label>
-                                <input type="text" id="pda" wire:model.defer="pda" class="form-control"
-                                    maxlength="100" placeholder="Ingrese PDA (opcional)">
-                                @error('pda')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
+                        
 
                             <div class="form-group">
                                 <label>Observación</label>
@@ -229,8 +220,8 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-                            <div class="form-group form-check">
+                                
+                            {{-- <div class="form-group form-check">
                                 <input type="checkbox" id="certificacion" wire:model.defer="certificacion"
                                     class="form-check-input">
                                 <label for="certificacion" class="form-check-label">
@@ -250,7 +241,7 @@
                                 <label for="grupo" class="form-check-label">
                                     Aplicar tarifa de Agrupacion
                                 </label>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
