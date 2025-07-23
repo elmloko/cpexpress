@@ -27,13 +27,14 @@ class Recibir extends Component
     public $paquete_id;
     public $codigo;
     public $destinatario;
-    /* public $cuidad; */
+    public $cuidad;
     public $peso;
     public $origen;
     public $destino;
     public $observacion;
     public $grupo = false;
     public $almacenaje = false;
+    public $ciudad;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -49,16 +50,12 @@ class Recibir extends Component
         'almacenaje'    => 'boolean',
     ];
 
-   /*  public function mount()
+    public function mount()
     {
         $this->searchInput = $this->search;
-    } */
+        $this->cuidad = Auth::user()->city;
+        $this->ciudad = Auth::user()->city;
 
-
-    public $cuidad;
-
-    public function mount(){
-    $this->cuidad = auth()->user()->city;
     }
 
 
@@ -267,7 +264,7 @@ class Recibir extends Component
         $data = [
             'codigo'       => strtoupper($this->codigo),
             'destinatario' => strtoupper($this->destinatario),
-            'cuidad'       => strtoupper($this->cuidad),
+            'ciudad'       => $this->cuidad,
             'destino'      => $this->destino,
             'peso'         => $this->peso,
             'observacion'  => strtoupper($this->observacion),

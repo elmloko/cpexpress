@@ -128,7 +128,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Empresa</label>
-                                <select wire:model.defer="destinatario" class="form-control"
+                                <input type="text" wire:model.defer="destinatario" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="Escriba el nombre de la empresa...">
+
+
+                                {{-- <select wire:model.defer="destinatario" class="form-control"
                                     style="text-transform: uppercase;">
                                     <option value="">SELECCIONE...</option>
                                     @foreach ($empresas as $empresa)
@@ -136,15 +140,14 @@
                                             {{ strtoupper($empresa->nombre) }}
                                         </option>
                                     @endforeach
-                                </select>
+                                </select> --}}
                                 @error('destinatario')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
                                 <label>Departamento</label>
-                                {{--modificar esto para que la ciudad se ponga segun 
-                                la ciudad que se registro el usuatio--}}
+                                
                                 <select wire:model.defer="cuidad" class="form-control"
                                     style="text-transform: uppercase;">
                                     <option value="">SELECCIONE...</option>
@@ -175,7 +178,7 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                {{--<label for="pda">PDA</label>
+                                {{-- <label for="pda">PDA</label>
                                 <input type="text" id="pda" wire:model.defer="pda" class="form-control"
                                     maxlength="100" placeholder=" ">
                                 @error('pda')
@@ -194,7 +197,7 @@
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
                             </div>
-                           {{-- <div class="form-group form-check">
+                            {{-- <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" id="certificacion"
                                     wire:model.defer="certificacion">
                                 <label class="form-check-label" for="certificacion">
@@ -214,7 +217,7 @@
                                 <label for="grupo" class="form-check-label">
                                     Aplicar tarifa de Agrupacion
                                 </label>
-                            </div>--}}
+                            </div> --}}
                         </div>
                     </div>
                 </div>
