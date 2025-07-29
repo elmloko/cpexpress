@@ -71,8 +71,9 @@
                                 <td>{{ strtoupper($p->destino) }}</td>
                                 <td>{{ $p->estado }}</td>
                                 <td>{{ $p->cuidad }}</td>
-                                <td>{{ $p->created_at }}</td>
                                 <td>{{ $p->observacion }}</td>
+                                <td>{{ $p->created_at }}</td>
+
                                 <td class="d-flex">
                                     <button class="btn btn-sm btn-warning mr-1"
                                         wire:click="editar({{ $p->id }})">
@@ -145,9 +146,16 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="form-group">
+
+
+                            {{-- <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" class="form-control bg-light" wire:model.defer="cuidad" readonly
+                                    disabled style="text-transform: uppercase;">
+                            </div> --}}
+
+                            {{-- <div class="form-group">
                                 <label>Departamento</label>
-                                
                                 <select wire:model.defer="cuidad" class="form-control"
                                     style="text-transform: uppercase;">
                                     <option value="">SELECCIONE...</option>
@@ -161,7 +169,10 @@
                                     <option value="SANTA CRUZ">SANTA CRUZ</option>
                                     <option value="TARIJA">TARIJA</option>
                                 </select>
-                            </div>
+                            </div> --}}
+
+
+
                             <div class="form-group">
                                 <label>Destino</label>
                                 <select wire:model.defer="destino" class="form-control"
@@ -177,6 +188,19 @@
                                     <option value="asia">ASIA Y OCEANIA</option>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label>Aduana</label>
+                                <select wire:model.defer="aduana" class="form-control"
+                                    style="text-transform: uppercase;">
+                                    <option value="">SELECCIONE...</option>
+                                    <option value="SI">SI</option>
+                                    <option value="NO">NO</option>
+                                </select>
+
+                            </div>
+
+
                             <div class="form-group">
                                 {{-- <label for="pda">PDA</label>
                                 <input type="text" id="pda" wire:model.defer="pda" class="form-control"

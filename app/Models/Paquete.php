@@ -19,15 +19,14 @@ class Paquete extends Model
         'precio',
         'origen',
         'destino',
+        'aduana',
         'peso',
         'user',
         'observacion',
         'photo',
         'cantidad',
         'grupo',
-        'pda',
-        'almacenaje',
-        'certificacion',
+        'almacenaje'
     ];
 
     protected $casts = [

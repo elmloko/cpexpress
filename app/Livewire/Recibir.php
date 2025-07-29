@@ -35,6 +35,8 @@ class Recibir extends Component
     public $grupo = false;
     public $almacenaje = false;
     public $ciudad;
+    public $users;
+    public $aduana;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -44,6 +46,7 @@ class Recibir extends Component
         'cuidad'       => 'nullable|string|max:50',
         'peso'         => 'nullable|numeric',
         'destino'      => 'required|string|max:50',
+        'aduana' => 'required|string|in:SI,NO',
         'origen'        => 'nullable|string|max:100',
         'observacion'  => 'nullable|string|max:255',
         'grupo'         => 'boolean',
@@ -55,7 +58,6 @@ class Recibir extends Component
         $this->searchInput = $this->search;
         $this->cuidad = Auth::user()->city;
         $this->ciudad = Auth::user()->city;
-
     }
 
 
@@ -233,7 +235,18 @@ class Recibir extends Component
     // --- Lógica Crear / Editar ---
     public function abrirModal()
     {
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'destino', 'observacion', 'almacenaje']);
+        $this->reset([
+            'paquete_id',
+            'codigo',
+            'destinatario',
+            'cuidad',
+            'peso',
+            'destino',
+            'observacion',
+            'almacenaje'
+        ]);
+        $this->cuidad = Auth::user()->city;
+        $this->aduana = null;
         $this->modal = true;
     }
 
@@ -242,7 +255,89 @@ class Recibir extends Component
         $this->modal = false;
     }
 
+
     public function editar($id)
+    {
+        $p = Paquete::findOrFail($id);
+        $this->paquete_id  = $p->id;
+        $this->codigo      = $p->codigo;
+        $this->destinatario = $p->destinatario;
+        $this->cuidad      = $p->cuidad;
+        $this->destino      = $p->destino;
+        $this->aduana       = $p->aduana;
+        $this->peso        = $p->peso;
+        $this->observacion = $p->observacion;
+        $this->modal       = true;
+        $this->grupo         = (bool) $p->grupo;
+        $this->almacenaje   = (bool) $p->almacenaje;
+    }
+
+    public function guardar()
+
+    {
+        //dd($this->aduana);
+
+       /*  $data = $this->validate();
+        dd($data);                              esto sirve para verificar los datos que ese esta guardando*/
+
+
+        $this->validate();
+
+        // Siempre tomamos la ciudad del usuario autenticado
+        $this->cuidad = Auth::user()->city;
+
+        $data = [
+            'codigo'       => strtoupper($this->codigo),
+            'destinatario' => strtoupper($this->destinatario),
+            'cuidad'       => strtoupper($this->cuidad),
+            'destino'      => $this->destino,
+            'aduana'       => strtoupper($this->aduana),
+            'peso'         => $this->peso,
+            'observacion'  => strtoupper($this->observacion),
+            'grupo'        => $this->grupo ? 1 : 0,
+            'almacenaje'   => $this->almacenaje ? 1 : 0,
+            'cantidad'     => '1',
+        ];
+
+        $iso = substr($data['codigo'], -2);
+        $data['origen'] = $this->getCountryTranslation($iso);
+
+        if ($this->paquete_id) {
+            // Edición
+            $model = Paquete::findOrFail($this->paquete_id);
+            $model->update($data);
+            session()->flash('message', 'Paquete actualizado.');
+
+            Evento::create([
+                'accion'      => 'EDICION',
+                'descripcion' => 'Paquete Editado',
+                'user_id'     => Auth::user()->name,
+                'codigo'      => $data['codigo'],
+            ]);
+        } else {
+            // Creación
+            $data['estado'] = 'RECIBIDO';
+            $data['user']   = Auth::user()->name;
+            Paquete::create($data);
+            session()->flash('message', 'Paquete registrado como RECIBIDO.');
+
+            Evento::create([
+                'accion'      => 'CREACION',
+                'descripcion' => 'Paquete Creado',
+                'user_id'     => Auth::user()->name,
+                'codigo'      => $data['codigo'],
+            ]);
+        }
+
+        $this->cerrarModal();
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion', 'aduana']);
+    }
+
+
+
+
+
+    /* public function editar($id)
     {
         $p = Paquete::findOrFail($id);
         $this->paquete_id  = $p->id;
@@ -305,7 +400,7 @@ class Recibir extends Component
 
         $this->cerrarModal();
         $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion']);
-    }
+    } */
 
     private function getCountryTranslation(string $iso): string
     {

@@ -198,12 +198,13 @@ class Enviar extends Component
     public function guardar()
     {
         $this->validate();
+        $this->cuidad = Auth::user()->city;
 
         // Preparamos el array de datos
         $data = [
             'codigo'        => strtoupper($this->codigo),
             'destinatario'  => strtoupper($this->destinatario),
-            'cuidad'        => strtoupper($this->cuidad),
+            'cuidad'       => strtoupper($this->cuidad),
             'destino'       => $this->destino,
             'peso'          => $this->peso,
             'cantidad'      => $this->cantidad,

@@ -152,7 +152,15 @@
                                 @enderror
                             </div>
 
+
                             <div class="form-group">
+                                <label>Ciudad</label>
+                                <input type="text" class="form-control" value="{{ Auth::user()->city }}" readonly>
+                            </div>
+
+
+
+                            {{-- <div class="form-group">
                                 <label>Departamento</label>
                                 <select wire:model.defer="cuidad" class="form-control"
                                     style="text-transform: uppercase;">
@@ -170,7 +178,9 @@
                                 @error('cuidad')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
-                            </div>
+                            </div> --}}
+
+
 
                             <div class="form-group">
                                 <label>Tarifa</label>
@@ -211,7 +221,7 @@
                                 @enderror
                             </div>
 
-                        
+
 
                             <div class="form-group">
                                 <label>Observación</label>
@@ -220,7 +230,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                                
+
                             {{-- <div class="form-group form-check">
                                 <input type="checkbox" id="certificacion" wire:model.defer="certificacion"
                                     class="form-check-input">
