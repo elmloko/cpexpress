@@ -37,6 +37,9 @@ class Recibir extends Component
     public $ciudad;
     public $users;
     public $aduana;
+    public $direccion_paquete;
+    public $telefono;
+
 
     protected $paginationTheme = 'bootstrap';
 
@@ -44,9 +47,10 @@ class Recibir extends Component
         'codigo'       => 'required|string|max:50',
         'destinatario' => 'required|string|max:100',
         'cuidad'       => 'nullable|string|max:50',
+        'direccion_paquete'       => 'nullable|string|max:99',
+        'telefono'     => 'nullable|string|max:20',
         'peso'         => 'nullable|numeric',
-        'destino'      => 'required|string|max:50',
-        'aduana' => 'required|string|in:SI,NO',
+        'aduana'       =>  'required|string|in:SI,NO',
         'origen'        => 'nullable|string|max:100',
         'observacion'  => 'nullable|string|max:255',
         'grupo'         => 'boolean',
@@ -167,55 +171,29 @@ class Recibir extends Component
             /** @var Paquete $paquete */
             $paquete = Paquete::find($id);
 
-            // 1. Buscar empresa
-            $empresaModel = Empresa::whereRaw('UPPER(nombre) = ?', [strtoupper($paquete->destinatario)])->first();
+            // Precio fijo de 15 Bs
+            $precio = 15;
 
-            // 2. Buscar categoría de peso
-            $pesoCat = Peso::where('min', '<=', $paquete->peso)
-                ->where('max', '>=', $paquete->peso)
-                ->first();
-
-            $precio = 0;
-
-            if ($empresaModel && $pesoCat) {
-                // 3. Obtener tarifa
-                $tarifa = Tarifario::where('empresa', $empresaModel->id)
-                    ->where('peso', $pesoCat->id)
-                    ->first();
-
-                if ($tarifa) {
-                    // 4. Leer columna según destino
-                    $col = strtolower($paquete->destino);
-                    if (isset($tarifa->$col)) {
-                        $precio = $tarifa->$col;
-                    }
-                }
-            }
-
-            /*if ($paquete->certificacion) {
-                $precio += 8;
-            }*/
-
-
-            // 5. Actualizar paquete
+            // Actualizar estado y precio
             $paquete->update([
                 'estado' => 'ALMACEN',
                 'precio' => $precio,
             ]);
-        }
 
-        Evento::create([
-            'accion' => 'RECIBIDO',
-            'descripcion' => 'Paquete Recibido',
-            'user_id' => Auth::user()->name,
-            'codigo' => $paquete->codigo,
-        ]);
+            Evento::create([
+                'accion' => 'RECIBIDO',
+                'descripcion' => 'Paquete Recibido',
+                'user_id' => Auth::user()->name,
+                'codigo' => $paquete->codigo,
+            ]);
+        }
 
         $this->selected  = [];
         $this->selectAll = false;
         session()->flash('message', 'Paquetes recibidos y marcados como ALMACEN correctamente.');
         $this->resetPage();
     }
+
 
     public function eliminarPaquete($id)
     {
@@ -239,9 +217,10 @@ class Recibir extends Component
             'paquete_id',
             'codigo',
             'destinatario',
+            'direccion_paquete',
+            'telefono',
             'cuidad',
             'peso',
-            'destino',
             'observacion',
             'almacenaje'
         ]);
@@ -262,8 +241,9 @@ class Recibir extends Component
         $this->paquete_id  = $p->id;
         $this->codigo      = $p->codigo;
         $this->destinatario = $p->destinatario;
+        $this->direccion_paquete     = $p->direccion_paquete;
+        $this->telefono      = $p->telefono;
         $this->cuidad      = $p->cuidad;
-        $this->destino      = $p->destino;
         $this->aduana       = $p->aduana;
         $this->peso        = $p->peso;
         $this->observacion = $p->observacion;
@@ -277,8 +257,10 @@ class Recibir extends Component
     {
         //dd($this->aduana);
 
-       /*  $data = $this->validate();
+
+        /*  $data = $this->validate();
         dd($data);                              esto sirve para verificar los datos que ese esta guardando*/
+
 
 
         $this->validate();
@@ -290,7 +272,8 @@ class Recibir extends Component
             'codigo'       => strtoupper($this->codigo),
             'destinatario' => strtoupper($this->destinatario),
             'cuidad'       => strtoupper($this->cuidad),
-            'destino'      => $this->destino,
+            'direccion_paquete'    => strtoupper($this->direccion_paquete),
+            'telefono' => $this->telefono,
             'aduana'       => strtoupper($this->aduana),
             'peso'         => $this->peso,
             'observacion'  => strtoupper($this->observacion),
@@ -318,6 +301,10 @@ class Recibir extends Component
             // Creación
             $data['estado'] = 'RECIBIDO';
             $data['user']   = Auth::user()->name;
+            $data['precio'] = 15; // <--- Precio fijo
+
+            dd($data);
+
             Paquete::create($data);
             session()->flash('message', 'Paquete registrado como RECIBIDO.');
 
@@ -330,7 +317,7 @@ class Recibir extends Component
         }
 
         $this->cerrarModal();
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion', 'aduana']);
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'direccion_paquete', 'telefono', 'peso', 'observacion', 'aduana']);
     }
 
 

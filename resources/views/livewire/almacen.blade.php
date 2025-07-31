@@ -90,6 +90,7 @@
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
                                 </td>
+                                
                             </tr>
                         @empty
                             <tr>

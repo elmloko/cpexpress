@@ -51,9 +51,10 @@
                             <th>Código</th>
                             <th>Empresa</th>
                             <th>Peso</th>
-                            <th>Tarifa</th>
+                            {{-- <th>Tarifa</th>  --}}
                             <th>Estado</th>
                             <th>Ciudad</th>
+                            <th>Aduana</th>
                             <th>Observación</th>
                             <th>Fecha recepcion</th>
                             <th>Acciones</th>
@@ -68,9 +69,10 @@
                                 <td>{{ $p->codigo }}</td>
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->peso }} kg</td>
-                                <td>{{ strtoupper($p->destino) }}</td>
+                                {{-- <td>{{ strtoupper($p->destino) }}</td> --}}
                                 <td>{{ $p->estado }}</td>
                                 <td>{{ $p->cuidad }}</td>
+                                <td>{{ $p->aduana }}</td>
                                 <td>{{ $p->observacion }}</td>
                                 <td>{{ $p->created_at }}</td>
 
@@ -128,24 +130,35 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Empresa</label>
+                                <label>Nombre</label>
                                 <input type="text" wire:model.defer="destinatario" class="form-control"
-                                    style="text-transform: uppercase;" placeholder="Escriba el nombre de la empresa...">
-
-
-                                {{-- <select wire:model.defer="destinatario" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    @foreach ($empresas as $empresa)
-                                        <option value="{{ strtoupper($empresa->nombre) }}">
-                                            {{ strtoupper($empresa->nombre) }}
-                                        </option>
-                                    @endforeach
-                                </select> --}}
+                                    style="text-transform: uppercase;" placeholder="Escriba el nombre...">
                                 @error('destinatario')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+
+                            <div class="form-group">
+                                <label>Direccion</label>
+                                <input type="text" wire:model.defer="direccion_paquete" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="Escriba la direccion...">
+                                @error('direccion_paquete')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="text" id="telefono" wire:model.defer="telefono" class="form-control">
+                                @error('telefono')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+
 
 
                             {{-- <div class="form-group">
@@ -173,7 +186,7 @@
 
 
 
-                            <div class="form-group">
+                            {{--  <div class="form-group">
                                 <label>Destino</label>
                                 <select wire:model.defer="destino" class="form-control"
                                     style="text-transform: uppercase;">
@@ -187,7 +200,7 @@
                                     <option value="euro">EUROPA Y AFRICA</option>
                                     <option value="asia">ASIA Y OCEANIA</option>
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <div class="form-group">
                                 <label>Aduana</label>

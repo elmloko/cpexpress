@@ -16,6 +16,7 @@ class Paquete extends Model
         'destinatario',
         'estado',
         'cuidad',
+        'direccion_paquete',
         'precio',
         'origen',
         'destino',
