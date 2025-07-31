@@ -12,18 +12,15 @@ return new class extends Migration
     public function up()
 {
     Schema::table('paquetes', function (Blueprint $table) {
-        $table->string('direccion_paquete', 99)->nullable();
+        $table->string('telefono', 25)->nullable()->after('direccion_paquete');
     });
 }
 
+public function down()
+{
+    Schema::table('paquetes', function (Blueprint $table) {
+        $table->dropColumn('telefono');
+    });
+}
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('paquetes', function (Blueprint $table) {
-            //
-        });
-    }
 };

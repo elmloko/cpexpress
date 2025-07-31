@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versión del servidor:         10.4.32-MariaDB - mariadb.org binary distribution
--- SO del servidor:              Win64
+-- Host:                         172.65.10.52
+-- Versión del servidor:         10.11.11-MariaDB-0+deb12u1 - Debian 12
+-- SO del servidor:              debian-linux-gnu
 -- HeidiSQL Versión:             12.11.0.7065
 -- --------------------------------------------------------
 
@@ -494,7 +494,7 @@ CREATE TABLE IF NOT EXISTS `pulse_aggregates` (
   KEY `pulse_aggregates_period_type_aggregate_bucket_index` (`period`,`type`,`aggregate`,`bucket`)
 ) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.pulse_aggregates: ~112 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_aggregates: ~124 rows (aproximadamente)
 INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggregate`, `value`, `count`) VALUES
 	(1, 1752165420, 60, 'user_request', '1', 'count', 1.00, NULL),
 	(2, 1752165360, 360, 'user_request', '1', 'count', 1.00, NULL),

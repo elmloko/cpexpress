@@ -48,7 +48,7 @@ class Recibir extends Component
         'destinatario' => 'required|string|max:100',
         'cuidad'       => 'nullable|string|max:50',
         'direccion_paquete'       => 'nullable|string|max:99',
-        'telefono'     => 'nullable|string|max:20',
+        'telefono'     => 'nullable|string|max:25',
         'peso'         => 'nullable|numeric',
         'aduana'       =>  'required|string|in:SI,NO',
         'origen'        => 'nullable|string|max:100',
@@ -255,6 +255,8 @@ class Recibir extends Component
     public function guardar()
 
     {
+    
+
         //dd($this->aduana);
 
 
@@ -273,7 +275,7 @@ class Recibir extends Component
             'destinatario' => strtoupper($this->destinatario),
             'cuidad'       => strtoupper($this->cuidad),
             'direccion_paquete'    => strtoupper($this->direccion_paquete),
-            'telefono' => $this->telefono,
+            'telefono'     => $this->telefono,
             'aduana'       => strtoupper($this->aduana),
             'peso'         => $this->peso,
             'observacion'  => strtoupper($this->observacion),
@@ -303,9 +305,11 @@ class Recibir extends Component
             $data['user']   = Auth::user()->name;
             $data['precio'] = 15; // <--- Precio fijo
 
-            dd($data);
 
             Paquete::create($data);
+
+
+            
             session()->flash('message', 'Paquete registrado como RECIBIDO.');
 
             Evento::create([
@@ -315,7 +319,7 @@ class Recibir extends Component
                 'codigo'      => $data['codigo'],
             ]);
         }
-
+        
         $this->cerrarModal();
         $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'direccion_paquete', 'telefono', 'peso', 'observacion', 'aduana']);
     }
