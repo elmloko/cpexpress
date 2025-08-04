@@ -49,7 +49,7 @@
                                     @if ($selectAll) checked @endif>
                             </th>
                             <th>Código</th>
-                            <th>Empresa</th>
+                            <th>Nombre</th>
                             <th>Peso</th>
                             {{-- <th>Tarifa</th>  --}}
                             <th>Estado</th>
@@ -158,6 +158,15 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label>Correo</label>
+                                <input type="text" wire:model.defer="correo_destinatario" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="">
+                                @error('correo_destinatario')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
 
 
 
@@ -202,16 +211,7 @@
                                 </select>
                             </div> --}}
 
-                            <div class="form-group">
-                                <label>Aduana</label>
-                                <select wire:model.defer="aduana" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
-                                </select>
-
-                            </div>
+                            
 
 
                             <div class="form-group">
@@ -230,6 +230,30 @@
                                 <label>Peso (kg)</label>
                                 <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
                             </div>
+                            @error('peso')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+
+                            <div class="form-group">
+                                <label>Casilla</label>
+                                <input type="text" wire:model.defer="casilla" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="">
+                                @error('casilla')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Aduana</label>
+                                <select wire:model.defer="aduana" class="form-control"
+                                    style="text-transform: uppercase;">
+                                    <option value="">SELECCIONE...</option>
+                                    <option value="SI">SI</option>
+                                    <option value="NO">NO</option>
+                                </select>
+                            </div>
+
+
                             <div class="form-group">
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
@@ -255,6 +279,7 @@
                                     Aplicar tarifa de Agrupacion
                                 </label>
                             </div> --}}
+                            
                         </div>
                     </div>
                 </div>

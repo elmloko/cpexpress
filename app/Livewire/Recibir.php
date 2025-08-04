@@ -39,23 +39,36 @@ class Recibir extends Component
     public $aduana;
     public $direccion_paquete;
     public $telefono;
-
+    public $casilla;
+    public $correo_destinatario;
 
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
-        'codigo'       => 'required|string|max:50',
-        'destinatario' => 'required|string|max:100',
-        'cuidad'       => 'nullable|string|max:50',
-        'direccion_paquete'       => 'nullable|string|max:99',
-        'telefono'     => 'nullable|string|max:25',
-        'peso'         => 'nullable|numeric',
-        'aduana'       =>  'required|string|in:SI,NO',
-        'origen'        => 'nullable|string|max:100',
-        'observacion'  => 'nullable|string|max:255',
-        'grupo'         => 'boolean',
-        'almacenaje'    => 'boolean',
+        'codigo'             => 'required|string|max:50',
+        'destinatario'       => 'required|string|max:100',
+        'cuidad'             => 'required|string|max:50',
+        'direccion_paquete'  => 'required|string|max:99',
+        'telefono'           => 'nullable|string|max:25',
+        'correo_destinatario'             => 'nullable|string|max:60',
+        'peso'               => 'required|numeric',
+        'casilla'            => 'nullable|numeric',
+        'aduana'             => 'required|string|in:SI,NO',
+        'origen'             => 'nullable|string|max:100',
+        'observacion'        => 'nullable|string|max:255',
+        'grupo'              => 'boolean',
+        'almacenaje'         => 'boolean',
     ];
+
+    protected $messages = [
+        'peso.required' => 'El campo Peso es obligatorio.',
+        'codigo.required' => 'El campo Código es obligatorio.',
+        'destinatario.required' => 'El campo Nombre es obligatorio.',
+        'direccion_paquete.required' => 'La Dirección es obligatoria.',
+        'aduana.required' => 'Debe seleccionar si pasa por Aduana.',
+        'cuidad.required' => 'Debe seleccionar una ciudad.',
+    ];
+
 
     public function mount()
     {
@@ -219,8 +232,10 @@ class Recibir extends Component
             'destinatario',
             'direccion_paquete',
             'telefono',
+            'correo_destinatario',
             'cuidad',
             'peso',
+            'casilla',
             'observacion',
             'almacenaje'
         ]);
@@ -243,9 +258,11 @@ class Recibir extends Component
         $this->destinatario = $p->destinatario;
         $this->direccion_paquete     = $p->direccion_paquete;
         $this->telefono      = $p->telefono;
+        $this->correo_destinatario      = $p->correo_destinatario;
         $this->cuidad      = $p->cuidad;
         $this->aduana       = $p->aduana;
         $this->peso        = $p->peso;
+        $this->casilla        = $p->casilla;
         $this->observacion = $p->observacion;
         $this->modal       = true;
         $this->grupo         = (bool) $p->grupo;
@@ -255,7 +272,7 @@ class Recibir extends Component
     public function guardar()
 
     {
-    
+
 
         //dd($this->aduana);
 
@@ -276,13 +293,18 @@ class Recibir extends Component
             'cuidad'       => strtoupper($this->cuidad),
             'direccion_paquete'    => strtoupper($this->direccion_paquete),
             'telefono'     => $this->telefono,
+            'correo_destinatario'       => $this->correo_destinatario,
             'aduana'       => strtoupper($this->aduana),
             'peso'         => $this->peso,
+            'casilla'         => $this->casilla,
             'observacion'  => strtoupper($this->observacion),
             'grupo'        => $this->grupo ? 1 : 0,
             'almacenaje'   => $this->almacenaje ? 1 : 0,
             'cantidad'     => '1',
         ];
+
+        //dd($this->correo, $data['correo_destinatario']); // 👈 esto mostrará lo que se va a guardar
+
 
         $iso = substr($data['codigo'], -2);
         $data['origen'] = $this->getCountryTranslation($iso);
@@ -309,7 +331,7 @@ class Recibir extends Component
             Paquete::create($data);
 
 
-            
+
             session()->flash('message', 'Paquete registrado como RECIBIDO.');
 
             Evento::create([
@@ -319,9 +341,9 @@ class Recibir extends Component
                 'codigo'      => $data['codigo'],
             ]);
         }
-        
+
         $this->cerrarModal();
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'direccion_paquete', 'telefono', 'peso', 'observacion', 'aduana']);
+        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'direccion_paquete', 'telefono', 'correo_destinatario', 'peso', 'casilla', 'observacion', 'aduana']);
     }
 
 

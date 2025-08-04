@@ -41,7 +41,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 	('laravel_cache_laravel:pulse:Laravel\\Pulse\\Livewire\\Usage:requests:1_hour', 'a:3:{i:0;O:29:"Illuminate\\Support\\Collection":2:{s:8:"\0*\0items";a:1:{i:0;O:8:"stdClass":3:{s:3:"key";s:1:"1";s:4:"user";O:8:"stdClass":3:{s:4:"name";s:28:"Marco Antonio Espinoza Rojas";s:5:"extra";s:29:"marco.espinoza@correos.gob.bo";s:6:"avatar";s:97:"https://gravatar.com/avatar/f37a6ca5fae038f24777da3902c897f4d49fd108e665719ec6daaee86cc1079c?d=mp";}s:5:"count";i:78;}}s:28:"\0*\0escapeWhenCastingToString";b:0;}i:1;d:96.2727;i:2;s:19:"2025-07-09 16:27:42";}', 1752078467),
 	('laravel_cache_lv:v3.17.1:file:970a4c3d-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1752683266),
 	('laravel_cache_lv:v3.17.1:file:c3206927-laravel.log:metadata', 'a:1:{s:4:"type";s:7:"laravel";}', 1751985000),
-	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1752871948);
+	('laravel_cache_spatie.permission.cache', 'a:3:{s:5:"alias";a:4:{s:1:"a";s:2:"id";s:1:"b";s:4:"name";s:1:"c";s:10:"guard_name";s:1:"r";s:5:"roles";}s:11:"permissions";a:5:{i:0;a:4:{s:1:"a";i:1;s:1:"b";s:9:"tarifario";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}i:1;a:4:{s:1:"a";i:2;s:1:"b";s:6:"enviar";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:2;a:4:{s:1:"a";i:3;s:1:"b";s:7:"recibir";s:1:"c";s:3:"web";s:1:"r";a:2:{i:0;i:1;i:1;i:2;}}i:3;a:4:{s:1:"a";i:4;s:1:"b";s:5:"visor";s:1:"c";s:3:"web";s:1:"r";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:4;a:4:{s:1:"a";i:5;s:1:"b";s:8:"usuarios";s:1:"c";s:3:"web";s:1:"r";a:1:{i:0;i:1;}}}s:5:"roles";a:3:{i:0;a:3:{s:1:"a";i:1;s:1:"b";s:13:"Administrador";s:1:"c";s:3:"web";}i:1;a:3:{s:1:"a";i:2;s:1:"b";s:7:"Cartero";s:1:"c";s:3:"web";}i:2;a:3:{s:1:"a";i:3;s:1:"b";s:11:"Informacion";s:1:"c";s:3:"web";}}}', 1754083389);
 
 -- Volcando estructura para tabla gcpa.cache_locks
 CREATE TABLE IF NOT EXISTS `cache_locks` (
@@ -88,9 +88,9 @@ CREATE TABLE IF NOT EXISTS `eventos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla gcpa.eventos: ~167 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.eventos: ~168 rows (aproximadamente)
 INSERT INTO `eventos` (`id`, `accion`, `user_id`, `codigo`, `descripcion`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, NULL, 'Marco Antonio Espinoza Rojas', 'LH248642596US', 'Paquete Registrado', '2025-06-24 01:34:52', '2025-06-24 01:35:48', '2025-06-24 01:35:48'),
 	(3, 'ENCONTRADO', 'Marco Antonio Espinoza Rojas', 'LH248642596US', 'Paquete Registrado', '2025-06-24 01:35:39', '2025-06-24 01:35:39', NULL),
@@ -258,7 +258,8 @@ INSERT INTO `eventos` (`id`, `accion`, `user_id`, `codigo`, `descripcion`, `crea
 	(165, 'RECIBIDO', 'Marco Antonio Espinoza Rojas', 'UP400165047LU', 'Paquete Recibido', '2025-07-10 20:16:06', '2025-07-10 20:16:06', NULL),
 	(166, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:16:23', '2025-07-10 20:16:23', NULL),
 	(167, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:16:30', '2025-07-10 20:16:30', NULL),
-	(168, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:17:29', '2025-07-10 20:17:29', NULL);
+	(168, 'EDICION', 'Marco Antonio Espinoza Rojas', 'RF322074048ES', 'Paquete editado y precio recalculado', '2025-07-10 20:17:29', '2025-07-10 20:17:29', NULL),
+	(169, 'EDICION', 'Josue Manriquez', '11111111', 'Paquete Editado', '2025-08-01 01:32:46', '2025-08-01 01:32:46', NULL);
 
 -- Volcando estructura para tabla gcpa.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
@@ -345,10 +346,11 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.model_has_roles: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.model_has_roles: ~4 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\User', 1),
 	(1, 'App\\Models\\User', 3),
+	(1, 'App\\Models\\User', 4),
 	(2, 'App\\Models\\User', 2);
 
 -- Volcando estructura para tabla gcpa.paquetes
@@ -373,35 +375,41 @@ CREATE TABLE IF NOT EXISTS `paquetes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
+  `aduana` varchar(5) DEFAULT NULL,
+  `direccion_paquete` varchar(99) DEFAULT NULL,
+  `telefono` varchar(25) DEFAULT NULL,
+  `correo` varchar(40) DEFAULT NULL,
+  `casilla` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla gcpa.paquetes: ~24 rows (aproximadamente)
-INSERT INTO `paquetes` (`id`, `codigo`, `destinatario`, `estado`, `cuidad`, `peso`, `precio`, `origen`, `destino`, `user`, `observacion`, `photo`, `certificacion`, `almacenaje`, `cantidad`, `grupo`, `pda`, `created_at`, `updated_at`, `deleted_at`) VALUES
-	(1, 'UY160984636DE', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.63, 17.21, NULL, 'local', 'MARCO ANTONIO ESPINOZA ROJAS', 'X', NULL, 1, NULL, 1, NULL, NULL, '2025-06-18 00:44:22', '2025-07-10 20:04:00', '2025-07-10 20:04:00'),
-	(2, 'UY160984634DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.63, 9.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', 'X', NULL, 0, 0, 1, 0, NULL, '2025-06-18 00:44:22', '2025-07-10 18:32:04', NULL),
-	(3, 'UY160984635DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.63, 24.21, NULL, 'local', 'MARCO ANTONIO ESPINOZA ROJAS', 'X', NULL, 0, 1, 1, 0, NULL, '2025-06-18 00:44:22', '2025-07-10 18:32:05', NULL),
-	(4, 'RD000196175BO', 'ALDEAS INFANTILES SOS', 'INVENTARIO', 'LA PAZ', 3.3, 546, NULL, 'euro', 'Marco Antonio Espinoza Rojas', 'API EXTERNA', NULL, 1, NULL, 1, NULL, NULL, '2025-06-20 19:21:51', '2025-06-26 00:58:13', NULL),
-	(5, 'UP400250889LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.21, 14.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', 'X', NULL, 1, 1, 1, 1, NULL, '2025-06-23 17:42:04', '2025-07-10 20:03:50', NULL),
-	(6, 'UP400250888LU', 'ALDEAS INFANTILES SOS', 'INVENTARIO', 'LA PAZ', 2, 8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, NULL, '2025-06-23 19:48:27', '2025-07-10 20:07:32', '2025-07-10 20:07:32'),
-	(7, 'UY159222305DE', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 1.17, 0, NULL, 'local', NULL, '', NULL, NULL, NULL, 1, NULL, NULL, '2025-06-23 20:14:00', '2025-07-10 20:08:35', NULL),
-	(8, 'UY160390561DE', 'WORLD VISION BOLIVIA', 'DESPACHADO', 'LA PAZ', 0.011, 11.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 1, NULL, NULL, '2025-06-23 20:14:35', '2025-07-10 18:42:52', NULL),
-	(9, 'UP400242643LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.21, 6.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', NULL, NULL, NULL, NULL, 1, NULL, NULL, '2025-06-23 20:18:19', '2025-07-10 20:08:33', NULL),
-	(10, 'LH248642596US', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.5, 6.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, 1741, '2025-06-23 23:07:58', '2025-07-10 20:12:48', '2025-07-10 20:12:48'),
-	(12, 'RF322074048ES', 'WORLD VISION BOLIVIA', 'ALMACEN', 'COCHABAMBA', 0.12, 0, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, NULL, '2025-06-24 19:49:14', '2025-07-10 20:17:29', NULL),
-	(13, 'RB251312246IT', 'FUNDACION AYUDA EN ACCION', 'INVENTARIO', 'LA PAZ', 0.45, 108.9, NULL, 'sud', 'Marco Antonio Espinoza Rojas', '', NULL, NULL, NULL, 1, NULL, NULL, '2025-06-24 20:12:21', '2025-06-25 20:13:29', NULL),
-	(14, 'UY161815126DE', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.82, 0, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, 2441, '2025-06-25 17:31:43', '2025-07-10 20:09:10', '2025-07-10 20:09:10'),
-	(15, 'UY160984636DE', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.4, 6.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 0, 1, 1, 0, '2025-06-25 23:35:36', '2025-07-10 20:08:37', NULL),
-	(16, 'UY543233522DE', 'ENCOMIENDA', 'DESPACHADO', 'LA PAZ', 4, 323, NULL, 'sud', 'Marco Antonio Espinoza Rojas', '', NULL, 0, NULL, 12, 0, 2545, '2025-06-26 18:12:17', '2025-07-10 18:37:56', NULL),
-	(17, 'UY159222305DE', 'ENCOMIENDA', 'DESPACHADO', 'LA PAZ', 4, 3460, NULL, 'centro', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 10, NULL, NULL, '2025-06-26 18:21:28', '2025-06-26 18:47:38', NULL),
-	(18, 'UP644880905CH', 'FUNDACION AYUDA EN ACCION', 'DESPACHADO', 'LA PAZ', 11, 23, NULL, 'centro', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2545, '2025-06-26 18:29:07', '2025-07-10 18:43:21', NULL),
-	(19, 'UR506481043CA', 'WORLD VISION BOLIVIA', 'RECIBIDO', 'LA PAZ', 0.015, 3.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-07-09 17:23:52', '2025-07-10 19:10:03', NULL),
-	(20, 'UF105260739HK', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.256, 14.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 11, 0, NULL, '2025-07-09 20:07:20', '2025-07-10 18:32:07', NULL),
-	(21, 'UY162197328DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.256, 162.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 11, 1, NULL, '2025-07-09 23:16:10', '2025-07-10 18:32:08', NULL),
-	(22, 'UR506489033CA', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.65, 17.21, 'CANADA', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2441, '2025-07-10 18:57:13', '2025-07-10 20:08:36', NULL),
-	(23, 'LH248642596US', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 1565, 8, 'UNITED STATES', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, NULL, 1, 2545, '2025-07-10 19:28:37', '2025-07-10 20:08:38', NULL),
-	(24, 'UP400165047LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'ORURO', 0.45, 14.8, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2441, '2025-07-10 19:35:33', '2025-07-10 20:16:06', NULL),
-	(25, 'UP400165045LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'BENI', 0.65, 17.21, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 0, 1, 0, 2441, '2025-07-10 19:36:41', '2025-07-10 20:08:37', NULL);
+INSERT INTO `paquetes` (`id`, `codigo`, `destinatario`, `estado`, `cuidad`, `peso`, `precio`, `origen`, `destino`, `user`, `observacion`, `photo`, `certificacion`, `almacenaje`, `cantidad`, `grupo`, `pda`, `created_at`, `updated_at`, `deleted_at`, `aduana`, `direccion_paquete`, `telefono`, `correo`, `casilla`) VALUES
+	(1, 'UY160984636DE', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.63, 17.21, NULL, 'local', 'MARCO ANTONIO ESPINOZA ROJAS', 'X', NULL, 1, NULL, 1, NULL, NULL, '2025-06-18 00:44:22', '2025-07-10 20:04:00', '2025-07-10 20:04:00', NULL, NULL, NULL, NULL, NULL),
+	(2, 'UY160984634DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.63, 9.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', 'X', NULL, 0, 0, 1, 0, NULL, '2025-06-18 00:44:22', '2025-07-10 18:32:04', NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 'UY160984635DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.63, 24.21, NULL, 'local', 'MARCO ANTONIO ESPINOZA ROJAS', 'X', NULL, 0, 1, 1, 0, NULL, '2025-06-18 00:44:22', '2025-07-10 18:32:05', NULL, NULL, NULL, NULL, NULL, NULL),
+	(4, 'RD000196175BO', 'ALDEAS INFANTILES SOS', 'INVENTARIO', 'LA PAZ', 3.3, 546, NULL, 'euro', 'Marco Antonio Espinoza Rojas', 'API EXTERNA', NULL, 1, NULL, 1, NULL, NULL, '2025-06-20 19:21:51', '2025-06-26 00:58:13', NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, 'UP400250889LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.21, 14.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', 'X', NULL, 1, 1, 1, 1, NULL, '2025-06-23 17:42:04', '2025-07-10 20:03:50', NULL, NULL, NULL, NULL, NULL, NULL),
+	(6, 'UP400250888LU', 'ALDEAS INFANTILES SOS', 'INVENTARIO', 'LA PAZ', 2, 8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, NULL, '2025-06-23 19:48:27', '2025-07-10 20:07:32', '2025-07-10 20:07:32', NULL, NULL, NULL, NULL, NULL),
+	(7, 'UY159222305DE', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 1.17, 0, NULL, 'local', NULL, '', NULL, NULL, NULL, 1, NULL, NULL, '2025-06-23 20:14:00', '2025-07-10 20:08:35', NULL, NULL, NULL, NULL, NULL, NULL),
+	(8, 'UY160390561DE', 'WORLD VISION BOLIVIA', 'DESPACHADO', 'LA PAZ', 0.011, 11.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 1, NULL, NULL, '2025-06-23 20:14:35', '2025-07-10 18:42:52', NULL, NULL, NULL, NULL, NULL, NULL),
+	(9, 'UP400242643LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.21, 6.21, NULL, 'local', 'Marco Antonio Espinoza Rojas', NULL, NULL, NULL, NULL, 1, NULL, NULL, '2025-06-23 20:18:19', '2025-07-10 20:08:33', NULL, NULL, NULL, NULL, NULL, NULL),
+	(10, 'LH248642596US', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.5, 6.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, 1741, '2025-06-23 23:07:58', '2025-07-10 20:12:48', '2025-07-10 20:12:48', NULL, NULL, NULL, NULL, NULL),
+	(12, 'RF322074048ES', 'WORLD VISION BOLIVIA', 'ALMACEN', 'COCHABAMBA', 0.12, 0, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, NULL, '2025-06-24 19:49:14', '2025-07-10 20:17:29', NULL, NULL, NULL, NULL, NULL, NULL),
+	(13, 'RB251312246IT', 'FUNDACION AYUDA EN ACCION', 'INVENTARIO', 'LA PAZ', 0.45, 108.9, NULL, 'sud', 'Marco Antonio Espinoza Rojas', '', NULL, NULL, NULL, 1, NULL, NULL, '2025-06-24 20:12:21', '2025-06-25 20:13:29', NULL, NULL, NULL, NULL, NULL, NULL),
+	(14, 'UY161815126DE', 'WORLD VISION BOLIVIA', 'INVENTARIO', 'LA PAZ', 0.82, 0, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 0, 0, 1, 0, 2441, '2025-06-25 17:31:43', '2025-07-10 20:09:10', '2025-07-10 20:09:10', NULL, NULL, NULL, NULL, NULL),
+	(15, 'UY160984636DE', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.4, 6.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 0, 1, 1, 0, '2025-06-25 23:35:36', '2025-07-10 20:08:37', NULL, NULL, NULL, NULL, NULL, NULL),
+	(16, 'UY543233522DE', 'ENCOMIENDA', 'DESPACHADO', 'LA PAZ', 4, 323, NULL, 'sud', 'Marco Antonio Espinoza Rojas', '', NULL, 0, NULL, 12, 0, 2545, '2025-06-26 18:12:17', '2025-07-10 18:37:56', NULL, NULL, NULL, NULL, NULL, NULL),
+	(17, 'UY159222305DE', 'ENCOMIENDA', 'DESPACHADO', 'LA PAZ', 4, 3460, NULL, 'centro', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 10, NULL, NULL, '2025-06-26 18:21:28', '2025-06-26 18:47:38', NULL, NULL, NULL, NULL, NULL, NULL),
+	(18, 'UP644880905CH', 'FUNDACION AYUDA EN ACCION', 'DESPACHADO', 'LA PAZ', 11, 23, NULL, 'centro', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2545, '2025-06-26 18:29:07', '2025-07-10 18:43:21', NULL, NULL, NULL, NULL, NULL, NULL),
+	(19, 'UR506481043CA', 'WORLD VISION BOLIVIA', 'RECIBIDO', 'LA PAZ', 0.015, 3.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2025-07-09 17:23:52', '2025-07-10 19:10:03', NULL, NULL, NULL, NULL, NULL, NULL),
+	(20, 'UF105260739HK', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.256, 14.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 11, 0, NULL, '2025-07-09 20:07:20', '2025-07-10 18:32:07', NULL, NULL, NULL, NULL, NULL, NULL),
+	(21, 'UY162197328DE', 'WORLD VISION BOLIVIA', 'ENVIANDO', 'LA PAZ', 0.256, 162.8, NULL, 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, NULL, 11, 1, NULL, '2025-07-09 23:16:10', '2025-07-10 18:32:08', NULL, NULL, NULL, NULL, NULL, NULL),
+	(22, 'UR506489033CA', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 0.65, 17.21, 'CANADA', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2441, '2025-07-10 18:57:13', '2025-07-10 20:08:36', NULL, NULL, NULL, NULL, NULL, NULL),
+	(23, 'LH248642596US', 'WORLD VISION BOLIVIA', 'ALMACEN', 'LA PAZ', 1565, 8, 'UNITED STATES', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, NULL, 1, 2545, '2025-07-10 19:28:37', '2025-07-10 20:08:38', NULL, NULL, NULL, NULL, NULL, NULL),
+	(24, 'UP400165047LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'ORURO', 0.45, 14.8, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 1, 1, 1, 2441, '2025-07-10 19:35:33', '2025-07-10 20:16:06', NULL, NULL, NULL, NULL, NULL, NULL),
+	(25, 'UP400165045LU', 'WORLD VISION BOLIVIA', 'ALMACEN', 'BENI', 0.65, 17.21, 'LUXEMBOURG', 'local', 'Marco Antonio Espinoza Rojas', '', NULL, 1, 0, 1, 0, 2441, '2025-07-10 19:36:41', '2025-07-10 20:08:37', NULL, NULL, NULL, NULL, NULL, NULL),
+	(26, '11111111', 'JOSUE', 'RECIBIDO', 'LA PAZ', 22, 15, 'DESCONOCIDO', NULL, 'Josue Manriquez', '123', NULL, NULL, 0, 1, 0, NULL, '2025-08-01 01:29:34', '2025-08-01 01:32:46', NULL, 'SI', 'CASA', '123123', NULL, NULL);
 
 -- Volcando estructura para tabla gcpa.password_reset_tokens
 CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
@@ -492,9 +500,9 @@ CREATE TABLE IF NOT EXISTS `pulse_aggregates` (
   KEY `pulse_aggregates_period_bucket_index` (`period`,`bucket`),
   KEY `pulse_aggregates_type_index` (`type`),
   KEY `pulse_aggregates_period_type_aggregate_bucket_index` (`period`,`type`,`aggregate`,`bucket`)
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=605 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.pulse_aggregates: ~124 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_aggregates: ~303 rows (aproximadamente)
 INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggregate`, `value`, `count`) VALUES
 	(1, 1752165420, 60, 'user_request', '1', 'count', 1.00, NULL),
 	(2, 1752165360, 360, 'user_request', '1', 'count', 1.00, NULL),
@@ -619,7 +627,196 @@ INSERT INTO `pulse_aggregates` (`id`, `bucket`, `period`, `type`, `key`, `aggreg
 	(193, 1752785520, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
 	(194, 1752785280, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
 	(195, 1752785280, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
-	(196, 1752780960, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL);
+	(196, 1752780960, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(221, 1753996920, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(222, 1753996680, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(223, 1753996320, 1440, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 2.00, NULL),
+	(224, 1753990560, 10080, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 2.00, NULL),
+	(225, 1753996920, 60, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(226, 1753996680, 360, 'slow_user_request', '1', 'count', 5.00, NULL),
+	(227, 1753996320, 1440, 'slow_user_request', '1', 'count', 12.00, NULL),
+	(228, 1753990560, 10080, 'slow_user_request', '1', 'count', 12.00, NULL),
+	(229, 1753996920, 60, 'user_request', '1', 'count', 1.00, NULL),
+	(230, 1753996680, 360, 'user_request', '1', 'count', 5.00, NULL),
+	(231, 1753996320, 1440, 'user_request', '1', 'count', 12.00, NULL),
+	(232, 1753990560, 10080, 'user_request', '1', 'count', 12.00, NULL),
+	(233, 1753996920, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(234, 1753996680, 360, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(235, 1753996320, 1440, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 4.00, NULL),
+	(236, 1753990560, 10080, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 4.00, NULL),
+	(237, 1753996980, 60, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(238, 1753996680, 360, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(239, 1753996320, 1440, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(240, 1753990560, 10080, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(241, 1753996920, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 4327.00, NULL),
+	(242, 1753996680, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 4327.00, NULL),
+	(243, 1753996320, 1440, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 4327.00, NULL),
+	(244, 1753990560, 10080, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 4327.00, NULL),
+	(245, 1753996920, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1173.00, NULL),
+	(246, 1753996680, 360, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1173.00, NULL),
+	(247, 1753996320, 1440, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1177.00, NULL),
+	(248, 1753990560, 10080, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1177.00, NULL),
+	(249, 1753996980, 60, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1009.00, NULL),
+	(250, 1753996680, 360, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1009.00, NULL),
+	(251, 1753996320, 1440, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1009.00, NULL),
+	(252, 1753990560, 10080, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1009.00, NULL),
+	(253, 1753996980, 60, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'count', 1.00, NULL),
+	(254, 1753996680, 360, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'count', 1.00, NULL),
+	(255, 1753996320, 1440, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'count', 1.00, NULL),
+	(256, 1753990560, 10080, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'count', 1.00, NULL),
+	(257, 1753996980, 60, 'slow_user_request', '1', 'count', 4.00, NULL),
+	(258, 1753996980, 60, 'user_request', '1', 'count', 4.00, NULL),
+	(259, 1753996980, 60, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(260, 1753996680, 360, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(261, 1753996320, 1440, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(262, 1753990560, 10080, 'cache_miss', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(269, 1753996980, 60, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'max', 2211.00, NULL),
+	(270, 1753996680, 360, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'max', 2211.00, NULL),
+	(271, 1753996320, 1440, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'max', 2211.00, NULL),
+	(272, 1753990560, 10080, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 'max', 2211.00, NULL),
+	(273, 1753996980, 60, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'count', 1.00, NULL),
+	(274, 1753996680, 360, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'count', 1.00, NULL),
+	(275, 1753996320, 1440, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'count', 1.00, NULL),
+	(276, 1753990560, 10080, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'count', 1.00, NULL),
+	(277, 1753996980, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(278, 1753996680, 360, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(279, 1753996320, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 10.00, NULL),
+	(280, 1753990560, 10080, 'cache_hit', 'spatie.permission.cache', 'count', 14.00, NULL),
+	(289, 1753996980, 60, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'max', 2696.00, NULL),
+	(290, 1753996680, 360, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'max', 2696.00, NULL),
+	(291, 1753996320, 1440, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'max', 2696.00, NULL),
+	(292, 1753990560, 10080, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 'max', 2696.00, NULL),
+	(293, 1753996980, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(294, 1753996680, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 1.00, NULL),
+	(295, 1753996320, 1440, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 3.00, NULL),
+	(296, 1753990560, 10080, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 3.00, NULL),
+	(309, 1753996980, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1776.00, NULL),
+	(310, 1753996680, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1776.00, NULL),
+	(311, 1753996320, 1440, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1776.00, NULL),
+	(312, 1753990560, 10080, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1776.00, NULL),
+	(313, 1753996980, 60, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 1.00, NULL),
+	(314, 1753996680, 360, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 1.00, NULL),
+	(315, 1753996320, 1440, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 2.00, NULL),
+	(316, 1753990560, 10080, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 2.00, NULL),
+	(329, 1753996980, 60, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 1512.00, NULL),
+	(330, 1753996680, 360, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 1512.00, NULL),
+	(331, 1753996320, 1440, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 2168.00, NULL),
+	(332, 1753990560, 10080, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 2168.00, NULL),
+	(333, 1753997040, 60, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 1.00, NULL),
+	(334, 1753997040, 360, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'count', 1.00, NULL),
+	(335, 1753997040, 60, 'slow_user_request', '1', 'count', 2.00, NULL),
+	(336, 1753997040, 360, 'slow_user_request', '1', 'count', 7.00, NULL),
+	(337, 1753997040, 60, 'user_request', '1', 'count', 2.00, NULL),
+	(338, 1753997040, 360, 'user_request', '1', 'count', 7.00, NULL),
+	(339, 1753997040, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(340, 1753997040, 360, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 3.00, NULL),
+	(341, 1753997040, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(342, 1753997040, 360, 'cache_hit', 'spatie.permission.cache', 'count', 6.00, NULL),
+	(353, 1753997040, 60, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 2168.00, NULL),
+	(354, 1753997040, 360, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 'max', 2168.00, NULL),
+	(355, 1753997040, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1110.00, NULL),
+	(356, 1753997040, 360, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1177.00, NULL),
+	(361, 1753997040, 60, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(362, 1753997040, 360, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(363, 1753996320, 1440, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(364, 1753990560, 10080, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'count', 1.00, NULL),
+	(365, 1753997040, 60, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(366, 1753997040, 360, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(367, 1753996320, 1440, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(368, 1753990560, 10080, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'count', 1.00, NULL),
+	(377, 1753997040, 60, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 6033.00, NULL),
+	(378, 1753997040, 360, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 6033.00, NULL),
+	(379, 1753996320, 1440, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 6033.00, NULL),
+	(380, 1753990560, 10080, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 'max', 6033.00, NULL),
+	(381, 1753997040, 60, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1753997093.00, NULL),
+	(382, 1753997040, 360, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1753997093.00, NULL),
+	(383, 1753996320, 1440, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1753997093.00, NULL),
+	(384, 1753990560, 10080, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 'max', 1753997093.00, NULL),
+	(385, 1753997100, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 2.00, NULL),
+	(386, 1753997040, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'count', 2.00, NULL),
+	(387, 1753997100, 60, 'slow_user_request', '1', 'count', 4.00, NULL),
+	(388, 1753997100, 60, 'user_request', '1', 'count', 4.00, NULL),
+	(389, 1753997100, 60, 'cache_hit', 'spatie.permission.cache', 'count', 3.00, NULL),
+	(401, 1753997100, 60, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1627.00, NULL),
+	(402, 1753997040, 360, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 'max', 1627.00, NULL),
+	(405, 1753997100, 60, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'count', 1.00, NULL),
+	(406, 1753997040, 360, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'count', 1.00, NULL),
+	(407, 1753996320, 1440, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'count', 1.00, NULL),
+	(408, 1753990560, 10080, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'count', 1.00, NULL),
+	(421, 1753997100, 60, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'max', 1244.00, NULL),
+	(422, 1753997040, 360, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'max', 1244.00, NULL),
+	(423, 1753996320, 1440, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'max', 1244.00, NULL),
+	(424, 1753990560, 10080, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 'max', 1244.00, NULL),
+	(425, 1753997100, 60, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'count', 1.00, NULL),
+	(426, 1753997040, 360, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'count', 1.00, NULL),
+	(427, 1753996320, 1440, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'count', 1.00, NULL),
+	(428, 1753990560, 10080, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'count', 1.00, NULL),
+	(429, 1753997100, 60, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(430, 1753997040, 360, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(431, 1753996320, 1440, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(432, 1753990560, 10080, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 1.00, NULL),
+	(441, 1753997100, 60, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'max', 2929.00, NULL),
+	(442, 1753997040, 360, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'max', 2929.00, NULL),
+	(443, 1753996320, 1440, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'max', 2929.00, NULL),
+	(444, 1753990560, 10080, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 'max', 2929.00, NULL),
+	(445, 1753997100, 60, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1005.00, NULL),
+	(446, 1753997040, 360, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1005.00, NULL),
+	(447, 1753996320, 1440, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1005.00, NULL),
+	(448, 1753990560, 10080, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1005.00, NULL),
+	(469, 1753997160, 60, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'count', 1.00, NULL),
+	(470, 1753997040, 360, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'count', 1.00, NULL),
+	(471, 1753996320, 1440, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'count', 1.00, NULL),
+	(472, 1753990560, 10080, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'count', 1.00, NULL),
+	(473, 1753997160, 60, 'slow_user_request', '1', 'count', 1.00, NULL),
+	(474, 1753997160, 60, 'user_request', '1', 'count', 1.00, NULL),
+	(475, 1753997160, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'count', 2.00, NULL),
+	(485, 1753997160, 60, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'max', 1819.00, NULL),
+	(486, 1753997040, 360, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'max', 1819.00, NULL),
+	(487, 1753996320, 1440, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'max', 1819.00, NULL),
+	(488, 1753990560, 10080, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 'max', 1819.00, NULL),
+	(489, 1753997160, 60, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 'max', 1177.00, NULL),
+	(493, 1753997160, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(494, 1753997040, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'count', 1.00, NULL),
+	(495, 1753997160, 60, 'slow_user_request', '4', 'count', 2.00, NULL),
+	(496, 1753997040, 360, 'slow_user_request', '4', 'count', 2.00, NULL),
+	(497, 1753996320, 1440, 'slow_user_request', '4', 'count', 2.00, NULL),
+	(498, 1753990560, 10080, 'slow_user_request', '4', 'count', 2.00, NULL),
+	(499, 1753997160, 60, 'user_request', '4', 'count', 4.00, NULL),
+	(500, 1753997040, 360, 'user_request', '4', 'count', 4.00, NULL),
+	(501, 1753996320, 1440, 'user_request', '4', 'count', 8.00, NULL),
+	(502, 1753990560, 10080, 'user_request', '4', 'count', 13.00, NULL),
+	(505, 1753997160, 60, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1479.00, NULL),
+	(506, 1753997040, 360, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 'max', 1479.00, NULL),
+	(509, 1753997160, 60, 'cache_hit', 'spatie.permission.cache', 'count', 2.00, NULL),
+	(525, 1753997160, 60, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(526, 1753997040, 360, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(527, 1753996320, 1440, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(528, 1753990560, 10080, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'count', 1.00, NULL),
+	(541, 1753997160, 60, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'max', 2006.00, NULL),
+	(542, 1753997040, 360, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'max', 2006.00, NULL),
+	(543, 1753996320, 1440, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'max', 2006.00, NULL),
+	(544, 1753990560, 10080, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 'max', 2006.00, NULL),
+	(549, 1753997520, 60, 'user_request', '4', 'count', 4.00, NULL),
+	(550, 1753997400, 360, 'user_request', '4', 'count', 4.00, NULL),
+	(551, 1753997520, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(552, 1753997400, 360, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(569, 1753997940, 60, 'user_request', '4', 'count', 1.00, NULL),
+	(570, 1753997760, 360, 'user_request', '4', 'count', 2.00, NULL),
+	(571, 1753997760, 1440, 'user_request', '4', 'count', 5.00, NULL),
+	(573, 1753998000, 60, 'user_request', '4', 'count', 1.00, NULL),
+	(574, 1753998000, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(575, 1753997760, 360, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(576, 1753997760, 1440, 'cache_hit', 'spatie.permission.cache', 'count', 4.00, NULL),
+	(581, 1753998120, 60, 'user_request', '4', 'count', 1.00, NULL),
+	(582, 1753998120, 360, 'user_request', '4', 'count', 1.00, NULL),
+	(583, 1753998120, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(584, 1753998120, 360, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(589, 1753998900, 60, 'user_request', '4', 'count', 1.00, NULL),
+	(590, 1753998840, 360, 'user_request', '4', 'count', 2.00, NULL),
+	(591, 1753998900, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL),
+	(592, 1753998840, 360, 'cache_hit', 'spatie.permission.cache', 'count', 2.00, NULL),
+	(597, 1753999020, 60, 'user_request', '4', 'count', 1.00, NULL),
+	(598, 1753999020, 60, 'cache_hit', 'spatie.permission.cache', 'count', 1.00, NULL);
 
 -- Volcando estructura para tabla gcpa.pulse_entries
 CREATE TABLE IF NOT EXISTS `pulse_entries` (
@@ -634,9 +831,9 @@ CREATE TABLE IF NOT EXISTS `pulse_entries` (
   KEY `pulse_entries_type_index` (`type`),
   KEY `pulse_entries_key_hash_index` (`key_hash`),
   KEY `pulse_entries_timestamp_type_key_hash_value_index` (`timestamp`,`type`,`key_hash`,`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.pulse_entries: ~46 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.pulse_entries: ~121 rows (aproximadamente)
 INSERT INTO `pulse_entries` (`id`, `timestamp`, `type`, `key`, `value`) VALUES
 	(1, 1752165455, 'user_request', '1', NULL),
 	(2, 1752165455, 'cache_hit', 'spatie.permission.cache', NULL),
@@ -683,7 +880,82 @@ INSERT INTO `pulse_entries` (`id`, `timestamp`, `type`, `key`, `value`) VALUES
 	(43, 1752785562, 'cache_hit', 'spatie.permission.cache', NULL),
 	(44, 1752785577, 'user_request', '1', NULL),
 	(45, 1752785577, 'user_request', '1', NULL),
-	(46, 1752785578, 'cache_hit', 'spatie.permission.cache', NULL);
+	(46, 1752785578, 'cache_hit', 'spatie.permission.cache', NULL),
+	(47, 1753996979, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 4327),
+	(48, 1753996979, 'slow_user_request', '1', NULL),
+	(49, 1753996979, 'user_request', '1', NULL),
+	(50, 1753996979, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1173),
+	(51, 1753996982, 'slow_query', '["insert into `sessions` (`payload`, `last_activity`, `user_id`, `ip_address`, `user_agent`, `id`) values (?, ?, ?, ?, ?, ?)","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1009),
+	(52, 1753996987, 'slow_request', '["GET","\\/recibir","App\\\\Http\\\\Controllers\\\\PaqueteController@getRecibir"]', 2211),
+	(53, 1753996987, 'slow_user_request', '1', NULL),
+	(54, 1753996987, 'user_request', '1', NULL),
+	(55, 1753996989, 'cache_miss', 'spatie.permission.cache', NULL),
+	(56, 1753997004, 'slow_request', '["GET","\\/roles","App\\\\Http\\\\Controllers\\\\RoleController@index"]', 2696),
+	(57, 1753997004, 'slow_user_request', '1', NULL),
+	(58, 1753997004, 'user_request', '1', NULL),
+	(59, 1753997007, 'cache_hit', 'spatie.permission.cache', NULL),
+	(60, 1753997012, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 1776),
+	(61, 1753997012, 'slow_user_request', '1', NULL),
+	(62, 1753997012, 'user_request', '1', NULL),
+	(63, 1753997014, 'cache_hit', 'spatie.permission.cache', NULL),
+	(64, 1753997021, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 1512),
+	(65, 1753997021, 'slow_user_request', '1', NULL),
+	(66, 1753997021, 'user_request', '1', NULL),
+	(67, 1753997023, 'cache_hit', 'spatie.permission.cache', NULL),
+	(68, 1753997054, 'slow_request', '["GET","\\/users\\/create","App\\\\Http\\\\Controllers\\\\UserController@create"]', 2168),
+	(69, 1753997054, 'slow_user_request', '1', NULL),
+	(70, 1753997054, 'user_request', '1', NULL),
+	(71, 1753997054, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1110),
+	(72, 1753997056, 'cache_hit', 'spatie.permission.cache', NULL),
+	(73, 1753997091, 'slow_request', '["POST","\\/users","App\\\\Http\\\\Controllers\\\\UserController@store"]', 6033),
+	(74, 1753997091, 'slow_user_request', '1', NULL),
+	(75, 1753997091, 'user_request', '1', NULL),
+	(76, 1753997093, 'exception', '["Spatie\\\\Permission\\\\Exceptions\\\\RoleDoesNotExist","app\\\\Http\\\\Controllers\\\\UserController.php:47"]', 1753997093),
+	(77, 1753997109, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 1627),
+	(78, 1753997109, 'slow_user_request', '1', NULL),
+	(79, 1753997109, 'user_request', '1', NULL),
+	(80, 1753997111, 'cache_hit', 'spatie.permission.cache', NULL),
+	(81, 1753997116, 'slow_request', '["GET","\\/users\\/{user}\\/edit","App\\\\Http\\\\Controllers\\\\UserController@edit"]', 1244),
+	(82, 1753997116, 'slow_user_request', '1', NULL),
+	(83, 1753997116, 'user_request', '1', NULL),
+	(84, 1753997117, 'cache_hit', 'spatie.permission.cache', NULL),
+	(85, 1753997129, 'slow_request', '["PUT","\\/users\\/{user}","App\\\\Http\\\\Controllers\\\\UserController@update"]', 2929),
+	(86, 1753997129, 'slow_user_request', '1', NULL),
+	(87, 1753997129, 'user_request', '1', NULL),
+	(88, 1753997130, 'slow_query', '["update `sessions` set `payload` = ?, `last_activity` = ?, `user_id` = ?, `ip_address` = ?, `user_agent` = ? where `id` = ?","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1005),
+	(89, 1753997132, 'slow_request', '["GET","\\/users","App\\\\Http\\\\Controllers\\\\UserController@index"]', 1395),
+	(90, 1753997132, 'slow_user_request', '1', NULL),
+	(91, 1753997132, 'user_request', '1', NULL),
+	(92, 1753997133, 'cache_hit', 'spatie.permission.cache', NULL),
+	(93, 1753997176, 'slow_request', '["POST","\\/logout","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@destroy"]', 1819),
+	(94, 1753997176, 'slow_user_request', '1', NULL),
+	(95, 1753997176, 'user_request', '1', NULL),
+	(96, 1753997176, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1143),
+	(97, 1753997187, 'slow_request', '["POST","\\/login","App\\\\Http\\\\Controllers\\\\Auth\\\\AuthenticatedSessionController@store"]', 1479),
+	(98, 1753997187, 'slow_user_request', '4', NULL),
+	(99, 1753997187, 'user_request', '4', NULL),
+	(100, 1753997189, 'user_request', '4', NULL),
+	(101, 1753997189, 'cache_hit', 'spatie.permission.cache', NULL),
+	(102, 1753997195, 'user_request', '4', NULL),
+	(103, 1753997195, 'cache_hit', 'spatie.permission.cache', NULL),
+	(104, 1753997203, 'slow_request', '["POST","\\/recibir","via \\/livewire\\/update"]', 2006),
+	(105, 1753997203, 'slow_user_request', '4', NULL),
+	(106, 1753997203, 'user_request', '4', NULL),
+	(107, 1753997203, 'slow_query', '["select * from `sessions` where `id` = ? limit 1","vendor\\\\livewire\\\\livewire\\\\src\\\\Features\\\\SupportDisablingBackButtonCache\\\\DisableBackButtonCacheMiddleware.php:19"]', 1177),
+	(108, 1753997529, 'user_request', '4', NULL),
+	(109, 1753997530, 'cache_hit', 'spatie.permission.cache', NULL),
+	(110, 1753997561, 'user_request', '4', NULL),
+	(111, 1753997566, 'user_request', '4', NULL),
+	(112, 1753997568, 'user_request', '4', NULL),
+	(113, 1753997979, 'user_request', '4', NULL),
+	(114, 1753998018, 'user_request', '4', NULL),
+	(115, 1753998018, 'cache_hit', 'spatie.permission.cache', NULL),
+	(116, 1753998122, 'user_request', '4', NULL),
+	(117, 1753998123, 'cache_hit', 'spatie.permission.cache', NULL),
+	(118, 1753998911, 'user_request', '4', NULL),
+	(119, 1753998911, 'cache_hit', 'spatie.permission.cache', NULL),
+	(120, 1753999040, 'user_request', '4', NULL),
+	(121, 1753999041, 'cache_hit', 'spatie.permission.cache', NULL);
 
 -- Volcando estructura para tabla gcpa.pulse_values
 CREATE TABLE IF NOT EXISTS `pulse_values` (
@@ -753,9 +1025,10 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla gcpa.sessions: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla gcpa.sessions: ~3 rows (aproximadamente)
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 	('63CgNoSJFHN5KVUfqBG7TKMuU6UzHQcIvoAHF5ah', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSWY3bnpiRmQ1NjR5UWJwYzFRa0g4UGVWTnpQQzR1SFA4cmdVQWR4OCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VycyI7fXM6MTg6ImZsYXNoZXI6OmVudmVsb3BlcyI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1752530459),
+	('cXab9gC6RkTpYRxgTuUGB85JksRAOSJZrCPYibRA', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiV2p3SFBYWXpOODFnU2ZNemVIalVHWllLUERkREx5Z3ZvaFhBRkZPZiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZWNpYmlyIjt9czoxODoiZmxhc2hlcjo6ZW52ZWxvcGVzIjthOjA6e31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=', 1753999041),
 	('DYRuorMlE37IFsCMIjDPxrthUJyFs94KnnwOJP0m', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiVlFlcmlqWEpvdkVBMG5IUzdBbURrQklIQTlWQWhVTVBVUzU2cm51OSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI3OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXNlcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjE4OiJmbGFzaGVyOjplbnZlbG9wZXMiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1752785578);
 
 -- Volcando estructura para tabla gcpa.tarifario
@@ -890,13 +1163,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla gcpa.users: ~3 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `email`, `city`, `ci`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Marco Antonio Espinoza Rojas', 'marco.espinoza@correos.gob.bo', 'LA PAZ', 10909669, NULL, '$2y$12$6o996n9VkbL6kW7yTLini.kURmIXU/nSmEfgk8afXS3bt1ntpFjji', NULL, '2025-06-12 18:47:07', '2025-06-23 22:38:38', NULL),
 	(2, 'Edgar Javier Gironda Chiri', 'edgar.gironda@correos.gob.bo', 'LA PAZ', 4850032, NULL, '$2y$12$0x2IubG6nEVnZ6mu/OcwnOjPn7HM4OZskYC/bgbJ6sXsxSdCoWf3G', 'cuU880jcQGZH1JkO0ZYoTr04woy54zyFxn9hJ8c9AZs5ZBd5bOmh5nVvwvFv', '2025-06-24 23:13:05', '2025-06-24 23:13:05', NULL),
-	(3, 'Josue Manriquez', 'josue.manriquez@correos.gob.bo', 'LA PAZ', 9134479, NULL, '$2y$12$O8NJ3h2Bx0wBvr0.vooFBeZd46jMuFYPrwoEHh28bA9ORJtOaj3/O', NULL, '2025-07-15 02:00:35', '2025-07-15 02:00:59', NULL);
+	(4, 'Josue Manriquez', 'josue@gmail.com', 'LA PAZ', 9134479, NULL, '$2y$12$WSL9v5gyzcKD.0lbSTWWKekBJ4SQl9ufs3UJeWKF1iQWrOaEO3t7a', NULL, '2025-08-01 01:24:52', '2025-08-01 01:24:52', NULL);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

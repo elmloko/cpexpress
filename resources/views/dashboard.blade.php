@@ -8,7 +8,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Sistema de encomiendas</h1>
     <form action="{{ route('dashboard.kardex') }}" method="GET" class="form-inline mt-2 mb-4">
         <div class="form-group mr-3">
             <label for="start_date" class="mr-1">Desde:</label>
