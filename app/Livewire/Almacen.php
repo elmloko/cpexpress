@@ -41,6 +41,13 @@ class Almacen extends Component
     public $selected = [];
     public $cantidad = 1;
 
+    public $aduana;
+    public $direccion_paquete;
+    public $telefono;
+    public $casilla;
+    public $correo_destinatario;
+    public $precio_final;
+
     protected $paginationTheme = 'bootstrap';
 
     protected $rules = [
@@ -54,6 +61,11 @@ class Almacen extends Component
         'grupo'         => 'boolean',
         'almacenaje'    => 'boolean',
         'cantidad'    => 'required|integer|min:1',
+        'direccion_paquete'  => 'required|string|max:99',
+        'telefono'           => 'nullable|string|max:25',
+        'correo_destinatario'             => 'nullable|string|max:60',
+        'casilla'            => 'nullable|numeric',
+        'aduana'             => 'required|string|in:SI,NO',
     ];
 
     public function mount()
@@ -123,6 +135,12 @@ class Almacen extends Component
             'almacenaje'    => $this->almacenaje ? 1 : 0,
             'estado'        => 'ALMACEN',
             'user'          => Auth::user()->name,
+            'casilla'         => $this->casilla,
+            'aduana'       => strtoupper($this->aduana),
+            'correo_destinatario'       => $this->correo_destinatario,
+            'telefono'     => $this->telefono,
+            'direccion_paquete'    => strtoupper($this->direccion_paquete),
+
         ];
 
         // 2. Crear o actualizar el paquete
@@ -161,9 +179,9 @@ class Almacen extends Component
         }
 
         // 3.5. Agregar cargo de certificación si aplica
-        if ($paquete->certificacion) {
+        /*  if ($paquete->certificacion) {
             $precio += 8;
-        }
+        } */
 
         if ($paquete->almacenaje) {
             $precio += 15;
@@ -213,6 +231,11 @@ class Almacen extends Component
         $this->certificacion = (bool) $p->certificacion;
         $this->grupo         = (bool) $p->grupo;
         $this->almacenaje   = (bool) $p->almacenaje;
+        $this->direccion_paquete     = $p->direccion_paquete;
+        $this->telefono      = $p->telefono;
+        $this->correo_destinatario      = $p->correo_destinatario;
+        $this->aduana       = $p->aduana;
+        $this->casilla        = $p->casilla;
     }
 
     public function toggleSelectAll()
@@ -231,6 +254,22 @@ class Almacen extends Component
             $this->selected = [];
         }
     }
+    public function calcularPrecioFinal($created_at)
+    {
+        $dias = Carbon::parse($created_at)->diffInDays(Carbon::now());
+
+        if ($dias <= 6) {
+            return 17;
+        } else {
+            return 17 + (($dias - 6) * 2);
+        }
+    }
+
+    public function diasTranscurridos($created_at)
+    {
+        return Carbon::parse($created_at)->diffInDays(Carbon::now());
+    }
+
 
     public function darBajaSeleccionados()
     {
@@ -239,52 +278,51 @@ class Almacen extends Component
             return;
         }
 
-        // 1) Obtener paquetes
         $packages = Paquete::whereIn('id', $this->selected)->get();
 
-        // 2) Para cada paquete, calcular precio y actualizar antes de dar baja
         foreach ($packages as $p) {
-            // 2.1 Empresa y categoría de peso
-            $empresa   = Empresa::whereRaw('UPPER(nombre)=?', [strtoupper($p->destinatario)])->first();
-            $pesoCat   = Peso::where('min', '<=', $p->peso)
+            $empresa = Empresa::whereRaw('UPPER(nombre)=?', [strtoupper($p->destinatario)])->first();
+            $pesoCat = Peso::where('min', '<=', $p->peso)
                 ->where('max', '>=', $p->peso)
                 ->first();
 
             $unit = 0;
+
             if ($empresa && $pesoCat) {
                 $tarifa = Tarifario::where('empresa', $empresa->id)
                     ->where('peso', $pesoCat->id)
                     ->first();
+
                 $col = strtolower($p->destino);
                 if ($tarifa && isset($tarifa->$col)) {
                     $unit = $tarifa->$col;
                 }
             }
 
-            // 2.2 Cargos extras
-            if ($p->certificacion) {
-                $unit += 8;
-            }
-            if ($p->almacenaje) {
-                $unit += 15;
+            // ✅ Calcular días desde la creación
+            $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
+
+            // ✅ Calcular precio_final
+            if ($dias <= 6) {
+                $precioFinal = 17;
+            } else {
+                $precioFinal = 17 + (($dias - 6) * 2);
             }
 
-            // 2.3 Multiplicador
+            // ✅ Calcular total general (por si se sigue usando)
             $mult = $p->grupo ? $p->cantidad : 1;
+            $total = ($unit * $mult) + $precioFinal;
 
-            // 2.4 Total final
-            $total = $unit * $mult;
-
-            // 2.5 Guardar total en BD
-            $p->update(['total' => $total]);
+            // ✅ Guardar en la base de datos
+            $p->update([
+                'total'        => $total,
+                'precio_final' => $precioFinal,
+            ]);
         }
 
-        // 3) Marcar como INVENTARIO y soft-delete
-        Paquete::whereIn('id', $this->selected)
-            ->update(['estado' => 'INVENTARIO']);
+        Paquete::whereIn('id', $this->selected)->update(['estado' => 'INVENTARIO']);
         Paquete::whereIn('id', $this->selected)->delete();
 
-        // 4) Registrar evento de entrega
         foreach ($packages as $pkg) {
             Evento::create([
                 'accion'      => 'ENTREGADO',
@@ -294,17 +332,16 @@ class Almacen extends Component
             ]);
         }
 
-        // 5) Limpiar selección
         $this->selected  = [];
         $this->selectAll = false;
 
-        // 6) Generar PDF de despacho
         $pdf = PDF::loadView('pdf.despacho', ['packages' => $packages]);
         return response()->streamDownload(
             fn() => print($pdf->output()),
             'despacho_' . now()->format('Ymd_His') . '.pdf'
         );
     }
+
 
     public function render()
     {

@@ -150,7 +150,7 @@
                             @endif
                         </td>
                     @endif
-                    <td>{{ number_format($pkg->precio, 2) }}</td>
+                    <td>{{ number_format((int) $pkg->precio_final, 2, '.', '') }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -159,7 +159,7 @@
                 <td colspan="{{ $colspan }}" style="text-align: right;">
                     Total Precio (Bs):
                 </td>
-                <td>{{ number_format($packages->sum('precio'), 2) }}</td>
+                <td>{{ number_format((int) $packages->sum('precio_final'), 2, '.', '') }}</td>
             </tr>
         </tfoot>
     </table>

@@ -59,11 +59,13 @@
                                     @if ($selectAll) checked @endif>
                             </th>
                             <th>Código</th>
-                            <th>PDA</th>
-                            <th>Empresa</th>
+                            {{-- <th>PDA</th> --}}
+                            <th>Nombre</th>
                             <th>Peso</th>
-                            <th>Tarifa</th>
+                            {{-- <th>Tarifa</th> --}}
                             <th>Precio</th>
+                            <th>Precio final</th>
+                            <th>Dias transcurridos</th>
                             <th>Estado</th>
                             <th>Ciudad</th>
                             <th>Observaciones</th>
@@ -77,14 +79,16 @@
                                     <input type="checkbox" wire:model="selected" value="{{ $p->id }}">
                                 </td>
                                 <td>{{ $p->codigo }}</td>
-                                <td>{{ $p->pda }}</td>
+                               {{--  <td>{{ $p->pda }}</td> --}}
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->peso }} kg</td>
-                                <td>{{ strtoupper($p->destino) }}</td>
+                                {{-- <td>{{ strtoupper($p->destino) }}</td> --}}
                                 <td>{{ $p->precio }} Bs</td>
+                                <td>{{ intval($this->calcularPrecioFinal($p->created_at)) }} Bs</td>
+                                <td>{{ intval ($this->diasTranscurridos($p->created_at)) }} Dias</td>
                                 <td>{{ $p->estado }}</td>
                                 <td>{{ $p->cuidad }}</td>
-                                <td>{{ $p->observaciones }}</td>
+                                <td>{{ $p->observacion }}</td>
                                 <td>
                                     <button class="btn btn-sm btn-warning" wire:click="editar({{ $p->id }})">
                                         <i class="fas fa-edit"></i> Editar
@@ -132,51 +136,43 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label>Empresa</label>
-                                <select wire:model.defer="destinatario" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    @foreach ($empresas as $empresa)
-                                        <option value="{{ strtoupper($empresa->nombre) }}">
-                                            {{ strtoupper($empresa->nombre) }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label>Nombre</label>
+                                <input type="text" wire:model.defer="destinatario" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="Escriba el nombre...">
                                 @error('destinatario')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+
                             <div class="form-group">
-                                <label>Departamento</label>
-                                <select wire:model.defer="cuidad" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="BENI">BENI</option>
-                                    <option value="CHUQUISACA">CHUQUISACA</option>
-                                    <option value="COCHABAMBA">COCHABAMBA</option>
-                                    <option value="LA PAZ">LA PAZ</option>
-                                    <option value="ORURO">ORURO</option>
-                                    <option value="PANDO">PANDO</option>
-                                    <option value="POTOSI">POTOSI</option>
-                                    <option value="SANTA CRUZ">SANTA CRUZ</option>
-                                    <option value="TARIJA">TARIJA</option>
-                                </select>
+                                <label>Direccion</label>
+                                <input type="text" wire:model.defer="direccion_paquete" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="Escriba la direccion...">
+                                @error('direccion_paquete')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
                             </div>
+
+
+
                             <div class="form-group">
-                                <label>Destino</label>
-                                <select wire:model.defer="destino" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="local">LOCAL</option>
-                                    <option value="nacional">NACIONAL</option>
-                                    <option value="camiri">CAMIRI</option>
-                                    <option value="sud">SUD AMERICA</option>
-                                    <option value="centro">CENTRO AMERICA Y CARIBE</option>
-                                    <option value="norte">NORTE AMERICA</option>
-                                    <option value="euro">EUROPA Y AFRICA</option>
-                                    <option value="asia">ASIA Y OCEANIA</option>
-                                </select>
+                                <label for="telefono">Teléfono</label>
+                                <input type="text" id="telefono" wire:model.defer="telefono" class="form-control">
+                                @error('telefono')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label>Correo</label>
+                                <input type="text" wire:model.defer="correo_destinatario" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="">
+                                @error('correo_destinatario')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            
                         </div>
                         <!-- Columna derecha -->
                         <div class="col-md-6">
@@ -184,38 +180,33 @@
                                 <label>Peso (kg)</label>
                                 <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
                             </div>
+                            @error('peso')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+
                             <div class="form-group">
-                                <label for="pda">PDA</label>
-                                <input type="text" id="pda" wire:model.defer="pda" class="form-control"
-                                    maxlength="100" placeholder="Ingrese PDA (opcional)">
-                                @error('pda')
+                                <label>Casilla</label>
+                                <input type="text" wire:model.defer="casilla" class="form-control"
+                                    style="text-transform: uppercase;" placeholder="">
+                                @error('casilla')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label>Aduana</label>
+                                <select wire:model.defer="aduana" class="form-control"
+                                    style="text-transform: uppercase;">
+                                    <option value="">SELECCIONE...</option>
+                                    <option value="SI">SI</option>
+                                    <option value="NO">NO</option>
+                                </select>
+                            </div>
+
+
                             <div class="form-group">
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" id="certificacion" wire:model.defer="certificacion"
-                                    class="form-check-input">
-                                <label for="certificacion" class="form-check-label">
-                                    Aplicar Tasa de Certificación (8 Bs.)
-                                </label>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" id="almacenaje" wire:model.defer="almacenaje"
-                                    class="form-check-input">
-                                <label for="almacenaje" class="form-check-label">
-                                    Aplicar tarifa de Almacenaje (15 Bs.)
-                                </label>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" id="grupo" wire:model.defer="grupo"
-                                    class="form-check-input">
-                                <label for="grupo" class="form-check-label">
-                                    Aplicar tarifa de Agrupacion
-                                </label>
                             </div>
                         </div>
                     </div>

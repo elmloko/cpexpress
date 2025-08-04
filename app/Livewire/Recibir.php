@@ -184,8 +184,8 @@ class Recibir extends Component
             /** @var Paquete $paquete */
             $paquete = Paquete::find($id);
 
-            // Precio fijo de 15 Bs
-            $precio = 15;
+            // Precio fijo de 17 Bs
+            $precio = 17;
 
             // Actualizar estado y precio
             $paquete->update([
@@ -325,7 +325,7 @@ class Recibir extends Component
             // Creación
             $data['estado'] = 'RECIBIDO';
             $data['user']   = Auth::user()->name;
-            $data['precio'] = 15; // <--- Precio fijo
+            $data['precio'] = 17; // <--- Precio fijo
 
 
             Paquete::create($data);

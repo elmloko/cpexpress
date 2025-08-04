@@ -160,69 +160,13 @@
 
                             <div class="form-group">
                                 <label>Correo</label>
-                                <input type="text" wire:model.defer="correo_destinatario" class="form-control"
+                                <input type="mail" wire:model.defer="correo_destinatario" class="form-control"
                                     style="text-transform: uppercase;" placeholder="">
                                 @error('correo_destinatario')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
 
-
-
-
-                            {{-- <div class="form-group">
-                                <label>Ciudad</label>
-                                <input type="text" class="form-control bg-light" wire:model.defer="cuidad" readonly
-                                    disabled style="text-transform: uppercase;">
-                            </div> --}}
-
-                            {{-- <div class="form-group">
-                                <label>Departamento</label>
-                                <select wire:model.defer="cuidad" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="BENI">BENI</option>
-                                    <option value="CHUQUISACA">CHUQUISACA</option>
-                                    <option value="COCHABAMBA">COCHABAMBA</option>
-                                    <option value="LA PAZ">LA PAZ</option>
-                                    <option value="ORURO">ORURO</option>
-                                    <option value="PANDO">PANDO</option>
-                                    <option value="POTOSI">POTOSI</option>
-                                    <option value="SANTA CRUZ">SANTA CRUZ</option>
-                                    <option value="TARIJA">TARIJA</option>
-                                </select>
-                            </div> --}}
-
-
-
-                            {{--  <div class="form-group">
-                                <label>Destino</label>
-                                <select wire:model.defer="destino" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="local">LOCAL</option>
-                                    <option value="nacional">NACIONAL</option>
-                                    <option value="camiri">CAMIRI</option>
-                                    <option value="sud">SUD AMERICA</option>
-                                    <option value="centro">CENTRO AMERICA Y CARIBE</option>
-                                    <option value="norte">NORTE AMERICA</option>
-                                    <option value="euro">EUROPA Y AFRICA</option>
-                                    <option value="asia">ASIA Y OCEANIA</option>
-                                </select>
-                            </div> --}}
-
-                            
-
-
-                            <div class="form-group">
-                                {{-- <label for="pda">PDA</label>
-                                <input type="text" id="pda" wire:model.defer="pda" class="form-control"
-                                    maxlength="100" placeholder=" ">
-                                @error('pda')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror  
-                                --}}
-                            </div>
                         </div>
                         <!-- Columna derecha -->
                         <div class="col-md-6">
@@ -258,28 +202,6 @@
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
                             </div>
-                            {{-- <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" id="certificacion"
-                                    wire:model.defer="certificacion">
-                                <label class="form-check-label" for="certificacion">
-                                    Taza de Certificación (8 Bs.)
-                                </label>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" id="almacenaje" wire:model.defer="almacenaje"
-                                    class="form-check-input">
-                                <label for="almacenaje" class="form-check-label">
-                                    Aplicar tarifa de Almacenaje (15 Bs.)
-                                </label>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" id="grupo" wire:model.defer="grupo"
-                                    class="form-check-input">
-                                <label for="grupo" class="form-check-label">
-                                    Aplicar tarifa de Agrupacion
-                                </label>
-                            </div> --}}
-                            
                         </div>
                     </div>
                 </div>

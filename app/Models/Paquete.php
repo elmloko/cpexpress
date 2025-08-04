@@ -30,7 +30,8 @@ class Paquete extends Model
         'photo',
         'cantidad',
         'grupo',
-        'almacenaje'
+        'almacenaje',
+        'precio_final',
     ];
 
     protected $casts = [

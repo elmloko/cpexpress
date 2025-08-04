@@ -314,7 +314,7 @@ return [
         [
             'text' => 'Dashboard',
             'url' => '/dashboard',
-            'icon' => 'fas fa-tachometer-alt', 
+            'icon' => 'fas fa-tachometer-alt',
         ],
         [
             'text' => 'Gestion Usuarios',
@@ -345,17 +345,17 @@ return [
         ],
 
         [
-                    'text' => 'Todos los paquetes',
-                    'url'  => '/todos',
-                    'icon' => 'fas fa-paper-plane', // Icono de "enviar"
-                    'can'  => 'visor',
-                ],
-        [
+            'text' => 'Todos los paquetes',
+            'url'  => '/todos',
+            'icon' => 'fas fa-paper-plane', // Icono de "enviar"
+            'can'  => 'visor',
+        ],
+       /*  [
             'text' => 'Envio de Paquetes',
             'icon' => 'fas fa-plane-departure', // Icono representativo de "paquetes"
             // 'can'  => 'users.index',
             'submenu' => [
-                
+
                 [
                     'text' => 'Enviar',
                     'url'  => '/enviar',
@@ -369,7 +369,7 @@ return [
                     'can'  => 'enviar',
                 ],
             ],
-        ],
+        ], */
         [
             'text' => 'Recepcion de Paquetes',
             'icon' => 'fas fa-box-open', // Icono representativo de "paquetes"
