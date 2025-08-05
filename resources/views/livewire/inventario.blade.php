@@ -51,11 +51,11 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>PDA</th>
+                            {{-- <th>PDA</th> --}}
                             <th>Empresa</th>
                             <th>Ciudad</th>
                             <th>Peso</th>
-                            <th>Tarifa</th>
+                            {{-- <th>Tarifa</th> --}}
                             <th>Precio</th>
                             <th>Precio Final</th>
                             <th>Estado</th>
@@ -71,11 +71,11 @@
                         @forelse ($paquetes as $p)
                             <tr wire:key="inventario-{{ $p->id }}">
                                 <td>{{ $p->codigo }}</td>
-                                <td>{{ $p->pda }}</td>
+                                {{-- <td>{{ $p->pda }}</td> --}}
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->cuidad }}</td>
                                 <td>{{ $p->peso }} kg</td>
-                                <td>{{ strtoupper($p->destino) }}</td>
+                                {{-- <td>{{ strtoupper($p->destino) }}</td> --}}
                                 <td>{{ $p->precio }} Bs</td>
                                 <td>{{ $p->precio_final }} Bs</td>
                                 <td>{{ $p->estado }}</td>

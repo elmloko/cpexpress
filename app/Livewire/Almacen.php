@@ -270,6 +270,20 @@ class Almacen extends Component
         return Carbon::parse($created_at)->diffInDays(Carbon::now());
     }
 
+    public function notificar($id)
+    {
+        $paquete = Paquete::find($id);
+
+        if ($paquete->notificado < 3) {
+            $paquete->notificado += 1;
+            $paquete->save();
+
+            session()->flash('message', 'Usuario notificado ' . $paquete->notificado . ' veces.');
+        } else {
+            session()->flash('message', 'El usuario ya fue notificado 3 veces.');
+        }
+    }
+
 
     public function darBajaSeleccionados()
     {

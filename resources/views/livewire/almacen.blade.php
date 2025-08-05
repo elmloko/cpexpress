@@ -66,7 +66,7 @@
                             <th>Precio</th>
                             <th>Precio final</th>
                             <th>Dias transcurridos</th>
-                            <th>Estado</th>
+                            <th>Telefono</th>
                             <th>Ciudad</th>
                             <th>Observaciones</th>
                             <th>Acciones</th>
@@ -79,22 +79,31 @@
                                     <input type="checkbox" wire:model="selected" value="{{ $p->id }}">
                                 </td>
                                 <td>{{ $p->codigo }}</td>
-                               {{--  <td>{{ $p->pda }}</td> --}}
+                                {{--  <td>{{ $p->pda }}</td> --}}
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->peso }} kg</td>
                                 {{-- <td>{{ strtoupper($p->destino) }}</td> --}}
                                 <td>{{ $p->precio }} Bs</td>
                                 <td>{{ intval($this->calcularPrecioFinal($p->created_at)) }} Bs</td>
-                                <td>{{ intval ($this->diasTranscurridos($p->created_at)) }} Dias</td>
-                                <td>{{ $p->estado }}</td>
+                                <td>{{ (int) $this->diasTranscurridos($p->created_at) }} Dias</td>
+                                <td>{{ $p->telefono }}</td>
                                 <td>{{ $p->cuidad }}</td>
                                 <td>{{ $p->observacion }}</td>
                                 <td>
+
+                                    <button class="btn btn-sm {{ $p->notificado >= 3 ? 'btn-danger' : 'btn-info' }}"
+                                        wire:click="notificar({{ $p->id }})"
+                                        title="Usuario notificado {{ $p->notificado }} veces"
+                                        @if ($p->notificado >= 3) disabled @endif>
+                                        <i class="fas fa-bell"></i> Notificado ({{ $p->notificado ?? 0 }})
+                                    </button>
+
                                     <button class="btn btn-sm btn-warning" wire:click="editar({{ $p->id }})">
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
                                 </td>
-                                
+
+
                             </tr>
                         @empty
                             <tr>
@@ -172,7 +181,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            
+
                         </div>
                         <!-- Columna derecha -->
                         <div class="col-md-6">

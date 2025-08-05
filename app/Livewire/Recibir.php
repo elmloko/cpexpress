@@ -50,7 +50,7 @@ class Recibir extends Component
         'cuidad'             => 'required|string|max:50',
         'direccion_paquete'  => 'required|string|max:99',
         'telefono'           => 'nullable|string|max:25',
-        'correo_destinatario'             => 'nullable|string|max:60',
+        'correo_destinatario' => 'nullable|email|max:60',
         'peso'               => 'required|numeric',
         'casilla'            => 'nullable|numeric',
         'aduana'             => 'required|string|in:SI,NO',
@@ -67,6 +67,8 @@ class Recibir extends Component
         'direccion_paquete.required' => 'La Dirección es obligatoria.',
         'aduana.required' => 'Debe seleccionar si pasa por Aduana.',
         'cuidad.required' => 'Debe seleccionar una ciudad.',
+        'correo_destinatario.email' => 'El correo debe ser válido y contener el símbolo @.',
+
     ];
 
 
@@ -88,6 +90,8 @@ class Recibir extends Component
             session()->flash('message', 'Debe ingresar un código para buscar.');
             return;
         }
+
+        $this->resetPage();  // <--- Esto reinicia la paginación para que filtre bien
 
         $url = config('services.correos.url') . '/' . $this->search;
 
@@ -140,6 +144,7 @@ class Recibir extends Component
         $this->paqueteDestinoId = $paquete->id;
         $this->modalDestino     = true;
     }
+
 
     public function asignarDestino()
     {

@@ -350,7 +350,7 @@ return [
             'icon' => 'fas fa-paper-plane', // Icono de "enviar"
             'can'  => 'visor',
         ],
-       /*  [
+        /*  [
             'text' => 'Envio de Paquetes',
             'icon' => 'fas fa-plane-departure', // Icono representativo de "paquetes"
             // 'can'  => 'users.index',
@@ -393,6 +393,14 @@ return [
                     'icon' => 'fas fa-clipboard-list', // Icono representativo de inventario
                     'can'  => 'recibir',
                 ],
+
+                [
+                    'text' => 'Resago',
+                    'url'  => '/Resago',
+                    'icon' => 'fas fa-exclamation-circle', // Icono de advertencia para paquetes con problemas
+                    'can'  => 'recibir',
+                ],
+
             ],
         ],
         [
