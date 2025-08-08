@@ -51,7 +51,7 @@ class TOdos extends Component
         $this->search = $this->searchInput;
         $this->resetPage();
     }
-
+    
     public function exportarExcel()
     {
         // Validar fechas

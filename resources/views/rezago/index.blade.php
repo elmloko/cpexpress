@@ -1,11 +1,11 @@
 @extends('adminlte::page')
 
-@section('title', 'Resago')
+@section('title', 'Rezago')
 
 @section('content_header')
-    <h1>Resago</h1>
+    <h1>Rezago</h1>
 @stop
 
 @section('content')
-    @livewire('resago')
+    @livewire('rezago')
 @stop

@@ -395,11 +395,13 @@ return [
                 ],
 
                 [
-                    'text' => 'Resago',
-                    'url'  => '/Resago',
-                    'icon' => 'fas fa-exclamation-circle', // Icono de advertencia para paquetes con problemas
+                    'text' => 'Rezago',
+                    'url'  => '/Rezago',
+                    'icon' => 'fas fa-clock', // Icono de reloj
                     'can'  => 'recibir',
+                    'class' => 'btn btn-sm btn-danger', // Clase para el botón
                 ],
+
 
             ],
         ],

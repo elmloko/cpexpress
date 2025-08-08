@@ -284,6 +284,28 @@ class Almacen extends Component
         }
     }
 
+    public function enviarARezago($id)
+    {
+        $paquete = Paquete::find($id);
+
+        if ($paquete) {
+            $paquete->estado = 'REZAGO';
+            $paquete->save();
+
+            Evento::create([
+                'accion'      => 'REZAGO',
+                'descripcion' => 'Paquete enviado a rezago',
+                'user_id'     => Auth::user()->name,
+                'codigo'      => $paquete->codigo,
+            ]);
+
+            session()->flash('message', "Paquete {$paquete->codigo} enviado a REZAGO.");
+        } else {
+            session()->flash('message', 'Paquete no encontrado.');
+        }
+    }
+
+
 
     public function darBajaSeleccionados()
     {

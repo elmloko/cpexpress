@@ -91,6 +91,7 @@
                                 <td>{{ $p->observacion }}</td>
                                 <td>
 
+
                                     <button class="btn btn-sm {{ $p->notificado >= 3 ? 'btn-danger' : 'btn-info' }}"
                                         wire:click="notificar({{ $p->id }})"
                                         title="Usuario notificado {{ $p->notificado }} veces"
@@ -100,6 +101,11 @@
 
                                     <button class="btn btn-sm btn-warning" wire:click="editar({{ $p->id }})">
                                         <i class="fas fa-edit"></i> Editar
+                                    </button>
+
+                                    <button class="btn btn-sm btn-danger"
+                                        wire:click="enviarARezago({{ $p->id }})">
+                                        <i class="fas fa-clock"></i> Rezago
                                     </button>
                                 </td>
 
