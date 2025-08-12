@@ -26,7 +26,8 @@
                     </div>
                     <div class="col-md-6 d-flex justify-content-end">
                         <div class="input-group" style="max-width: 300px;">
-                            <input type="text" class="form-control" placeholder="Buscar..." wire:model.defer="searchInput">
+                            <input type="text" class="form-control" placeholder="Buscar..."
+                                wire:model.defer="searchInput">
                             <div class="input-group-append">
                                 <button class="btn btn-primary btn-flat" wire:click="buscar">
                                     <i class="fas fa-search"></i>
@@ -52,7 +53,9 @@
                             <th>Código</th>
                             <th>Descripción</th>
                             <th>Creado</th>
-                            <th>Acciones</th>
+                            @hasrole('Administrador')
+                                <th>Acciones</th>
+                            @endhasrole
                         </tr>
                     </thead>
                     <tbody>
@@ -64,13 +67,15 @@
                                 <td>{{ Str::limit($e->descripcion, 50) }}</td>
                                 <td>{{ $e->created_at }}</td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning" wire:click="editar({{ $e->id }})">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" wire:click="eliminar({{ $e->id }})"
+                                    @hasrole('Administrador')
+                                        <button class="btn btn-sm btn-warning" wire:click="editar({{ $e->id }})">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" wire:click="eliminar({{ $e->id }})"
                                             onclick="return confirm('¿Eliminar este evento?')">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    @endhasrole
                                 </td>
                             </tr>
                         @empty
@@ -90,7 +95,7 @@
     </section>
 
     <!-- Modal Crear/Editar -->
-    <div class="modal fade @if($modal) show d-block @endif" style="background: rgba(0,0,0,0.5);">
+    <div class="modal fade @if ($modal) show d-block @endif" style="background: rgba(0,0,0,0.5);">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -102,25 +107,33 @@
                     <div class="form-group">
                         <label>Acción</label>
                         <input type="text" wire:model.defer="accion" class="form-control">
-                        @error('accion') <small class="text-danger">{{ $message }}</small> @enderror
+                        @error('accion')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <!-- Usuario -->
                     <div class="form-group">
                         <label>Usuario</label>
                         <input type="text" wire:model.defer="user_id" class="form-control">
-                        @error('user_id') <small class="text-danger">{{ $message }}</small> @enderror
+                        @error('user_id')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <!-- Código -->
                     <div class="form-group">
                         <label>Código</label>
                         <input type="text" wire:model.defer="codigo" class="form-control">
-                        @error('codigo') <small class="text-danger">{{ $message }}</small> @enderror
+                        @error('codigo')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <!-- Descripción -->
                     <div class="form-group">
                         <label>Descripción</label>
                         <textarea wire:model.defer="descripcion" class="form-control" rows="3"></textarea>
-                        @error('descripcion') <small class="text-danger">{{ $message }}</small> @enderror
+                        @error('descripcion')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="modal-footer">

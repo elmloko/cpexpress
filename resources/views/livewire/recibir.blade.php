@@ -88,13 +88,14 @@
                                         wire:click="editar({{ $p->id }})">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    @hasrole('Administrador')
-                                        <button class="btn btn-sm btn-danger"
-                                            wire:click="eliminarPaquete({{ $p->id }})"
-                                            onclick="return confirm('¿Eliminar este paquete de forma permanente?')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    @endhasrole
+                                    {{-- @hasrole('Administrador') --}}
+                                    <button class="btn btn-sm btn-danger"
+                                        wire:click="eliminarPaquete({{ $p->id }})"
+                                        onclick="return confirm('¿Eliminar este paquete de forma permanente?')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+
+                                    {{-- @endhasrole --}}
                                 </td>
                             </tr>
                         @empty
@@ -128,18 +129,33 @@
                     <div class="row">
                         <!-- Columna izquierda -->
                         <div class="col-md-6">
+
                             <div class="form-group">
                                 <label>Código</label>
-                                <input type="text" wire:model.defer="codigo" class="form-control"
-                                    style="text-transform: uppercase;">
+                                @hasrole('Administrador')
+                                    <input type="text" wire:model.defer="codigo" class="form-control"
+                                        style="text-transform: uppercase;">
+                                @else
+                                    <input type="text" wire:model.defer="codigo" class="form-control"
+                                        style="text-transform: uppercase;" readonly>
+                                @endhasrole
                                 @error('codigo')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+
+
                             <div class="form-group">
                                 <label>Nombre</label>
-                                <input type="text" wire:model.defer="destinatario" class="form-control"
-                                    style="text-transform: uppercase;" placeholder="Escriba el nombre...">
+
+                                @hasrole('Administrador')
+                                    <input type="text" wire:model.defer="destinatario" class="form-control"
+                                        style="text-transform: uppercase;" placeholder="Escriba el nombre...">
+                                @else
+                                    <input type="text" wire:model.defer="destinatario" class="form-control"
+                                        style="text-transform: uppercase;" placeholder="Escriba el nombre..." readonly>
+                                @endhasrole
+
                                 @error('destinatario')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -155,11 +171,10 @@
                                 @enderror
                             </div>
 
-
-
                             <div class="form-group">
                                 <label for="telefono">Teléfono</label>
-                                <input type="text" id="telefono" wire:model.defer="telefono" class="form-control">
+                                <input type="text" id="telefono" wire:model.defer="telefono"
+                                    class="form-control">
                                 @error('telefono')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
@@ -179,11 +194,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Peso (kg)</label>
-                                <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
+
+                                @hasrole('Administrador')
+                                    <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
+                                @else
+                                    <input type="number" wire:model.defer="peso" step="0.01" class="form-control"
+                                        readonly>
+                                @endhasrole
+
                             </div>
                             @error('peso')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
+
 
                             <div class="form-group">
                                 <label>Casilla</label>
@@ -196,12 +219,23 @@
 
                             <div class="form-group">
                                 <label>Aduana</label>
-                                <select wire:model.defer="aduana" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
-                                </select>
+
+                                @hasrole('Administrador')
+                                    <select wire:model.defer="aduana" class="form-control"
+                                        style="text-transform: uppercase;">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="SI">SI</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                @else
+                                    <select wire:model.defer="aduana" class="form-control"
+                                        style="text-transform: uppercase;" disabled>
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="SI">SI</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                @endhasrole
+
                             </div>
 
 
@@ -213,14 +247,15 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button wire:click="guardar" class="btn btn-primary">
-                        {{ $paquete_id ? 'Actualizar' : 'Guardar' }}
-                    </button>
+                        <button wire:click="guardar" class="btn btn-primary">
+                            {{ $paquete_id ? 'Actualizar' : 'Guardar' }}
+                        </button>
                     <button type="button" class="btn btn-secondary" wire:click="cerrarModal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal Asignar Destino -->
     <div class="modal fade @if ($modalDestino) show d-block @endif" tabindex="-1"
         style="background: rgba(0,0,0,0.5);" role="dialog">

@@ -50,7 +50,9 @@
                 <table class="table table-striped mb-0">
                     <thead>
                         <tr>
-                            <th><input type="checkbox" wire:click="toggleSelectAll" @if($selectAll) checked @endif></th>
+                            @hasrole('Administrador')
+                                <th><input type="checkbox" wire:click="toggleSelectAll" @if($selectAll) checked @endif></th>
+                            @endhasrole
                             <th>Código</th>
                             <th>Nombre</th>
                             <th>Peso</th>
@@ -63,7 +65,9 @@
                     <tbody>
                         @forelse ($paquetes as $p)
                             <tr>
-                                <td><input type="checkbox" wire:model="selected" value="{{ $p->id }}"></td>
+                                @hasrole('Administrador')
+                                    <td><input type="checkbox" wire:model="selected" value="{{ $p->id }}"></td>
+                                @endhasrole
                                 <td>{{ $p->codigo }}</td>
                                 <td>{{ $p->destinatario }}</td>
                                 <td>{{ $p->peso }} kg</td>
@@ -81,10 +85,12 @@
                 </table>
             </div>
 
-            <button class="btn btn-success ml-2" wire:click="enviarAlmacenSeleccionados"
-                onclick="return confirm('¿Enviar los paquetes seleccionados a ALMACEN?')">
-                <i class="fas fa-warehouse"></i> Enviar a ALMACEN
-            </button>
+            @hasrole('Administrador')
+                <button class="btn btn-success ml-2" wire:click="enviarAlmacenSeleccionados"
+                    onclick="return confirm('¿Enviar los paquetes seleccionados a ALMACEN?')">
+                    <i class="fas fa-warehouse"></i> Enviar a ALMACEN
+                </button>
+            @endhasrole
 
             <div class="card-footer clearfix">
                 {{ $paquetes->links() }}

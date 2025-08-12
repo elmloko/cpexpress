@@ -21,6 +21,34 @@ Route::middleware('auth')
 Route::middleware('auth')
     ->get('/dashboard/kardex', [DashboardController::class, 'kardex'])
     ->name('dashboard.kardex');
+Route::get('/dashboard/state-stats', [DashboardController::class, 'stateStats'])
+    ->name('dashboard.stateStats')
+    ->middleware('auth');
+Route::get('/dashboard/kardex', [DashboardController::class, 'kardex'])->name('dashboard.kardex');
+
+/* Route::get('/dashboard/state-stats', [DashboardController::class, 'estadisticaEstado'])
+    ->name('dashboard.stateStats'); */
+
+Route::get('/dashboard/data/{estado}', [DashboardController::class, 'estadisticaEstado'])
+    ->name('dashboard.data');
+
+Route::get('/dashboard/state-detail', [DashboardController::class, 'detalleEstado'])
+    ->name('dashboard.stateDetail')
+    ->middleware('auth');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/data/{estado}', [DashboardController::class, 'estadisticaEstado'])->name('dashboard.data');
+Route::get('/paquetes/por-estado-fecha/{estado}/{fecha}', [DashboardController::class, 'paquetesPorEstadoFecha']);
+
+
+Route::get('/paquetes/por-estado-fecha/{estado}/{fecha}', function ($estado, $fecha) {
+    return \App\Models\Paquete::where('estado', $estado)
+        ->whereDate('created_at', $fecha)
+        ->get();
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/eventos', [EventoController::class, 'getEventos']);
@@ -87,7 +115,6 @@ Route::middleware('auth')->group(function () {
     });
 
     /* Route::get('/rezago', Rezago::class)->name('rezago'); */
-
 });
 
 require __DIR__ . '/auth.php';

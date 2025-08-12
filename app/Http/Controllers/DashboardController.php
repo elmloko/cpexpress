@@ -2,60 +2,139 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Paquete;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use PDF;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Totales por estado
         $totalPaquetes   = Paquete::count();
-        $totalEnviando   = Paquete::where('estado', 'ENVIANDO')->count();
-        $totalDespacho   = Paquete::where('estado', 'DESPACHO')->count();
         $totalRecibido   = Paquete::where('estado', 'RECIBIDO')->count();
-        $totalAlmacen    = Paquete::where('estado', 'ALMACEN')->count();
         $totalInventario = Paquete::where('estado', 'INVENTARIO')->count();
+        $totalRezago     = Paquete::where('estado', 'REZAGO')->count();
+        $totalAlmacen    = Paquete::where('estado', 'ALMACEN')->count();
+        $totalDespacho   = Paquete::where('estado', 'DESPACHO')->count();
 
-        // Datos para el gráfico de destino
-        $destinos = Paquete::select('destino', DB::raw('count(*) as total'))
+        $destinoData = Paquete::select('destino', DB::raw('count(*) as total'))
             ->groupBy('destino')
+            ->orderBy('total', 'desc')
             ->get();
-        // Convierte a dos arrays simples
-        $destinoLabels = $destinos->pluck('destino')->all();
-        $destinoTotals = $destinos->pluck('total')->all();
+
+        $destinoLabels = $destinoData->pluck('destino')->map(fn($d) => $d ?? 'N/A')->toArray();
+        $destinoTotals = $destinoData->pluck('total')->toArray();
 
         return view('dashboard', compact(
             'totalPaquetes',
-            'totalEnviando',
-            'totalDespacho',
             'totalRecibido',
-            'totalAlmacen',
             'totalInventario',
+            'totalRezago',
+            'totalAlmacen',
+            'totalDespacho',
             'destinoLabels',
             'destinoTotals'
         ));
+    }
+
+    /**
+     * Retorna JSON con labels y data (conteo por día) para un estado.
+     * Parámetros GET: state, start_date, end_date
+     */
+    public function stateStats(Request $request)
+    {
+        $allowed = ['RECIBIDO', 'INVENTARIO', 'REZAGO', 'ALMACEN', 'DESPACHO'];
+
+        $request->validate([
+            'state' => ['required', 'string'],
+            'start_date' => ['required', 'date'],
+            'end_date'   => ['required', 'date'],
+        ]);
+
+        $state = strtoupper($request->query('state'));
+        if (! in_array($state, $allowed)) {
+            return response()->json(['error' => 'Estado no permitido'], 422);
+        }
+
+        $start = Carbon::parse($request->query('start_date'))->startOfDay();
+        $end   = Carbon::parse($request->query('end_date'))->endOfDay();
+
+        // Obtener conteos agrupados por fecha (YYYY-MM-DD)
+        $rows = Paquete::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->where('estado', $state)
+            ->whereBetween('created_at', [$start, $end])
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get()
+            ->pluck('total', 'date'); // collection date => total
+
+        // Crear periodo de fechas completo para llenar ceros donde no existan datos
+        $period = CarbonPeriod::create($start->toDateString(), $end->toDateString());
+        $labels = [];
+        $data   = [];
+
+        foreach ($period as $day) {
+            $d = $day->format('Y-m-d');
+            $labels[] = $d;
+            $data[]   = (int) ($rows[$d] ?? 0);
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data'   => $data,
+            'state'  => $state,
+        ]);
+    }
+    public function estadisticaEstado($estado)
+    {
+        $data = Paquete::select(
+            DB::raw('DATE(created_at) as fecha'),
+            DB::raw('COUNT(*) as total')
+        )
+            ->where('estado', $estado)
+            ->groupBy('fecha')
+            ->orderBy('fecha')
+            ->get();
+
+        return response()->json([
+            'labels' => $data->pluck('fecha'),
+            'data'   => $data->pluck('total')
+        ]);
+    }
+
+    public function paquetesPorEstadoFecha($estado, $fecha)
+    {
+        return Paquete::where('estado', $estado)
+            ->whereDate('created_at', $fecha)
+            ->get();
     }
     public function kardex(Request $request)
     {
         $request->validate([
             'start_date' => 'required|date',
-            'end_date'   => 'required|date|after_or_equal:start_date',
+            'end_date'   => 'required|date',
         ]);
 
-        $from = $request->start_date . ' 00:00:00';
-        $to   = $request->end_date   . ' 23:59:59';
+        $start = Carbon::parse($request->start_date)->startOfDay();
+        $end   = Carbon::parse($request->end_date)->endOfDay();
 
-        $packages = Paquete::withTrashed()                     // trae también los soft-deleted
-            ->whereIn('estado', ['INVENTARIO', 'DESPACHADO'])    // filtra ambos estados
-            ->whereBetween('created_at', [$from, $to])         // rango de fechas
+        // Aquí filtramos los paquetes
+        $packages = Paquete::whereBetween('created_at', [$start, $end])
+            ->orderBy('created_at', 'asc')
             ->get();
 
-        // ya puedes pasar $packages al PDF
-        $pdf = PDF::loadView('pdf.kardex', compact('packages'));
+        // Generar el PDF usando tu plantilla pdf/kardex.blade.php
+        $pdf = Pdf::loadView('pdf.kardex', [
+            'packages'   => $packages,
+            'start_date' => $start,
+            'end_date'   => $end
+        ])->setPaper('A4', 'portrait');
 
-        return $pdf->stream("kardex_{$request->start_date}_{$request->end_date}.pdf");
+        // Descargar con nombre dinámico
+        return $pdf->download("kardex_{$start->format('Ymd')}_{$end->format('Ymd')}.pdf");
     }
 }

@@ -256,14 +256,23 @@ class Almacen extends Component
     }
     public function calcularPrecioFinal($created_at)
     {
-        $dias = Carbon::parse($created_at)->diffInDays(Carbon::now());
+        $dias = Carbon::parse($created_at)
+            ->startOfDay()
+            ->diffInDays(Carbon::now()->startOfDay());
+
 
         if ($dias <= 6) {
-            return 17;
+            $precio = 17;
         } else {
-            return 17 + (($dias - 6) * 2);
+            $precio = 17 + (($dias - 6) * 2);
         }
+
+        return (int) $precio;
     }
+
+
+
+
 
     public function diasTranscurridos($created_at)
     {

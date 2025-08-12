@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\RezagoExport;
 
+
 class Rezago extends Component
 {
     use WithPagination;
@@ -21,6 +22,7 @@ class Rezago extends Component
     public $dateTo;
     public $selectAll = false;
     public $selected = [];
+
 
     protected $paginationTheme = 'bootstrap';
 

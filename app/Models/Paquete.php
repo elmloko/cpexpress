@@ -32,6 +32,8 @@ class Paquete extends Model
         'grupo',
         'almacenaje',
         'precio_final',
+        'certificacion', // ← este estaba faltando
+
     ];
 
     protected $casts = [

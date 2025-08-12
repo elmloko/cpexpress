@@ -72,11 +72,19 @@ class Recibir extends Component
     ];
 
 
-    public function mount()
+    /* public function mount()
     {
         $this->searchInput = $this->search;
         $this->cuidad = Auth::user()->city;
         $this->ciudad = Auth::user()->city;
+    } */
+
+
+    public function mount()
+    {
+        $this->cuidad = Auth::user()->city;
+        $this->ciudad = Auth::user()->city;
+
     }
 
 
