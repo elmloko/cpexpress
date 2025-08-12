@@ -286,14 +286,14 @@
                         @enderror
                     </div>
                 </div>
-                <div class="modal-footer">
+                {{-- <div class="modal-footer">
                     <button wire:click="asignarDestino" class="btn btn-primary">
                         Guardar Destino
                     </button>
                     <button type="button" class="btn btn-secondary" wire:click="$set('modalDestino', false)">
                         Cancelar
                     </button>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -154,7 +154,7 @@ class Recibir extends Component
     }
 
 
-    public function asignarDestino()
+    /* public function asignarDestino()
     {
         $this->validateOnly('destino');
 
@@ -165,7 +165,7 @@ class Recibir extends Component
         $this->modalDestino     = false;
         $this->reset(['destino', 'paqueteDestinoId', 'searchInput', 'search']);
         $this->resetPage();
-    }
+    } */
 
     public function toggleSelectAll()
     {
@@ -319,8 +319,8 @@ class Recibir extends Component
         //dd($this->correo, $data['correo_destinatario']); // 👈 esto mostrará lo que se va a guardar
 
 
-        $iso = substr($data['codigo'], -2);
-        $data['origen'] = $this->getCountryTranslation($iso);
+        /* $iso = substr($data['codigo'], -2);
+        $data['origen'] = $this->getCountryTranslation($iso); */
 
         if ($this->paquete_id) {
             // Edición
@@ -428,7 +428,7 @@ class Recibir extends Component
         $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'peso', 'observacion']);
     } */
 
-    private function getCountryTranslation(string $iso): string
+   /*  private function getCountryTranslation(string $iso): string
     {
         $translations = [
             'AF' => 'AFGHANISTAN',
@@ -673,7 +673,7 @@ class Recibir extends Component
         $iso = strtoupper($iso);
 
         return $translations[$iso] ?? 'DESCONOCIDO';
-    }
+    } */
 
     public function render()
     {

@@ -27,7 +27,6 @@ class Almacen extends Component
     public $paquete_id;
     public $codigo;
     public $destinatario;
-    public $destino;
     public $cuidad;
     public $peso;
     public $observacion;
@@ -56,7 +55,6 @@ class Almacen extends Component
         'cuidad'       => 'nullable|string|max:50',
         'peso'         => 'nullable|numeric',
         'observacion'  => 'nullable|string|max:255',
-        'destino'      => 'required|string|max:50',
         'certificacion' => 'boolean',
         'grupo'         => 'boolean',
         'almacenaje'    => 'boolean',
@@ -101,7 +99,6 @@ class Almacen extends Component
             'destinatario',
             'estado',
             'cuidad',
-            'destino',
             'peso',
             'user',
             'observacion',
@@ -120,57 +117,52 @@ class Almacen extends Component
 
     public function guardar()
     {
-        $this->validate();
+/*         dd($this->paquete_id, $this->codigo, $this->destinatario);
+ */        $this->validate();
 
-        // 1. Datos base, incluyendo certificación
         $data = [
-            'codigo'        => strtoupper($this->codigo),
-            'destinatario'  => strtoupper($this->destinatario),
-            'cuidad'        => strtoupper($this->cuidad),
-            'peso'          => $this->peso,
-            'destino'       => $this->destino,
-            'observacion'   => strtoupper($this->observacion),
-            'certificacion' => $this->certificacion ? 1 : 0,
-            'grupo'         => $this->grupo ? 1 : 0,
-            'almacenaje'    => $this->almacenaje ? 1 : 0,
-            'estado'        => 'ALMACEN',
-            'user'          => Auth::user()->name,
-            'casilla'         => $this->casilla,
-            'aduana'       => strtoupper($this->aduana),
-            'correo_destinatario'       => $this->correo_destinatario,
+            'codigo'       => strtoupper($this->codigo),
+            'destinatario' => strtoupper($this->destinatario),
+            'cuidad'       => strtoupper($this->cuidad),
+            'direccion_paquete' => strtoupper($this->direccion_paquete),
             'telefono'     => $this->telefono,
-            'direccion_paquete'    => strtoupper($this->direccion_paquete),
-
+            'correo_destinatario' => $this->correo_destinatario,
+            'aduana'       => strtoupper($this->aduana),
+            'peso'         => $this->peso,
+            'casilla'      => $this->casilla,
+            'observacion'  => strtoupper($this->observacion),
+            'grupo'        => $this->grupo ? 1 : 0,
+            'almacenaje'   => $this->almacenaje ? 1 : 0,
+            'cantidad'     => '1',
         ];
 
-        // 2. Crear o actualizar el paquete
-        $paquete = Paquete::updateOrCreate(
-            ['id' => $this->paquete_id],
-            $data
-        );
+        if ($this->paquete_id) {
+            // Actualizar paquete existente
+            $paquete = Paquete::find($this->paquete_id);
+            if (!$paquete) {
+                session()->flash('message', 'Paquete no encontrado para actualizar.');
+                return;
+            }
+            $paquete->update($data);
+        } else {
+            // Crear nuevo paquete
+            $paquete = Paquete::create($data);
+        }
 
-        // 3. Cálculo de precio basado en Empresa, Peso, Destino y Certificación
         $precio = 0;
 
-        // 3.1. Buscar la empresa (nombres en mayúsculas)
-        $empresaModel = Empresa::whereRaw(
-            'UPPER(nombre) = ?',
-            [strtoupper($paquete->destinatario)]
-        )->first();
+        $empresaModel = Empresa::whereRaw('UPPER(nombre) = ?', [strtoupper($paquete->destinatario)])->first();
 
-        // 3.2. Categoría de peso
         $pesoCat = Peso::where('min', '<=', $paquete->peso)
             ->where('max', '>=', $paquete->peso)
             ->first();
 
         if ($empresaModel && $pesoCat) {
-            // 3.3. Obtener la tarifa correspondiente
             $tarifa = Tarifario::where('empresa', $empresaModel->id)
                 ->where('peso', $pesoCat->id)
                 ->first();
 
             if ($tarifa) {
-                // 3.4. Columna según destino (asegúrate de tener el campo 'destino' en tu tabla)
                 $col = strtolower($paquete->destino);
                 if (isset($tarifa->$col)) {
                     $precio = $tarifa->$col;
@@ -178,42 +170,45 @@ class Almacen extends Component
             }
         }
 
-        // 3.5. Agregar cargo de certificación si aplica
-        /*  if ($paquete->certificacion) {
-            $precio += 8;
-        } */
-
         if ($paquete->almacenaje) {
             $precio += 15;
         }
 
         $multiplier = $paquete->grupo ? $paquete->cantidad : 1;
 
-        // 5) Cálculo final
         $total = $precio * $multiplier;
 
-        // 4. Actualizar el precio en el modelo
         $paquete->update(['total' => $total]);
 
-        // 5. Registrar el evento
         Evento::create([
-            'accion'      => 'EDICION',
-            'descripcion' => 'Paquete editado y precio recalculado',
+            'accion'      => $this->paquete_id ? 'EDICION' : 'CREACION',
+            'descripcion' => $this->paquete_id
+                ? 'Paquete editado y precio recalculado'
+                : 'Paquete creado e ingresado a inventario',
             'user_id'     => Auth::user()->name,
             'codigo'      => $data['codigo'],
         ]);
 
-        // 6. Mensaje y cierre de modal
-        session()->flash(
-            'message',
-            $this->paquete_id
-                ? 'Paquete actualizado en Inventario.'
-                : 'Paquete agregado a Inventario.'
-        );
+        session()->flash('message', $this->paquete_id
+            ? 'Paquete actualizado en Inventario.'
+            : 'Paquete agregado a Inventario.');
 
         $this->cerrarModal();
-    }
 
+        $this->reset([
+            'paquete_id',
+            'codigo',
+            'destinatario',
+            'cuidad',
+            'direccion_paquete',
+            'telefono',
+            'correo_destinatario',
+            'peso',
+            'casilla',
+            'observacion',
+            'aduana'
+        ]);
+    }
 
     public function editar($id)
     {
@@ -223,7 +218,6 @@ class Almacen extends Component
         $this->paquete_id   = $p->id;
         $this->codigo       = $p->codigo;
         $this->destinatario = $p->destinatario;
-        $this->destino       = $p->destino;
         $this->cuidad       = $p->cuidad;
         $this->peso         = $p->peso;
         $this->observacion  = $p->observacion;
@@ -254,12 +248,12 @@ class Almacen extends Component
             $this->selected = [];
         }
     }
+
     public function calcularPrecioFinal($created_at)
     {
         $dias = Carbon::parse($created_at)
             ->startOfDay()
             ->diffInDays(Carbon::now()->startOfDay());
-
 
         if ($dias <= 6) {
             $precio = 17;
@@ -269,10 +263,6 @@ class Almacen extends Component
 
         return (int) $precio;
     }
-
-
-
-
 
     public function diasTranscurridos($created_at)
     {
@@ -314,8 +304,6 @@ class Almacen extends Component
         }
     }
 
-
-
     public function darBajaSeleccionados()
     {
         if (empty($this->selected)) {
@@ -344,21 +332,17 @@ class Almacen extends Component
                 }
             }
 
-            // ✅ Calcular días desde la creación
             $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
 
-            // ✅ Calcular precio_final
             if ($dias <= 6) {
                 $precioFinal = 17;
             } else {
                 $precioFinal = 17 + (($dias - 6) * 2);
             }
 
-            // ✅ Calcular total general (por si se sigue usando)
             $mult = $p->grupo ? $p->cantidad : 1;
             $total = ($unit * $mult) + $precioFinal;
 
-            // ✅ Guardar en la base de datos
             $p->update([
                 'total'        => $total,
                 'precio_final' => $precioFinal,
@@ -387,7 +371,6 @@ class Almacen extends Component
         );
     }
 
-
     public function render()
     {
         $empresas = Empresa::orderBy('nombre')->get();
@@ -403,7 +386,6 @@ class Almacen extends Component
             ->paginate(10);
 
         $empresas = Empresa::orderBy('nombre')->get();
-
 
         return view('livewire.almacen', compact('paquetes', 'empresas'));
     }

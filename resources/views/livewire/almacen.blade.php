@@ -103,6 +103,7 @@
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
 
+
                                     <button class="btn btn-sm btn-danger"
                                         wire:click="enviarARezago({{ $p->id }})">
                                         <i class="fas fa-clock"></i> Rezago
