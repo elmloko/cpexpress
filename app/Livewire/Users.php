@@ -57,13 +57,30 @@ class Users extends Component
         $this->dispatch('closeModal');
     }
 
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        session()->flash('success', 'Usuario dado de baja correctamente.');
+    }
+
+    public function restore($id)
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
+
+        return redirect()->route('users.index')
+            ->with('success', 'Usuario reactivado correctamente');
+    }
+
     public function render()
     {
         // Obtener los usuarios con paginación y filtrados por el campo de búsqueda
         $users = User::withTrashed()
             ->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->searchQuery . '%')
-                      ->orWhere('email', 'like', '%' . $this->searchQuery . '%');
+                    ->orWhere('email', 'like', '%' . $this->searchQuery . '%');
             })
             ->paginate(10);
 

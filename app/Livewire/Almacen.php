@@ -190,7 +190,7 @@ class Almacen extends Component
         ]);
 
         session()->flash('message', $this->paquete_id
-            ? 'Paquete actualizado en Inventario.'
+            ? 'Paquete actualizado en Almacen.'
             : 'Paquete agregado a Inventario.');
 
         $this->cerrarModal();

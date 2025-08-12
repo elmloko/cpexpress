@@ -63,7 +63,7 @@
                             <th>Nombre</th>
                             <th>Peso</th>
                             {{-- <th>Tarifa</th> --}}
-                            <th>Precio</th>
+                            <th>Precio base</th>
                             <th>Precio final</th>
                             <th>Dias transcurridos</th>
                             <th>Telefono</th>
@@ -143,23 +143,26 @@
                     <div class="row">
                         <!-- Columna izquierda -->
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Código</label>
-                                <input type="text" wire:model.defer="codigo" class="form-control"
-                                    style="text-transform: uppercase;">
-                                @error('codigo')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" wire:model.defer="destinatario" class="form-control"
-                                    style="text-transform: uppercase;" placeholder="Escriba el nombre...">
-                                @error('destinatario')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
 
+                            @hasrole('Administrador')
+                                <div class="form-group">
+                                    <label>Código</label>
+                                    <input type="text" wire:model.defer="codigo" class="form-control"
+                                        style="text-transform: uppercase;">
+                                    @error('codigo')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nombre</label>
+                                    <input type="text" wire:model.defer="destinatario" class="form-control"
+                                        style="text-transform: uppercase;" placeholder="Escriba el nombre...">
+                                    @error('destinatario')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            @endhasrole
 
                             <div class="form-group">
                                 <label>Direccion</label>
@@ -169,8 +172,6 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
-
 
                             <div class="form-group">
                                 <label for="telefono">Teléfono</label>
@@ -188,17 +189,20 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-
                         </div>
+
                         <!-- Columna derecha -->
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Peso (kg)</label>
-                                <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
-                            </div>
-                            @error('peso')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
+
+                            @hasrole('Administrador')
+                                <div class="form-group">
+                                    <label>Peso (kg)</label>
+                                    <input type="number" wire:model.defer="peso" step="0.01" class="form-control">
+                                </div>
+                                @error('peso')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            @endhasrole
 
                             <div class="form-group">
                                 <label>Casilla</label>
@@ -209,22 +213,24 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group">
-                                <label>Aduana</label>
-                                <select wire:model.defer="aduana" class="form-control"
-                                    style="text-transform: uppercase;">
-                                    <option value="">SELECCIONE...</option>
-                                    <option value="SI">SI</option>
-                                    <option value="NO">NO</option>
-                                </select>
-                            </div>
-
+                            @hasrole('Administrador')
+                                <div class="form-group">
+                                    <label>Aduana</label>
+                                    <select wire:model.defer="aduana" class="form-control"
+                                        style="text-transform: uppercase;">
+                                        <option value="">SELECCIONE...</option>
+                                        <option value="SI">SI</option>
+                                        <option value="NO">NO</option>
+                                    </select>
+                                </div>
+                            @endhasrole
 
                             <div class="form-group">
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <div class="modal-footer">

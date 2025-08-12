@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $user = new User();
         $roles = Role::all();
-        return view('user.create', compact('user','roles'));
+        return view('user.create', compact('user', 'roles'));
     }
 
     public function store(Request $request)
@@ -34,7 +34,7 @@ class UserController extends Controller
             'city' => 'required',
             'ci' => 'required',
         ]);
-    
+
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -44,8 +44,8 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->assignRole($request->input('roles'));
-        
+        $user->assignRole('cartero');
+
         return redirect()->route('users.index')
             ->with('success', 'Usuario creado correctamente');
     }
@@ -62,7 +62,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::all();
 
-        return view('user.edit', compact('user','roles'));
+        return view('user.edit', compact('user', 'roles'));
     }
 
     public function update(Request $request, User $user)
@@ -79,21 +79,24 @@ class UserController extends Controller
         $user->roles()->sync($request->roles);
         $user->city = $request->input('city');
         $user->ci = $request->input('ci');
-        
+
         $user->save();
 
         return redirect()->route('users.index')
             ->with('success', 'Usuario actualizado correctamente');
     }
 
-    public function destroy($id)
+
+
+    //esto va en users.php
+    public function delete($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')
-            ->with('success', 'Usuario dado de baja correctamente');
+        session()->flash('success', 'Usuario dado de baja correctamente.');
     }
+
 
     public function restore($id)
     {
