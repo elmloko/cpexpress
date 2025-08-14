@@ -84,19 +84,19 @@
     </table>
     @php
         // ¿Algún paquete tiene PDA no vacío?
-        $showPDA = $packages->filter(fn($p) => !empty($p->pda))->isNotEmpty();
-
+        /*         $showPDA = $packages->filter(fn($p) => !empty($p->pda))->isNotEmpty();
+         */
         // ¿Algún paquete tiene almacenaje == 1?
-        $showAlmacen = $packages->filter(fn($p) => $p->almacenaje == 1)->isNotEmpty();
-
+        /*         $showAlmacen = $packages->filter(fn($p) => $p->almacenaje == 1)->isNotEmpty();
+         */
         // ¿Algún paquete tiene certificación == 1?
-        $showCert = $packages->filter(fn($p) => $p->certificacion == 1)->isNotEmpty();
-
+        /*         $showCert = $packages->filter(fn($p) => $p->certificacion == 1)->isNotEmpty();
+         */
         // Para el footer: calcula cuántas columnas hay antes de “Precio Total”
         // (sin contar “PDA”, “Almac.” y “Certif.”)
-        $staticCols = 9;
+        $staticCols = 7;
         // Total columnas antes del “Precio Total” = columnas fijas + las dinámicas mostradas
-        $colspan = $staticCols + ($showPDA ? 1 : 0) + ($showAlmacen ? 1 : 0) + ($showCert ? 1 : 0) - 1; // restamos 1 para dejar la última celda del precio
+        $colspan = $staticCols -1;/*+  ($showAlmacen ? 1 : 0) */ /* + ($showCert ? 1 : 0) - 1 */ // restamos 1 para dejar la última celda del precio
     @endphp
     <table class="first-table">
         <thead>
@@ -105,20 +105,20 @@
                 <th>Cantidad</th>
                 <th>Código</th>
                 <th>Destinatario</th>
-                @if ($showPDA)
+                {{-- @if ($showPDA)
                     <th>PDA</th>
-                @endif
+                @endif --}}
                 <th>Peso Neto (kg)</th>
-                <th>Origen</th>
+                {{-- <th>Origen</th> --}}
                 <th>Destino</th>
-                <th>Tarifa</th>
-                @if ($showAlmacen)
+                {{-- <th>Tarifa</th> --}}
+                {{-- @if ($showAlmacen)
                     <th>Almac.</th>
                 @endif
                 @if ($showCert)
                     <th>Certif.</th>
-                @endif
-                <th>Precio Total (Bs)</th>
+                @endif --}}
+                <th>Precio (Bs)</th>
             </tr>
         </thead>
         <tbody>
@@ -128,28 +128,28 @@
                     <td>{{ $pkg->cantidad }}</td>
                     <td>{{ $pkg->codigo }}</td>
                     <td>{{ $pkg->destinatario }}</td>
-                    @if ($showPDA)
+                    {{-- @if ($showPDA)
                         <td>{{ $pkg->pda }}</td>
-                    @endif
+                    @endif --}}
                     <td>{{ number_format($pkg->peso, 2) }}</td>
-                    <td>{{ $pkg->origen }}</td>
+                    {{--   <td>{{ $pkg->origen }}</td> --}}
                     <td>{{ $pkg->cuidad }}</td>
-                    <td>{{ strtoupper($pkg->destino) }}</td>
-                    @if ($showAlmacen)
+                    {{--     --}}
+                    {{-- @if ($showAlmacen)
                         <td>
                             @if ($pkg->almacenaje == 1)
                                 {{ number_format(15, 2, '.', '') }}
                             @endif
                         </td>
-                    @endif
+                    @endif --}}
 
-                    @if ($showCert)
+                    {{-- @if ($showCert)
                         <td>
                             @if ($pkg->certificacion == 1)
                                 {{ number_format(8, 2, '.', '') }}
                             @endif
                         </td>
-                    @endif
+                    @endif --}}
                     <td>{{ number_format((int) $pkg->precio_final, 2, '.', '') }}</td>
                 </tr>
             @endforeach

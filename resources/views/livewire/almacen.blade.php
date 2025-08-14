@@ -121,7 +121,7 @@
                 </table>
             </div>
             <button class="btn btn-danger ml-2" wire:click="darBajaSeleccionados"
-                onclick="return confirm('¿Estás seguro de eliminar los paquetes seleccionados?')">
+                onclick="return confirm('¿Estás seguro de Dar de baja los paquetes seleccionados?')">
                 <i class="fas fa-box-open"></i> Dar de baja
             </button>
             <div class="card-footer clearfix">

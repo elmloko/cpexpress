@@ -11,8 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles, SoftDeletes;
-
+    use HasFactory, Notifiable, HasRoles, SoftDeletes, HasApiTokens;
     public function adminlte_image()
     {
         return 'https://picsum.photos/300/300';
