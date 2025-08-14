@@ -100,7 +100,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="text-center">No hay resultados.</td>
+                                <td colspan="9" class="text-center">No hay resultados.</td>
                             </tr>
                         @endforelse
                     </tbody>

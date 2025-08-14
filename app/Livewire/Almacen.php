@@ -4,9 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Paquete;
 use App\Models\Evento;
-use App\Models\Empresa;
-use App\Models\Peso;
-use App\Models\Tarifario;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
@@ -34,9 +31,6 @@ class Almacen extends Component
 
     // checkbox
     public $selectAll = false;
-    public $certificacion = false;
-    public $grupo = false;
-    public $almacenaje = false;
     public $selected = [];
     public $cantidad = 1;
 
@@ -55,13 +49,10 @@ class Almacen extends Component
         'cuidad'       => 'nullable|string|max:50',
         'peso'         => 'nullable|numeric',
         'observacion'  => 'nullable|string|max:255',
-        'certificacion' => 'boolean',
-        'grupo'         => 'boolean',
-        'almacenaje'    => 'boolean',
-        'cantidad'    => 'required|integer|min:1',
+        'cantidad'     => 'required|integer|min:1',
         'direccion_paquete'  => 'required|string|max:99',
         'telefono'           => 'nullable|string|max:25',
-        'correo_destinatario'             => 'nullable|string|max:60',
+        'correo_destinatario' => 'nullable|string|max:60',
         'casilla'            => 'nullable|numeric',
         'aduana'             => 'required|string|in:SI,NO',
     ];
@@ -69,7 +60,6 @@ class Almacen extends Component
     public function mount()
     {
         $this->searchInput = $this->search;
-        // Por defecto, rango: primeros y últimos días del mes actual
         $this->dateFrom = Carbon::now()->startOfMonth()->toDateString();
         $this->dateTo   = Carbon::now()->endOfMonth()->toDateString();
     }
@@ -97,14 +87,9 @@ class Almacen extends Component
             'paquete_id',
             'codigo',
             'destinatario',
-            'estado',
             'cuidad',
             'peso',
-            'user',
             'observacion',
-            'grupo',
-            'certificacion',
-            'almacenaje',
             'cantidad',
         ]);
         $this->modal = true;
@@ -117,8 +102,7 @@ class Almacen extends Component
 
     public function guardar()
     {
-/*         dd($this->paquete_id, $this->codigo, $this->destinatario);
- */        $this->validate();
+        $this->validate();
 
         $data = [
             'codigo'       => strtoupper($this->codigo),
@@ -131,13 +115,10 @@ class Almacen extends Component
             'peso'         => $this->peso,
             'casilla'      => $this->casilla,
             'observacion'  => strtoupper($this->observacion),
-            'grupo'        => $this->grupo ? 1 : 0,
-            'almacenaje'   => $this->almacenaje ? 1 : 0,
-            'cantidad'     => '1',
+            'cantidad'     => $this->cantidad,
         ];
 
         if ($this->paquete_id) {
-            // Actualizar paquete existente
             $paquete = Paquete::find($this->paquete_id);
             if (!$paquete) {
                 session()->flash('message', 'Paquete no encontrado para actualizar.');
@@ -145,45 +126,13 @@ class Almacen extends Component
             }
             $paquete->update($data);
         } else {
-            // Crear nuevo paquete
-            $paquete = Paquete::create($data);
+            Paquete::create($data);
         }
-
-        $precio = 0;
-
-        $empresaModel = Empresa::whereRaw('UPPER(nombre) = ?', [strtoupper($paquete->destinatario)])->first();
-
-        $pesoCat = Peso::where('min', '<=', $paquete->peso)
-            ->where('max', '>=', $paquete->peso)
-            ->first();
-
-        if ($empresaModel && $pesoCat) {
-            $tarifa = Tarifario::where('empresa', $empresaModel->id)
-                ->where('peso', $pesoCat->id)
-                ->first();
-
-            if ($tarifa) {
-                $col = strtolower($paquete->destino);
-                if (isset($tarifa->$col)) {
-                    $precio = $tarifa->$col;
-                }
-            }
-        }
-
-        if ($paquete->almacenaje) {
-            $precio += 15;
-        }
-
-        $multiplier = $paquete->grupo ? $paquete->cantidad : 1;
-
-        $total = $precio * $multiplier;
-
-        $paquete->update(['total' => $total]);
 
         Evento::create([
             'accion'      => $this->paquete_id ? 'EDICION' : 'CREACION',
             'descripcion' => $this->paquete_id
-                ? 'Paquete editado y precio recalculado'
+                ? 'Paquete editado'
                 : 'Paquete creado e ingresado a inventario',
             'user_id'     => Auth::user()->name,
             'codigo'      => $data['codigo'],
@@ -212,7 +161,6 @@ class Almacen extends Component
 
     public function editar($id)
     {
-        // Incluimos también los soft-deleted
         $p = Paquete::withTrashed()->findOrFail($id);
 
         $this->paquete_id   = $p->id;
@@ -222,19 +170,17 @@ class Almacen extends Component
         $this->peso         = $p->peso;
         $this->observacion  = $p->observacion;
         $this->modal        = true;
-        $this->certificacion = (bool) $p->certificacion;
-        $this->grupo         = (bool) $p->grupo;
-        $this->almacenaje   = (bool) $p->almacenaje;
         $this->direccion_paquete     = $p->direccion_paquete;
         $this->telefono      = $p->telefono;
-        $this->correo_destinatario      = $p->correo_destinatario;
-        $this->aduana       = $p->aduana;
-        $this->casilla        = $p->casilla;
+        $this->correo_destinatario = $p->correo_destinatario;
+        $this->aduana        = $p->aduana;
+        $this->casilla       = $p->casilla;
+        $this->cantidad      = $p->cantidad;
     }
 
     public function toggleSelectAll()
     {
-        $this->selectAll = ! $this->selectAll;
+        $this->selectAll = !$this->selectAll;
 
         if ($this->selectAll) {
             $this->selected = Paquete::where('estado', 'ALMACEN')
@@ -313,45 +259,22 @@ class Almacen extends Component
 
         $packages = Paquete::whereIn('id', $this->selected)->get();
 
+        // Calcular precio_final
         foreach ($packages as $p) {
-            $empresa = Empresa::whereRaw('UPPER(nombre)=?', [strtoupper($p->destinatario)])->first();
-            $pesoCat = Peso::where('min', '<=', $p->peso)
-                ->where('max', '>=', $p->peso)
-                ->first();
-
-            $unit = 0;
-
-            if ($empresa && $pesoCat) {
-                $tarifa = Tarifario::where('empresa', $empresa->id)
-                    ->where('peso', $pesoCat->id)
-                    ->first();
-
-                $col = strtolower($p->destino);
-                if ($tarifa && isset($tarifa->$col)) {
-                    $unit = $tarifa->$col;
-                }
-            }
-
             $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
 
-            if ($dias <= 6) {
-                $precioFinal = 17;
-            } else {
-                $precioFinal = 17 + (($dias - 6) * 2);
-            }
-
-            $mult = $p->grupo ? $p->cantidad : 1;
-            $total = ($unit * $mult) + $precioFinal;
+            $precioFinal = $dias <= 6 ? 17 : 17 + (($dias - 6) * 2);
 
             $p->update([
-                'total'        => $total,
                 'precio_final' => $precioFinal,
             ]);
         }
 
+        // Cambiar estado y eliminar paquetes
         Paquete::whereIn('id', $this->selected)->update(['estado' => 'INVENTARIO']);
         Paquete::whereIn('id', $this->selected)->delete();
 
+        // Crear eventos
         foreach ($packages as $pkg) {
             Evento::create([
                 'accion'      => 'ENTREGADO',
@@ -364,17 +287,26 @@ class Almacen extends Component
         $this->selected  = [];
         $this->selectAll = false;
 
-        $pdf = PDF::loadView('pdf.despacho', ['packages' => $packages]);
+        // Duplicar paquetes con aduana = 'SI' para PDF
+        $packagesDuplicados = collect();
+        foreach ($packages as $p) {
+            $packagesDuplicados->push($p); // siempre agregamos el paquete
+            if (strtoupper($p->aduana) === 'SI') {
+                $packagesDuplicados->push($p); // duplicamos
+            }
+        }
+
+        $formulario = 'pdf.formularioentrega'; // siempre usamos la misma vista
+        $pdf = PDF::loadView($formulario, ['packages' => $packagesDuplicados]);
+
         return response()->streamDownload(
             fn() => print($pdf->output()),
-            'despacho_' . now()->format('Ymd_His') . '.pdf'
+            'Despacho_Encomiendas_' . now()->format('Ymd_His') . '.pdf'
         );
     }
 
     public function render()
     {
-        $empresas = Empresa::orderBy('nombre')->get();
-
         $paquetes = Paquete::where('estado', 'ALMACEN')
             ->where(
                 fn($q) =>
@@ -385,8 +317,6 @@ class Almacen extends Component
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        $empresas = Empresa::orderBy('nombre')->get();
-
-        return view('livewire.almacen', compact('paquetes', 'empresas'));
+        return view('livewire.almacen', compact('paquetes'));
     }
 }

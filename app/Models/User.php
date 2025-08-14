@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, SoftDeletes, HasApiTokens;
+    
     public function adminlte_image()
     {
         return 'https://picsum.photos/300/300';
@@ -21,7 +22,7 @@ class User extends Authenticatable
         // Recupera el nombre del rol del usuario actual
         return $this->getRoleNames()->implode(', ');
     }
-    
+
     public function adminlte_profile_url()
     {
         return 'profile/username';

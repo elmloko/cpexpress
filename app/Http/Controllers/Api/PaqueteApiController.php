@@ -21,7 +21,33 @@ class PaqueteApiController extends Controller
     {
         $paquetes = Paquete::withTrashed()
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->get()
+            ->map(function ($p) {
+                return [
+                    'id'                => $p->id,
+                    'codigo'            => $p->codigo,
+                    'destinatario'      => $p->destinatario,
+                    'estado'            => $p->estado,
+                    'cuidad'            => $p->cuidad,
+                    'peso'              => $p->peso,
+                    'precio'            => $p->precio,
+                    'destino'           => $p->destino,
+                    'user'              => $p->user,
+                    'observacion'       => $p->observacion,
+                    'photo'             => $p->photo,
+                    'cantidad'          => $p->cantidad,
+                    'created_at'        => Carbon::parse($p->created_at)->format('d-m-Y H:i:s'),
+                    'updated_at'        => Carbon::parse($p->updated_at)->format('d-m-Y H:i:s'),
+                    'deleted_at'        => $p->deleted_at ? Carbon::parse($p->deleted_at)->format('d-m-Y H:i:s') : null,
+                    'aduana'            => $p->aduana,
+                    'direccion_paquete' => $p->direccion_paquete,
+                    'telefono'          => $p->telefono,
+                    'correo_destinatario' => $p->correo_destinatario,
+                    'casilla'           => $p->casilla,
+                    'precio_final'      => $p->precio_final,
+                    'notificado'        => $p->notificado,
+                ];
+            });
 
         return response()->json([
             'status' => 'success',
@@ -29,15 +55,22 @@ class PaqueteApiController extends Controller
         ]);
     }
 
+
+
     public function darBaja(Request $request)
     {
-        $ids = $request->input('ids');
+        $codigos = $request->input('codigos'); // Recibimos los códigos
 
-        if (empty($ids) || !is_array($ids)) {
-            return response()->json(['message' => 'No se enviaron paquetes válidos'], 400);
+        if (empty($codigos) || !is_array($codigos)) {
+            return response()->json(['message' => 'No se enviaron códigos válidos'], 400);
         }
 
-        $packages = Paquete::whereIn('id', $ids)->get();
+        // Buscamos los paquetes por código
+        $packages = Paquete::whereIn('codigo', $codigos)->get();
+
+        if ($packages->isEmpty()) {
+            return response()->json(['message' => 'No se encontraron paquetes con esos códigos'], 404);
+        }
 
         foreach ($packages as $p) {
             $empresa = Empresa::whereRaw('UPPER(nombre)=?', [strtoupper($p->destinatario)])->first();
@@ -59,7 +92,6 @@ class PaqueteApiController extends Controller
             }
 
             $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
-
             $precioFinal = $dias <= 6 ? 17 : 17 + (($dias - 6) * 2);
             $mult = $p->grupo ? $p->cantidad : 1;
             $total = ($unit * $mult) + $precioFinal;
@@ -75,7 +107,7 @@ class PaqueteApiController extends Controller
             Evento::create([
                 'accion'      => 'ENTREGADO',
                 'descripcion' => 'Paquete Entregado',
-                'user_id'     => auth()->check() ? auth()->user()->name : 'API',
+                'user_id'     => optional(auth('sanctum')->user())->name ?? 'API',
                 'codigo'      => $p->codigo,
             ]);
         }

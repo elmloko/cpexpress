@@ -114,7 +114,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">No hay resultados.</td>
+                                <td colspan="11" class="text-center">No hay resultados.</td>
                             </tr>
                         @endforelse
                     </tbody>
