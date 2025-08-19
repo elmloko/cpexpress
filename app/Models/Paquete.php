@@ -24,6 +24,7 @@ class Paquete extends Model
         'destino',
         'aduana',
         'peso',
+        'factura',
         'casilla',
         'user',
         'observacion',

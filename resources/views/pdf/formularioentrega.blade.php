@@ -89,7 +89,7 @@
                         <td>
                             <br>
                             <br>
-                            <p class="small-text"><strong>Nro. Factura:</strong> {{ $package->id }}</p>
+                            <p class="small-text"><strong>Nro. Factura:</strong> {{ $package->factura }}</p>
                             <p class="small-text"><strong>Usuario:</strong> {{ $package->user ?? auth()->user()->name }}
                             </p>
                             <p class="small-text"><strong>Tipo:</strong> {{ $package->tipo ?? 'N/A' }}</p>

@@ -23,7 +23,7 @@ class AlmacenExport implements FromQuery, WithHeadings
     public function query()
     {
         return Paquete::query()
-            ->select('codigo','destinatario','peso','estado','cuidad','observacion','created_at')
+            ->select('codigo','destinatario','peso','estado','cuidad','observacion','created_at','factura')
             ->where('estado', 'ALMACEN')
             ->where(function($q){
                 $q->where('codigo', 'like', "%{$this->search}%")
@@ -38,7 +38,7 @@ class AlmacenExport implements FromQuery, WithHeadings
     {
         return [
             'Código', 'Empresa', 'Peso (kg)',
-            'Estado', 'Ciudad', 'Observaciones', 'Fecha Registro'
+            'Estado', 'Ciudad', 'Observaciones', 'Fecha Registro','factura'
         ];
     }
 }

@@ -9,47 +9,42 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleHasPermissionController;
 use App\Http\Controllers\DashboardController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::middleware('auth')
-    ->get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
-Route::middleware('auth')
-    ->get('/dashboard/kardex', [DashboardController::class, 'kardex'])
-    ->name('dashboard.kardex');
-Route::get('/dashboard/state-stats', [DashboardController::class, 'stateStats'])
-    ->name('dashboard.stateStats')
-    ->middleware('auth');
-Route::get('/dashboard/kardex', [DashboardController::class, 'kardex'])->name('dashboard.kardex');
+// ---------------------------
+// Dashboard y Kardex
+// ---------------------------
+Route::middleware('auth')->group(function () {
 
-/* Route::get('/dashboard/state-stats', [DashboardController::class, 'estadisticaEstado'])
-    ->name('dashboard.stateStats'); */
+    // Dashboard principal
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard/data/{estado}', [DashboardController::class, 'estadisticaEstado'])
-    ->name('dashboard.data');
+    // Kardex para todos los usuarios (solo hoy)
+    Route::get('/dashboard/kardex/todos', [DashboardController::class, 'exportKardexTodos'])
+        ->name('dashboard.kardex.todos');
 
-Route::get('/dashboard/state-detail', [DashboardController::class, 'detalleEstado'])
-    ->name('dashboard.stateDetail')
-    ->middleware('auth');
+    // Kardex para administradores (rango de fechas)
+    Route::get('/dashboard/kardex/admin', [DashboardController::class, 'exportKardexAdmin'])
+        ->middleware('role:Administrador') // opcional, solo administradores
+        ->name('dashboard.kardex.admin');
 
+    // Estadísticas por estado (AJAX)
+    Route::get('/dashboard/state-stats', [DashboardController::class, 'stateStats'])->name('dashboard.stateStats');
+    Route::get('/dashboard/state-detail', [DashboardController::class, 'detalleEstado'])->name('dashboard.stateDetail');
+    Route::get('/dashboard/data/{estado}', [DashboardController::class, 'estadisticaEstado'])->name('dashboard.data');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/dashboard/data/{estado}', [DashboardController::class, 'estadisticaEstado'])->name('dashboard.data');
-Route::get('/paquetes/por-estado-fecha/{estado}/{fecha}', [DashboardController::class, 'paquetesPorEstadoFecha']);
-
-
-Route::get('/paquetes/por-estado-fecha/{estado}/{fecha}', function ($estado, $fecha) {
-    return \App\Models\Paquete::where('estado', $estado)
-        ->whereDate('created_at', $fecha)
-        ->get();
+    // Paquetes por estado y fecha
+    Route::get('/paquetes/por-estado-fecha/{estado}/{fecha}', [DashboardController::class, 'paquetesPorEstadoFecha']);
 });
 
-
-
+// ---------------------------
+// Eventos y Paquetes
+// ---------------------------
 Route::middleware('auth')->group(function () {
     Route::get('/eventos', [EventoController::class, 'getEventos']);
 
@@ -63,58 +58,56 @@ Route::middleware('auth')->group(function () {
     Route::get('/tarifa', [TarifaController::class, 'getTarifas']);
     Route::get('/peso', [TarifaController::class, 'getPesos']);
     Route::get('/empresa', [TarifaController::class, 'getEmpresas']);
+});
 
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+// ---------------------------
+// Usuarios
+// ---------------------------
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class);
     Route::get('users/{id}/delete', [UserController::class, 'delete'])->name('users.delete');
     Route::post('users/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
     Route::put('utest/{id}/restoring', [UserController::class, 'restoring'])->name('users.restoring');
     Route::get('users/excel', [UserController::class, 'excel'])->name('users.excel');
     Route::get('users/pdf', [UserController::class, 'pdf'])->name('users.pdf');
-    Route::put('users/{user}', [UserController::class, 'update'])->name('users.update');
+});
 
-    //Roles
-    Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
-    Route::get('/role/create', [RoleController::class, 'create'])->name('roles.create');
-    // Route::get('/role/{role}', [RoleController::class, 'show'])->name('roles.show');
-    Route::post('/role', [RoleController::class, 'store'])->name('roles.store');
-    Route::get('/role/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
-    Route::put('/role/{role}', [RoleController::class, 'update'])->name('roles.update');
-    Route::delete('/role/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+// ---------------------------
+// Roles
+// ---------------------------
+Route::middleware('auth')->group(function () {
+    Route::resource('roles', RoleController::class)->except(['show']);
+});
 
-    //Permisos
-    Route::get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
-    Route::get('/permission/create', [PermissionController::class, 'create'])->name('permissions.create');
-    // Route::get('/permission/{permission}', [PermissionController::class, 'show'])->name('permissions.show');
-    Route::post('/permission', [PermissionController::class, 'store'])->name('permissions.store');
-    Route::get('/permission/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
-    Route::put('/permission/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
-    Route::delete('/permission/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+// ---------------------------
+// Permisos
+// ---------------------------
+Route::middleware('auth')->group(function () {
+    Route::resource('permissions', PermissionController::class)->except(['show']);
+});
 
-    //Accesos
-    Route::get('/role-has-permissions', [RoleHasPermissionController::class, 'index'])->name('role-has-permissions.index');
-    Route::get('/role-has-permission/create', [RoleHasPermissionController::class, 'create'])->name('role-has-permissions.create');
-    // Route::get('/role-has-permission/{roleHasPermission}', [RoleHasPermissionController::class, 'show'])->name('role-has-permissions.show');
-    Route::post('/role-has-permission', [RoleHasPermissionController::class, 'store'])->name('role-has-permissions.store');
-    Route::get('/role-has-permission/{roleHasPermission}/edit', [RoleHasPermissionController::class, 'edit'])->name('role-has-permissions.edit');
-    Route::put('/role-has-permission/{roleHasPermission', [RoleHasPermissionController::class, 'update'])->name('role-has-permissions.update');
-    Route::delete('/role-has-permission/{roleHasPermission}', [RoleHasPermissionController::class, 'destroy'])->name('role-has-permissions.destroy');
+// ---------------------------
+// Role Has Permission
+// ---------------------------
+Route::middleware('auth')->group(function () {
+    Route::resource('role-has-permissions', RoleHasPermissionController::class)
+        ->except(['show']);
+});
 
-
+// ---------------------------
+// Perfil
+// ---------------------------
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-    Route::get('/Rezago', function () {
-        return view('rezago.index');
-    });
-
-    /* Route::get('/rezago', Rezago::class)->name('rezago'); */
+// ---------------------------
+// Vistas especiales
+// ---------------------------
+Route::middleware('auth')->group(function () {
+    Route::view('/Rezago', 'rezago.index');
 });
 
 require __DIR__ . '/auth.php';

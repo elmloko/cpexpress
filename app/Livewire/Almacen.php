@@ -40,6 +40,10 @@ class Almacen extends Component
     public $casilla;
     public $correo_destinatario;
     public $precio_final;
+    public $factura;
+    public $numero_factura;
+    public $mostrarModalFactura = false;
+
 
     protected $paginationTheme = 'bootstrap';
 
@@ -250,53 +254,63 @@ class Almacen extends Component
         }
     }
 
-    public function darBajaSeleccionados()
+    public function confirmarDarBaja()
     {
         if (empty($this->selected)) {
             session()->flash('message', 'No hay paquetes seleccionados.');
             return;
         }
+        $this->mostrarModalFactura = true;
+    }
+
+
+    public function darBajaSeleccionados()
+    {
+        $this->validate([
+            'numero_factura' => 'required|string|max:50',
+        ], [
+            'numero_factura.required' => 'Debe ingresar un número de factura.',
+        ]);
 
         $packages = Paquete::whereIn('id', $this->selected)->get();
 
-        // Calcular precio_final
         foreach ($packages as $p) {
             $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
-
             $precioFinal = $dias <= 6 ? 17 : 17 + (($dias - 6) * 2);
 
             $p->update([
                 'precio_final' => $precioFinal,
+                'factura'      => $this->numero_factura, // ✅ se guarda la factura
             ]);
         }
 
-        // Cambiar estado y eliminar paquetes
         Paquete::whereIn('id', $this->selected)->update(['estado' => 'INVENTARIO']);
         Paquete::whereIn('id', $this->selected)->delete();
 
-        // Crear eventos
         foreach ($packages as $pkg) {
             Evento::create([
                 'accion'      => 'ENTREGADO',
-                'descripcion' => 'Paquete Entregado',
-                'user_id'     => Auth::user()->name,
+                'descripcion' => 'Paquete Entregado con Factura ' . $this->numero_factura,
+                'user_id'     => Auth::id(),
                 'codigo'      => $pkg->codigo,
             ]);
         }
 
-        $this->selected  = [];
+        $this->selected = [];
         $this->selectAll = false;
+        $this->mostrarModalFactura = false;
+        $this->numero_factura = null;
 
-        // Duplicar paquetes con aduana = 'SI' para PDF
+        // PDF duplicando paquetes con aduana = SI
         $packagesDuplicados = collect();
         foreach ($packages as $p) {
-            $packagesDuplicados->push($p); // siempre agregamos el paquete
+            $packagesDuplicados->push($p);
             if (strtoupper($p->aduana) === 'SI') {
-                $packagesDuplicados->push($p); // duplicamos
+                $packagesDuplicados->push($p);
             }
         }
 
-        $formulario = 'pdf.formularioentrega'; // siempre usamos la misma vista
+        $formulario = 'pdf.formularioentrega';
         $pdf = PDF::loadView($formulario, ['packages' => $packagesDuplicados]);
 
         return response()->streamDownload(
@@ -304,6 +318,7 @@ class Almacen extends Component
             'Despacho_Encomiendas_' . now()->format('Ymd_His') . '.pdf'
         );
     }
+
 
     public function render()
     {

@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KardexExport;
+use Illuminate\Support\Facades\Auth;
 
 
 class DashboardController extends Controller
@@ -41,10 +44,6 @@ class DashboardController extends Controller
         ));
     }
 
-    /**
-     * Retorna JSON con labels y data (conteo por día) para un estado.
-     * Parámetros GET: state, start_date, end_date
-     */
     public function stateStats(Request $request)
     {
         $allowed = ['RECIBIDO', 'INVENTARIO', 'REZAGO', 'ALMACEN', 'DESPACHO'];
@@ -63,16 +62,14 @@ class DashboardController extends Controller
         $start = Carbon::parse($request->query('start_date'))->startOfDay();
         $end   = Carbon::parse($request->query('end_date'))->endOfDay();
 
-        // Obtener conteos agrupados por fecha (YYYY-MM-DD)
         $rows = Paquete::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
             ->where('estado', $state)
             ->whereBetween('created_at', [$start, $end])
             ->groupBy('date')
             ->orderBy('date')
             ->get()
-            ->pluck('total', 'date'); // collection date => total
+            ->pluck('total', 'date');
 
-        // Crear periodo de fechas completo para llenar ceros donde no existan datos
         $period = CarbonPeriod::create($start->toDateString(), $end->toDateString());
         $labels = [];
         $data   = [];
@@ -89,6 +86,7 @@ class DashboardController extends Controller
             'state'  => $state,
         ]);
     }
+
     public function estadisticaEstado($estado)
     {
         $data = Paquete::select(
@@ -112,7 +110,99 @@ class DashboardController extends Controller
             ->whereDate('created_at', $fecha)
             ->get();
     }
-    public function kardex(Request $request)
+
+    /*  public function kardex(Request $request)
+    {
+        $user = Auth::user();
+
+        // Validar fechas
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date',
+        ]);
+
+        $start = Carbon::parse($request->start_date)->startOfDay();
+        $end   = Carbon::parse($request->end_date)->endOfDay();
+
+        // Query base
+        $query = Paquete::whereBetween('created_at', [$start, $end]);
+
+        // Si es administrador -> solo paquetes en estado INVENTARIO
+        if ($user && $user->hasRole('Administrador')) {
+            $query->where('estado', 'INVENTARIO');
+        }
+
+        // Si no es admin -> forzar solo paquetes del día actual
+        if ($user && !$user->hasRole('Administrador')) {
+            $query->whereDate('created_at', now());
+        }
+
+        $packages = $query->orderBy('created_at', 'asc')->get();
+
+        $fechaHoy = now()->format('d/m/Y');
+
+        return Excel::download(
+            new KardexExport($fechaHoy, $packages),
+            "Kardex_Inventario_{$start->format('Y-m-d')}_{$end->format('Y-m-d')}.xlsx"
+        );
+    } */
+
+
+
+    /* public function exportKardex(Request $request)
+    {
+        // Si no es admin -> forzar fechas al día actual
+        if (!Auth::user()->hasRole('Administrador')) {
+            $request->merge([
+                'start_date' => now()->format('Y-m-d'),
+                'end_date'   => now()->format('Y-m-d')
+            ]);
+        }
+
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date'   => 'required|date',
+        ]);
+
+        $start = Carbon::parse($request->start_date)->startOfDay();
+        $end   = Carbon::parse($request->end_date)->endOfDay();
+
+        $query = Paquete::whereBetween('created_at', [$start, $end]);
+
+        // Si es administrador -> solo INVENTARIO
+        if (Auth::user()->hasRole('Administrador')) {
+            $query->where('estado', 'INVENTARIO');
+        }
+
+        $packages = $query->orderBy('created_at', 'asc')->get();
+        $fechaHoy = now()->format('d/m/Y');
+
+        return Excel::download(
+            new KardexExport($fechaHoy, $packages),
+            "Kardex_Inventario_{$start->format('Y-m-d')}_{$end->format('Y-m-d')}.xlsx"
+        );
+    } */
+
+
+
+
+    public function exportKardexTodos()
+    {
+        $packages = Paquete::onlyTrashed()
+            ->whereDate('deleted_at', now())
+            ->orderBy('deleted_at')
+            ->get();
+
+        $fechaHoy = now()->format('Y-m-d');
+
+        return Excel::download(
+            new KardexExport($fechaHoy, $packages),
+            "Kardex_Bajas_{$fechaHoy}.xlsx"
+        );
+    }
+
+
+    public function exportKardexAdmin(Request $request)
     {
         $request->validate([
             'start_date' => 'required|date',
@@ -122,19 +212,17 @@ class DashboardController extends Controller
         $start = Carbon::parse($request->start_date)->startOfDay();
         $end   = Carbon::parse($request->end_date)->endOfDay();
 
-        // Aquí filtramos los paquetes
-        $packages = Paquete::whereBetween('created_at', [$start, $end])
-            ->orderBy('created_at', 'asc')
+        $packages = Paquete::onlyTrashed()
+            ->whereBetween('deleted_at', [$start, $end])
+            ->orderBy('deleted_at')
             ->get();
 
-        // Generar el PDF usando tu plantilla pdf/kardex.blade.php
-        $pdf = Pdf::loadView('pdf.kardex', [
-            'packages'   => $packages,
-            'start_date' => $start,
-            'end_date'   => $end
-        ])->setPaper('A4', 'portrait');
-
-        // Descargar con nombre dinámico
-        return $pdf->download("kardex_{$start->format('Ymd')}_{$end->format('Ymd')}.pdf");
+        return Excel::download(
+            new KardexExport(
+                now()->format('Y-m-d'), // fecha de hoy
+                $packages
+            ),
+            "Kardex_Admin_{$start->format('Y-m-d')}_{$end->format('Y-m-d')}.xlsx"
+        );
     }
 }

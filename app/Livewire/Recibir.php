@@ -32,8 +32,8 @@ class Recibir extends Component
     /* public $origen; */
     public $destino;
     public $observacion;
-    public $grupo = false;
-    public $almacenaje = false;
+/*     public $grupo = false;
+    public $almacenaje = false;*/ 
     public $ciudad;
     public $users;
     public $aduana;
@@ -56,8 +56,8 @@ class Recibir extends Component
         'aduana'             => 'required|string|in:SI,NO',
         /* 'origen'             => 'nullable|string|max:100', */
         'observacion'        => 'nullable|string|max:255',
-        'grupo'              => 'boolean',
-        'almacenaje'         => 'boolean',
+/*         'grupo'              => 'boolean',
+       'almacenaje'         => 'boolean',*/  
     ];
 
     protected $messages = [
@@ -223,8 +223,8 @@ class Recibir extends Component
             'peso',
             'casilla',
             'observacion',
-            'almacenaje'
-        ]);
+            /* 'almacenaje'*/
+        ]); 
         $this->cuidad = Auth::user()->city;
         $this->aduana = null;
         $this->modal = true;
@@ -251,8 +251,8 @@ class Recibir extends Component
         $this->casilla        = $p->casilla;
         $this->observacion = $p->observacion;
         $this->modal       = true;
-        $this->grupo         = (bool) $p->grupo;
-        $this->almacenaje   = (bool) $p->almacenaje;
+        /* $this->grupo         = (bool) $p->grupo;
+        $this->almacenaje   = (bool) $p->almacenaje; */
     }
 
     public function guardar()
@@ -276,8 +276,8 @@ class Recibir extends Component
             'peso'         => $this->peso,
             'casilla'         => $this->casilla,
             'observacion'  => strtoupper($this->observacion),
-            'grupo'        => $this->grupo ? 1 : 0,
-            'almacenaje'   => $this->almacenaje ? 1 : 0,
+            /* 'grupo'        => $this->grupo ? 1 : 0, 
+            'almacenaje'   => $this->almacenaje ? 1 : 0,*/
             'cantidad'     => '1',
         ];
 

@@ -120,10 +120,10 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-danger ml-2" wire:click="darBajaSeleccionados"
-                onclick="return confirm('¿Estás seguro de Dar de baja los paquetes seleccionados?')">
+            <button class="btn btn-danger ml-2" wire:click="confirmarDarBaja">
                 <i class="fas fa-box-open"></i> Dar de baja
             </button>
+
             <div class="card-footer clearfix">
                 {{ $paquetes->links() }}
             </div>
@@ -242,4 +242,31 @@
             </div>
         </div>
     </div>
+    <!-- Modal Factura -->
+    <div class="modal fade @if ($mostrarModalFactura) show d-block @endif" tabindex="-1"
+        style="background: rgba(0,0,0,0.5);" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ingrese Número de Factura</h5>
+                    <button type="button" class="close" wire:click="$set('mostrarModalFactura', false)">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" wire:model.defer="numero_factura" class="form-control"
+                        placeholder="Ej: F-12345">
+                    @error('numero_factura')
+                        <small class="text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" wire:click="darBajaSeleccionados">Confirmar</button>
+                    <button type="button" class="btn btn-secondary"
+                        wire:click="$set('mostrarModalFactura', false)">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
