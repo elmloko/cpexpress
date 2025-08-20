@@ -19,6 +19,7 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
 {
     protected $fechaHoy;
     protected $packages;
+    private int $counter = 0; // contador interno
 
     public function __construct($fecha, $packages)
     {
@@ -33,8 +34,9 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
 
     public function map($package): array
     {
+        $this->counter++; // cada fila aumenta en 1
         return [
-            $package->id, // Nro
+            $this->counter, // Nro incremental
             Carbon::parse($package->deleted_at)->format('d/m/Y'), // FECHA DE BAJA
             'DESCONOCIDO', // TIPO DE ENVÍO
             $package->codigo, // CÓDIGO

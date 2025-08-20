@@ -6,10 +6,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 
 class Users extends Component
 {
     use WithPagination;
+    use HasRoles;
 
     public $search = ''; // Campo para búsqueda
     public $searchQuery = ''; // Campo que se actualizará al hacer clic en el botón
