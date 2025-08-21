@@ -46,6 +46,7 @@ class PaqueteApiController extends Controller
                     'casilla'           => $p->casilla,
                     'precio_final'      => $p->precio_final,
                     'notificado'        => $p->notificado,
+                    'factura'           => $p->factura,
                 ];
             });
 

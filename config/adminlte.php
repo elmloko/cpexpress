@@ -350,7 +350,7 @@ return [
             'icon' => 'fas fa-paper-plane', // Icono de "enviar"
             'can'  => 'visor',
         ],
-         [
+         /* [
             'text' => 'Envio de Paquetes',
             'icon' => 'fas fa-plane-departure', // Icono representativo de "paquetes"
             // 'can'  => 'users.index',
@@ -369,7 +369,7 @@ return [
                     'can'  => 'enviar',
                 ],
             ],
-        ],
+        ], */
         [
             'text' => 'Recepcion de Paquetes',
             'icon' => 'fas fa-box-open', // Icono representativo de "paquetes"

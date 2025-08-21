@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
 
     // Kardex para administradores (rango de fechas)
     Route::get('/dashboard/kardex/admin', [DashboardController::class, 'exportKardexAdmin'])
-        ->middleware('role:Administrador') // opcional, solo administradores
+        //->middleware('role:Administrador') // opcional, solo administradores
         ->name('dashboard.kardex.admin');
 
     // Estadísticas por estado (AJAX)
@@ -51,8 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/almacen', [PaqueteController::class, 'getAlmacen']);
     Route::get('/recibir', [PaqueteController::class, 'getRecibir']);
     Route::get('/inventario', [PaqueteController::class, 'getInventario']);
-    Route::get('/enviar', [PaqueteController::class, 'getEnviar']);
-    Route::get('/despacho', [PaqueteController::class, 'getDespacho']);
+    /* Route::get('/enviar', [PaqueteController::class, 'getEnviar']);
+    Route::get('/despacho', [PaqueteController::class, 'getDespacho']); */
     Route::get('/todos', [PaqueteController::class, 'getTodos']);
 
     Route::get('/tarifa', [TarifaController::class, 'getTarifas']);
