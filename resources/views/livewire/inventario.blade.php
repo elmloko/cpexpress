@@ -96,7 +96,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No hay paquetes en Inventario.</td>
+                                <td colspan="11" class="text-center">No hay paquetes en Inventario.</td>
                             </tr>
                         @endforelse
                     </tbody>

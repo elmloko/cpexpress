@@ -204,6 +204,13 @@ class DashboardController extends Controller
 
     public function exportKardexAdmin(Request $request)
     {
+        if ($request->has('date')) {
+            $request->merge([
+                'start_date' => $request->date,
+                'end_date'   => $request->date
+            ]);
+        }
+
         $request->validate([
             'start_date' => 'required|date',
             'end_date'   => 'required|date',
@@ -219,7 +226,7 @@ class DashboardController extends Controller
 
         return Excel::download(
             new KardexExport(
-                now()->format('Y-m-d'), // fecha de hoy
+                now()->format('Y-m-d'),
                 $packages
             ),
             "Kardex_Admin_{$start->format('Y-m-d')}_{$end->format('Y-m-d')}.xlsx"

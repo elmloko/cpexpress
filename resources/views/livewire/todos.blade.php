@@ -82,7 +82,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">No hay paquetes en Despacho.</td>
+                                <td colspan="8" class="text-center">No hay paquetes en Despacho.</td>
                             </tr>
                         @endforelse
                     </tbody>

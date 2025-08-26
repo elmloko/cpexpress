@@ -4,14 +4,14 @@
 
 @section('content_header')
     <h1>Sistema de encomiendas</h1>
-
-    {{-- Formulario Kardex Admin (fecha específica) --}}
+    @hasrole('Administrador')
+        {{-- Formulario Kardex Admin (fecha específica) --}}
         <form action="{{ route('dashboard.kardex.admin') }}" method="GET" class="form-inline mb-2">
             <label for="date" class="mr-1">Fecha:</label>
             <input type="date" name="date" id="date" required class="form-control mr-2">
             <button type="submit" class="btn btn-success">Generar Kardex Admin</button>
         </form>
-
+    @endhasrole
 
     {{-- Formulario Kardex Todos (hoy) --}}
     <form action="{{ route('dashboard.kardex.todos') }}" method="GET" class="form-inline mb-2">
@@ -244,4 +244,3 @@
         });
     </script>
 @stop
-

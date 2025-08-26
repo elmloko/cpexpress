@@ -25,7 +25,7 @@ class User extends Authenticatable
 
     public function adminlte_profile_url()
     {
-        return 'profile/username';
+        return '/dashboard';
     }
     protected $fillable = [
         'name',
