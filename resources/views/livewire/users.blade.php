@@ -91,7 +91,7 @@
                                                     href="{{ route('users.edit', $user->id) }}">
                                                     <i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}
                                                 </a>
-                                                @hasrole('SuperAdmin')
+                                                @hasrole('Administrador')
                                                     <button wire:click="setPasswordUser({{ $user->id }})"
                                                         class="btn btn-sm btn-primary">
                                                         <i class="fa fa-key"></i> {{ __('Cambiar Contraseña') }}
