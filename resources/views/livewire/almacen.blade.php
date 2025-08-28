@@ -103,11 +103,16 @@
                                         <i class="fas fa-edit"></i> Editar
                                     </button>
 
-
                                     <button class="btn btn-sm btn-danger"
                                         wire:click="enviarARezago({{ $p->id }})">
                                         <i class="fas fa-clock"></i> Rezago
                                     </button>
+
+                                    <button class="btn btn-sm btn-secondary"
+                                        wire:click="enviarAReturn({{ $p->id }})">
+                                        <i class="fas fa-undo-alt"></i> Return
+                                    </button>
+
                                 </td>
 
 
@@ -175,7 +180,8 @@
 
                             <div class="form-group">
                                 <label for="telefono">Teléfono</label>
-                                <input type="text" id="telefono" wire:model.defer="telefono" class="form-control">
+                                <input type="text" id="telefono" wire:model.defer="telefono"
+                                    class="form-control">
                                 @error('telefono')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

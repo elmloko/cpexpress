@@ -260,6 +260,28 @@ class Almacen extends Component
         }
     }
 
+    public function enviarAReturn($id)
+    {
+        $paquete = Paquete::find($id);
+
+        if ($paquete) {
+            $paquete->estado = 'RETURN';
+            $paquete->save();
+
+            Evento::create([
+                'accion'      => 'RETURN',
+                'descripcion' => 'Paquete marcado como RETURN',
+                'user_id'     => Auth::user()->name,
+                'codigo'      => $paquete->codigo,
+            ]);
+
+            session()->flash('message', "Paquete {$paquete->codigo} cambiado a RETURN.");
+        } else {
+            session()->flash('message', 'Paquete no encontrado.');
+        }
+    }
+
+
     public function confirmarDarBaja()
     {
         if (empty($this->selected)) {

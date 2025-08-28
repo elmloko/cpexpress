@@ -295,7 +295,7 @@ return [
 
     'menu' => [
         // Navbar items:
-       /*  [
+        /*  [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
@@ -350,7 +350,7 @@ return [
             'icon' => 'fas fa-paper-plane', // Icono de "enviar"
             'can'  => 'visor',
         ],
-         /* [
+        /* [
             'text' => 'Envio de Paquetes',
             'icon' => 'fas fa-plane-departure', // Icono representativo de "paquetes"
             // 'can'  => 'users.index',
@@ -401,6 +401,13 @@ return [
                     'can'  => 'recibir',
                     'class' => 'btn btn-sm btn-danger', // Clase para el botón
                 ],
+                [
+                    'text' => 'Return',
+                    'url'  => '/return',
+                    'icon' => 'fas fa-undo-alt',
+                    'can'  => 'recibir',
+                ],
+
 
 
             ],

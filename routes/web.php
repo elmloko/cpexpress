@@ -108,6 +108,8 @@ Route::middleware('auth')->group(function () {
 // ---------------------------
 Route::middleware('auth')->group(function () {
     Route::view('/Rezago', 'rezago.index');
+    Route::view('/return', 'return.index')->name('return.index'); // 👈 Aquí Return
+
 });
 
 require __DIR__ . '/auth.php';
