@@ -26,8 +26,8 @@ class RezagoExport implements FromCollection, WithHeadings
             ->whereBetween('created_at', [$this->dateFrom, $this->dateTo])
             ->where(function ($query) {
                 $query->where('codigo', 'like', "%{$this->search}%")
-                      ->orWhere('destinatario', 'like', "%{$this->search}%")
-                      ->orWhere('observacion', 'like', "%{$this->search}%");
+                    ->orWhere('destinatario', 'like', "%{$this->search}%")
+                    ->orWhere('observacion', 'like', "%{$this->search}%");
             })
             ->orderBy('id', 'desc')
             ->get([
@@ -38,8 +38,25 @@ class RezagoExport implements FromCollection, WithHeadings
                 'cuidad',
                 'observacion',
                 'created_at'
-            ]);
+            ])
+            ->map(function ($paquete) {
+                // Aseguramos que devuelva string formateado
+                $paquete->created_at = Carbon::parse($paquete->created_at)
+                    ->setTimezone('America/La_Paz')
+                    ->format('Y-m-d H:i');
+
+                return [
+                    'codigo'       => $paquete->codigo,
+                    'destinatario' => $paquete->destinatario,
+                    'peso'         => $paquete->peso,
+                    'telefono'     => $paquete->telefono,
+                    'cuidad'       => $paquete->cuidad,
+                    'observacion'  => $paquete->observacion,
+                    'created_at'   => $paquete->created_at, // ya es string
+                ];
+            });
     }
+
 
     public function headings(): array
     {

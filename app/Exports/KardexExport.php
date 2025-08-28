@@ -38,8 +38,9 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
         return [
             $this->counter, // Nro incremental
             Carbon::parse($package->deleted_at)->format('d/m/Y'), // FECHA DE BAJA
-            'DESCONOCIDO', // TIPO DE ENVÍO
+            'ENCOMIENDA', // TIPO DE ENVÍO
             $package->codigo, // CÓDIGO
+            $package->ciudad_origen ?? 'N/A', // PAIS ORIGEN (nuevo campo)
             $package->cantidad ?? 1, // CANTIDAD
             $package->peso ?? 0, // PESO
             $package->factura ?? '', // FACTURA N.º
@@ -54,6 +55,7 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
             'FECHA',
             'TIPO DE ENVÍO',
             'CÓDIGO',
+            'PAIS ORIGEN', // nuevo encabezado
             'CANTIDAD',
             'PESO',
             'FACTURA N.º',
@@ -79,9 +81,9 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
             ->setHorizontal(Alignment::HORIZONTAL_CENTER)
             ->setVertical(Alignment::VERTICAL_CENTER);
 
-        $sheet->mergeCells('F1:H3');
-        $sheet->setCellValue('F1', "Dirección de Operaciones\nDistribución Domiciliaria\nKardex 3");
-        $sheet->getStyle('F1')->getAlignment()
+        $sheet->mergeCells('H1:J4');
+        $sheet->setCellValue('H1', "Dirección de Operaciones\nDistribución Domiciliaria\nKardex 3");
+        $sheet->getStyle('H1')->getAlignment()
             ->setWrapText(true)
             ->setHorizontal(Alignment::HORIZONTAL_CENTER)
             ->setVertical(Alignment::VERTICAL_CENTER);
@@ -94,24 +96,25 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
         $sheet->setCellValue('B7', 'Ventanilla: ENCOMIENDAS');
         $sheet->mergeCells('B8:I8');
         $sheet->setCellValue('B8', 'Nombre del Cartero: ' . ($firstPackage->user ?? 'N/A'));
-        $sheet->mergeCells('F6:I6');
-        $sheet->setCellValue('F6', 'Nombre Responsable:' . ($firstPackage->user ?? 'N/A'));
-        $sheet->mergeCells('F7:I7');
-        $sheet->setCellValue('F7', 'Fecha de Recaudación: ' . $this->fechaHoy);
+        $sheet->mergeCells('G6:J6');
+        $sheet->setCellValue('G6', 'Nombre Responsable:' . ($firstPackage->user ?? 'N/A'));
+        $sheet->mergeCells('G7:J7');
+        $sheet->setCellValue('G7', 'Fecha de Recaudación: ' . $this->fechaHoy);
 
         // Encabezados de tabla
-        $sheet->getStyle('B' . $startRow . ':I' . $startRow)->getFont()->setBold(true);
-        $sheet->getStyle('B' . $startRow . ':I' . $startRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyle('B' . $startRow . ':J' . $startRow)->getFont()->setBold(true);
+        $sheet->getStyle('B' . $startRow . ':J' . $startRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
         // Columnas
         $sheet->getColumnDimension('B')->setWidth(5);
         $sheet->getColumnDimension('C')->setWidth(12);
         $sheet->getColumnDimension('D')->setWidth(13);
         $sheet->getColumnDimension('E')->setWidth(15);
-        $sheet->getColumnDimension('F')->setWidth(10);
+        $sheet->getColumnDimension('F')->setWidth(15); // PAIS ORIGEN
         $sheet->getColumnDimension('G')->setWidth(10);
-        $sheet->getColumnDimension('H')->setWidth(12);
+        $sheet->getColumnDimension('H')->setWidth(10);
         $sheet->getColumnDimension('I')->setWidth(12);
+        $sheet->getColumnDimension('J')->setWidth(12);
     }
 
     public function registerEvents(): array
@@ -123,13 +126,13 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
                 $endRow = $startRow + $this->packages->count();
 
                 // Bordes de la tabla de datos
-                $sheet->getStyle('B' . $startRow . ':I' . $endRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
+                $sheet->getStyle('B' . $startRow . ':J' . $endRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN);
 
                 // -------------------
                 // Total General
                 // -------------------
                 $totalRow = $endRow + 1;
-                $sheet->mergeCells('B' . $totalRow . ':D' . $totalRow);
+                $sheet->mergeCells('B' . $totalRow . ':E' . $totalRow);
                 $sheet->setCellValue('B' . $totalRow, 'TOTAL GENERAL');
 
                 $totalCantidad = $this->packages->sum('cantidad');
@@ -138,13 +141,13 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
                     return $p->precio_final ?? $p->precio ?? 0;
                 });
 
-                $sheet->setCellValue('F' . $totalRow, $totalCantidad);
-                $sheet->setCellValue('G' . $totalRow, number_format($totalPeso, 2, ',', ''));
-                $sheet->setCellValue('I' . $totalRow, number_format($totalImporte, 2, ',', ''));
+                $sheet->setCellValue('G' . $totalRow, $totalCantidad);
+                $sheet->setCellValue('H' . $totalRow, number_format($totalPeso, 2, ',', ''));
+                $sheet->setCellValue('J' . $totalRow, number_format($totalImporte, 2, ',', ''));
 
-                $sheet->getStyle('B' . $totalRow . ':I' . $totalRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_MEDIUM);
-                $sheet->getStyle('B' . $totalRow . ':I' . $totalRow)->getFont()->setBold(true);
-                $sheet->getStyle('B' . $totalRow . ':I' . $totalRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('B' . $totalRow . ':J' . $totalRow)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_MEDIUM);
+                $sheet->getStyle('B' . $totalRow . ':J' . $totalRow)->getFont()->setBold(true);
+                $sheet->getStyle('B' . $totalRow . ':J' . $totalRow)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
                 // -------------------
                 // Observaciones y sellos/firma
@@ -171,7 +174,7 @@ class KardexExport implements FromCollection, WithCustomStartCell, WithStyles, W
                     ->setVertical(Alignment::VERTICAL_BOTTOM)
                     ->setWrapText(true);
 
-                $sheet->mergeCells('I' . $finalRow . ':I' . ($finalRow + 8));
+                $sheet->mergeCells('I' . $finalRow . ':J' . ($finalRow + 8));
                 $sheet->setCellValue('I' . $finalRow, 'SELLO RECEPCIÓN TESORERÍA');
                 $sheet->getStyle('I' . $finalRow)->getAlignment()
                     ->setHorizontal(Alignment::HORIZONTAL_CENTER)

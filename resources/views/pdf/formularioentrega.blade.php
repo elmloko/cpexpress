@@ -69,7 +69,7 @@
                     <h3 class="normal-text">AGENCIA BOLIVIANA DE CORREOS</h3>
                 </div>
                 <table class="centro">
-                    <tr> 
+                    <tr>
                         <td>
                             <br>
                             <br>
@@ -97,6 +97,7 @@
                             <p class="small-text"><strong>Precio:</strong> {{ $package->precio_final ?? 0 }} Bs.</p>
                             <p class="small-text"><strong>Entrega:</strong> {{ $package->estado ?? 'N/A' }}</p>
                             <p class="small-text"><strong>Fecha Entrega:</strong> {{ now()->format('Y-m-d H:i') }}</p>
+                            <p class="small-text"><strong>Pais Origen:</strong> {{ $package->ciudad_origen ?? 'N/A' }}</p>
                         </td>
                     </tr>
                 </table>

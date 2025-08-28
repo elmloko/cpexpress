@@ -84,7 +84,7 @@
                                 <td>{{ $p->peso }} kg</td>
                                 {{-- <td>{{ strtoupper($p->destino) }}</td> --}}
                                 <td>{{ $p->precio }} Bs</td>
-                                <td>{{ intval($this->calcularPrecioFinal($p->created_at)) }} Bs</td>
+                                <td>{{ intval($this->calcularPrecioFinal($p->created_at, $p->codigo)) }} Bs</td>
                                 <td>{{ (int) $this->diasTranscurridos($p->created_at) }} Dias</td>
                                 <td>{{ $p->telefono }}</td>
                                 <td>{{ $p->cuidad }}</td>

@@ -132,8 +132,11 @@
 
                             <div class="form-group">
                                 <label>Código</label>
-                                <input type="text" wire:model.defer="codigo" class="form-control"
-                                    style="text-transform: uppercase;">
+                                <input type="text" id="codigo" wire:model.defer="codigo" class="form-control"
+                                    style="text-transform: uppercase;"
+                                    @if ($isSacaM) readonly @endif>
+
+
                                 @error('codigo')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
@@ -209,6 +212,15 @@
                                 <label>Observación</label>
                                 <textarea wire:model.defer="observacion" class="form-control" rows="4" style="text-transform: uppercase;"></textarea>
                             </div>
+                            <div class="form-group col-md-12 mt-3">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="switchSacaM"
+                                        wire:model="isSacaM" wire:change="toggleSacaM">
+                                    <label class="form-check-label" for="switchSacaM">Saca M</label>
+                                </div>
+                            </div>
+
+
                         </div>
 
                     </div>

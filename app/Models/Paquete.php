@@ -33,7 +33,8 @@ class Paquete extends Model
         'grupo',
         'almacenaje',
         'precio_final',
-        'certificacion', // ← este estaba faltando
+        'certificacion',
+        'ciudad_origen',
 
     ];
 

@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'UNIENVIO',
+    'title' => 'SIREN',
     'title_prefix' => '',
-    'title_postfix' => '| AGBC',
+    'title_postfix' => '| SIREN',
 
     /*
     |--------------------------------------------------------------------------
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>unienvio</b>AGBC',
+    'logo' => '<b>SIREN</b>',
     'logo_img' => 'images/AGBClogo.png',
     'logo_img_class' => 'brand-image img-circle',
     'logo_img_xl' => null,

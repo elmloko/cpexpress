@@ -199,8 +199,13 @@ class Almacen extends Component
         }
     }
 
-    public function calcularPrecioFinal($created_at)
+    public function calcularPrecioFinal($created_at, $codigo = null)
     {
+        // Si el código empieza con "UM" -> precio fijo
+        if ($codigo && strtoupper(substr($codigo, 0, 2)) === 'UM') {
+            return 15;
+        }
+
         $dias = Carbon::parse($created_at)
             ->startOfDay()
             ->diffInDays(Carbon::now()->startOfDay());
@@ -213,6 +218,7 @@ class Almacen extends Component
 
         return (int) $precio;
     }
+
 
     public function diasTranscurridos($created_at)
     {
@@ -275,8 +281,13 @@ class Almacen extends Component
         $packages = Paquete::whereIn('id', $this->selected)->get();
 
         foreach ($packages as $p) {
-            $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
-            $precioFinal = $dias <= 6 ? 17 : 17 + (($dias - 6) * 2);
+            if (strtoupper(substr($p->codigo, 0, 2)) === 'UM') {
+                $precioFinal = 15;
+            } else {
+                $dias = Carbon::parse($p->created_at)->diffInDays(Carbon::now());
+                $precioFinal = $dias <= 6 ? 17 : 17 + (($dias - 6) * 2);
+            }
+
 
             $p->update([
                 'precio_final' => $precioFinal,
@@ -291,7 +302,7 @@ class Almacen extends Component
             Evento::create([
                 'accion'      => 'ENTREGADO',
                 'descripcion' => 'Paquete Entregado con Factura ' . $this->numero_factura,
-                'user_id'     => Auth::id(),
+                'user_id' => Auth::user()->name,
                 'codigo'      => $pkg->codigo,
             ]);
         }

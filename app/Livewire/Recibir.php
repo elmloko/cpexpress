@@ -5,8 +5,6 @@ namespace App\Livewire;
 
 use App\Models\Paquete;
 use App\Models\Empresa;
-use App\Models\Peso;
-use App\Models\Tarifario;
 use App\Models\Evento;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,26 +19,25 @@ class Recibir extends Component
     public $searchInput = '';
     public $selectAll = false;
     public $selected = [];
-    public $modalDestino     = false;
+    public $modalDestino = false;
     public $paqueteDestinoId = null;
     public $modal = false;
+
     public $paquete_id;
     public $codigo;
     public $destinatario;
     public $cuidad;
     public $peso;
-    /* public $origen; */
     public $destino;
     public $observacion;
-/*     public $grupo = false;
-    public $almacenaje = false;*/ 
     public $ciudad;
-    public $users;
     public $aduana;
     public $direccion_paquete;
     public $telefono;
     public $casilla;
     public $correo_destinatario;
+
+    public $isSacaM = false;
 
     protected $paginationTheme = 'bootstrap';
 
@@ -54,10 +51,7 @@ class Recibir extends Component
         'peso'               => 'required|numeric',
         'casilla'            => 'nullable|numeric',
         'aduana'             => 'required|string|in:SI,NO',
-        /* 'origen'             => 'nullable|string|max:100', */
         'observacion'        => 'nullable|string|max:255',
-/*         'grupo'              => 'boolean',
-       'almacenaje'         => 'boolean',*/  
     ];
 
     protected $messages = [
@@ -68,56 +62,56 @@ class Recibir extends Component
         'aduana.required' => 'Debe seleccionar si pasa por Aduana.',
         'cuidad.required' => 'Debe seleccionar una ciudad.',
         'correo_destinatario.email' => 'El correo debe ser válido y contener el símbolo @.',
-
     ];
+
     public function mount()
     {
         $this->cuidad = Auth::user()->city;
         $this->ciudad = Auth::user()->city;
-
     }
+
+    // ======================
+    // BÚSQUEDA DE PAQUETE API
+    // ======================
     public function buscar()
     {
         $this->search = trim($this->searchInput);
 
-        if (! $this->search) {
+        if (!$this->search) {
             session()->flash('message', 'Debe ingresar un código para buscar.');
             return;
         }
 
-        $this->resetPage();  // <--- Esto reinicia la paginación para que filtre bien
+        $this->resetPage();
 
         $url = config('services.correos.url') . '/' . $this->search;
-
         $response = Http::withOptions([
-            'verify'           => false,
-            'curl'             => [
+            'verify' => false,
+            'curl'   => [
                 CURLOPT_SSLVERSION   => CURL_SSLVERSION_TLSv1_2,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_IPRESOLVE    => CURL_IPRESOLVE_V4,
             ],
-        ])
-            ->withToken(config('services.correos.token'))
+        ])->withToken(config('services.correos.token'))
             ->acceptJson()
             ->get($url);
 
-        if (! $response->successful()) {
+        if (!$response->successful()) {
             session()->flash('message', "Paquete no encontrado o error API ({$response->status()}).");
             return;
         }
 
         $data = $response->json();
 
-        if (
-            ($data['VENTANILLA']) !== 'ECA' ||
-            ($data['ESTADO']) !== 'DESPACHO' ||
-            strtoupper($data['CUIDAD']) !== strtoupper(Auth::user()->city)
+        if (($data['VENTANILLA'] ?? '') !== 'ECA' ||
+            ($data['ESTADO'] ?? '') !== 'DESPACHO' ||
+            strtoupper($data['CUIDAD'] ?? '') !== strtoupper(Auth::user()->city)
         ) {
             session()->flash('message', 'El paquete no cumple con los criterios de Ventanilla, Estado o Ciudad.');
             return;
         }
 
-        // Actualizamos o creamos el paquete SIN asignar 'destino'
+        // Actualizar o crear paquete sin asignar 'destino'
         $paquete = Paquete::updateOrCreate(
             ['codigo' => $data['CODIGO']],
             [
@@ -128,6 +122,7 @@ class Recibir extends Component
                 'user'         => Auth::user()->name,
             ]
         );
+
         Evento::create([
             'accion' => 'ENCONTRADO',
             'descripcion' => 'Paquete Registrado',
@@ -136,13 +131,16 @@ class Recibir extends Component
         ]);
 
         $this->paqueteDestinoId = $paquete->id;
-        $this->modalDestino     = true;
+        $this->modalDestino = true;
     }
 
-
+    // ======================
+    // SELECCIÓN MÚLTIPLE
+    // ======================
     public function toggleSelectAll()
     {
-        $this->selectAll = ! $this->selectAll;
+        $this->selectAll = !$this->selectAll;
+
         if ($this->selectAll) {
             $this->selected = Paquete::where('estado', 'RECIBIDO')
                 ->where(function ($q) {
@@ -151,7 +149,6 @@ class Recibir extends Component
                         ->orWhere('observacion', 'like', '%' . $this->search . '%');
                 })
                 ->orderBy('id', 'desc')
-                ->paginate(10)
                 ->pluck('id')
                 ->toArray();
         } else {
@@ -167,38 +164,34 @@ class Recibir extends Component
         }
 
         foreach ($this->selected as $id) {
-            /** @var Paquete $paquete */
             $paquete = Paquete::find($id);
+            if ($paquete) {
+                $paquete->update([
+                    'estado' => 'ALMACEN',
+                    'precio' => 17,
+                ]);
 
-            // Precio fijo de 17 Bs
-            $precio = 17;
-
-            // Actualizar estado y precio
-            $paquete->update([
-                'estado' => 'ALMACEN',
-                'precio' => $precio,
-            ]);
-
-            Evento::create([
-                'accion' => 'RECIBIDO',
-                'descripcion' => 'Paquete Recibido',
-                'user_id' => Auth::user()->name,
-                'codigo' => $paquete->codigo,
-            ]);
+                Evento::create([
+                    'accion' => 'RECIBIDO',
+                    'descripcion' => 'Paquete Recibido',
+                    'user_id' => Auth::user()->name,
+                    'codigo' => $paquete->codigo,
+                ]);
+            }
         }
 
-        $this->selected  = [];
+        $this->selected = [];
         $this->selectAll = false;
         session()->flash('message', 'Paquetes recibidos y marcados como ALMACEN correctamente.');
         $this->resetPage();
     }
-
 
     public function eliminarPaquete($id)
     {
         $p = Paquete::findOrFail($id);
         $p->forceDelete();
         $this->resetPage();
+
         session()->flash('message', 'Paquete eliminado permanentemente.');
 
         Evento::create([
@@ -209,8 +202,83 @@ class Recibir extends Component
         ]);
     }
 
-    // --- Lógica Crear / Editar ---
+    // ======================
+    // MODAL CREAR / EDITAR
+    // ======================
     public function abrirModal()
+    {
+        $this->resetModalFields();
+        $this->cuidad = Auth::user()->city;
+        $this->aduana = null;
+        $this->modal = true;
+    }
+
+    public function cerrarModal()
+    {
+        $this->modal = false;
+    }
+
+    public function editar($id)
+    {
+        $p = Paquete::findOrFail($id);
+        $this->paquete_id = $p->id;
+        $this->codigo = $p->codigo;
+        $this->destinatario = $p->destinatario;
+        $this->direccion_paquete = $p->direccion_paquete;
+        $this->telefono = $p->telefono;
+        $this->correo_destinatario = $p->correo_destinatario;
+        $this->cuidad = $p->cuidad;
+        $this->aduana = $p->aduana;
+        $this->peso = $p->peso;
+        $this->casilla = $p->casilla;
+        $this->observacion = $p->observacion;
+        $this->modal = true;
+    }
+
+    public function guardar()
+    {
+        $this->validate();
+        $this->cuidad = Auth::user()->city;
+
+        $data = $this->prepareData();
+        $data['ciudad_origen'] = $this->getPaisOrigen($this->codigo);
+
+        if ($this->paquete_id) {
+            $model = Paquete::findOrFail($this->paquete_id);
+            $model->update($data);
+            session()->flash('message', 'Paquete actualizado.');
+
+            Evento::create([
+                'accion' => 'EDICION',
+                'descripcion' => 'Paquete Editado',
+                'user_id' => Auth::user()->name,
+                'codigo' => $data['codigo'],
+            ]);
+        } else {
+            $data['estado'] = 'RECIBIDO';
+            $data['user'] = Auth::user()->name;
+            $data['precio'] = 17;
+
+            Paquete::create($data);
+
+            session()->flash('message', 'Paquete registrado como RECIBIDO.');
+
+            Evento::create([
+                'accion' => 'CREACION',
+                'descripcion' => 'Paquete Creado',
+                'user_id' => Auth::user()->name,
+                'codigo' => $data['codigo'],
+            ]);
+        }
+
+        $this->cerrarModal();
+        $this->resetModalFields();
+    }
+
+    // ======================
+    // HELPER PRIVADOS
+    // ======================
+    private function resetModalFields()
     {
         $this->reset([
             'paquete_id',
@@ -223,351 +291,259 @@ class Recibir extends Component
             'peso',
             'casilla',
             'observacion',
-            /* 'almacenaje'*/
-        ]); 
-        $this->cuidad = Auth::user()->city;
-        $this->aduana = null;
-        $this->modal = true;
+            'aduana',
+        ]);
     }
 
-    public function cerrarModal()
+    private function prepareData(): array
     {
-        $this->modal = false;
-    }
-
-
-    public function editar($id)
-    {
-        $p = Paquete::findOrFail($id);
-        $this->paquete_id  = $p->id;
-        $this->codigo      = $p->codigo;
-        $this->destinatario = $p->destinatario;
-        $this->direccion_paquete     = $p->direccion_paquete;
-        $this->telefono      = $p->telefono;
-        $this->correo_destinatario      = $p->correo_destinatario;
-        $this->cuidad      = $p->cuidad;
-        $this->aduana       = $p->aduana;
-        $this->peso        = $p->peso;
-        $this->casilla        = $p->casilla;
-        $this->observacion = $p->observacion;
-        $this->modal       = true;
-        /* $this->grupo         = (bool) $p->grupo;
-        $this->almacenaje   = (bool) $p->almacenaje; */
-    }
-
-    public function guardar()
-
-    {
-
-        /*  $data = $this->validate();
-        dd($data);                              esto sirve para verificar los datos que ese esta guardando*/
-        $this->validate();
-        // Siempre tomamos la ciudad del usuario autenticado
-        $this->cuidad = Auth::user()->city;
-
-        $data = [
-            'codigo'       => strtoupper($this->codigo),
+        $codigoUpper = strtoupper($this->codigo);
+        return [
+            'codigo' => $codigoUpper,
             'destinatario' => strtoupper($this->destinatario),
-            'cuidad'       => strtoupper($this->cuidad),
-            'direccion_paquete'    => strtoupper($this->direccion_paquete),
-            'telefono'     => $this->telefono,
-            'correo_destinatario'       => $this->correo_destinatario,
-            'aduana'       => strtoupper($this->aduana),
-            'peso'         => $this->peso,
-            'casilla'         => $this->casilla,
-            'observacion'  => strtoupper($this->observacion),
-            /* 'grupo'        => $this->grupo ? 1 : 0, 
-            'almacenaje'   => $this->almacenaje ? 1 : 0,*/
-            'cantidad'     => '1',
+            'cuidad' => strtoupper($this->cuidad),
+            'direccion_paquete' => strtoupper($this->direccion_paquete),
+            'telefono' => $this->telefono,
+            'correo_destinatario' => $this->correo_destinatario,
+            'aduana' => strtoupper($this->aduana),
+            'peso' => $this->peso,
+            'casilla' => $this->casilla,
+            'observacion' => strtoupper($this->observacion),
+            'cantidad' => 1,
+            'ciudad_origen' => $this->getPaisOrigen($codigoUpper),
+
+        ];
+    }
+
+    private function getPaisOrigen(string $codigo): string
+    {
+        $paises = [
+            'AF' => 'Afganistán',
+            'AL' => 'Albania',
+            'DZ' => 'Argelia',
+            'AS' => 'Samoa Americana',
+            'AD' => 'Andorra',
+            'AO' => 'Angola',
+            'AI' => 'Anguila',
+            'AQ' => 'Antártida',
+            'AG' => 'Antigua y Barbuda',
+            'AR' => 'Argentina',
+            'AM' => 'Armenia',
+            'AW' => 'Aruba',
+            'AU' => 'Australia',
+            'AT' => 'Austria',
+            'AZ' => 'Azerbaiyán',
+            'BS' => 'Bahamas',
+            'BH' => 'Bahrein',
+            'BD' => 'Bangladesh',
+            'BB' => 'Barbados',
+            'BY' => 'Bielorrusia',
+            'BE' => 'Bélgica',
+            'BZ' => 'Belice',
+            'BJ' => 'Benín',
+            'BM' => 'Bermudas',
+            'BT' => 'Bután',
+            'BO' => 'Bolivia',
+            'BA' => 'Bosnia y Herzegovina',
+            'BW' => 'Botsuana',
+            'BR' => 'Brasil',
+            'BN' => 'Brunéi',
+            'BG' => 'Bulgaria',
+            'BF' => 'Burkina Faso',
+            'BI' => 'Burundi',
+            'CV' => 'Cabo Verde',
+            'KH' => 'Camboya',
+            'CM' => 'Camerún',
+            'CA' => 'Canadá',
+            'KY' => 'Islas Caimán',
+            'CF' => 'República Centroafricana',
+            'TD' => 'Chad',
+            'CL' => 'Chile',
+            'CN' => 'China',
+            'CX' => 'Isla Christmas',
+            'CC' => 'Islas Cocos',
+            'CO' => 'Colombia',
+            'KM' => 'Comoras',
+            'CG' => 'Congo',
+            'CD' => 'Congo, República Democrática del',
+            'CR' => 'Costa Rica',
+            'CI' => 'Costa de Marfil',
+            'HR' => 'Croacia',
+            'CU' => 'Cuba',
+            'CY' => 'Chipre',
+            'CZ' => 'Chequia',
+            'DK' => 'Dinamarca',
+            'DJ' => 'Yibuti',
+            'DM' => 'Dominica',
+            'DO' => 'República Dominicana',
+            'EC' => 'Ecuador',
+            'EG' => 'Egipto',
+            'SV' => 'El Salvador',
+            'GQ' => 'Guinea Ecuatorial',
+            'ER' => 'Eritrea',
+            'EE' => 'Estonia',
+            'SZ' => 'Esuatini',
+            'ET' => 'Etiopía',
+            'FJ' => 'Fiyi',
+            'FI' => 'Finlandia',
+            'FR' => 'Francia',
+            'GA' => 'Gabón',
+            'GM' => 'Gambia',
+            'GE' => 'Georgia',
+            'DE' => 'Alemania',
+            'GH' => 'Ghana',
+            'GR' => 'Grecia',
+            'GD' => 'Granada',
+            'GT' => 'Guatemala',
+            'GN' => 'Guinea',
+            'GW' => 'Guinea-Bisáu',
+            'GY' => 'Guyana',
+            'HT' => 'Haití',
+            'HN' => 'Honduras',
+            'HU' => 'Hungría',
+            'IS' => 'Islandia',
+            'IN' => 'India',
+            'ID' => 'Indonesia',
+            'IR' => 'Irán',
+            'IQ' => 'Iraq',
+            'IE' => 'Irlanda',
+            'IL' => 'Israel',
+            'IT' => 'Italia',
+            'JM' => 'Jamaica',
+            'JP' => 'Japón',
+            'JO' => 'Jordania',
+            'KZ' => 'Kazajistán',
+            'KE' => 'Kenia',
+            'KI' => 'Kiribati',
+            'KP' => 'Corea del Norte',
+            'KR' => 'Corea del Sur',
+            'KW' => 'Kuwait',
+            'KG' => 'Kirguistán',
+            'LA' => 'Laos',
+            'LV' => 'Letonia',
+            'LB' => 'Líbano',
+            'LS' => 'Lesoto',
+            'LR' => 'Liberia',
+            'LY' => 'Libia',
+            'LI' => 'Liechtenstein',
+            'LT' => 'Lituania',
+            'LU' => 'Luxemburgo',
+            'MG' => 'Madagascar',
+            'MW' => 'Malaui',
+            'MY' => 'Malasia',
+            'MV' => 'Maldivas',
+            'ML' => 'Malí',
+            'MT' => 'Malta',
+            'MH' => 'Islas Marshall',
+            'MQ' => 'Martinica',
+            'MR' => 'Mauritania',
+            'MU' => 'Mauricio',
+            'MX' => 'México',
+            'FM' => 'Micronesia',
+            'MD' => 'Moldavia',
+            'MC' => 'Mónaco',
+            'MN' => 'Mongolia',
+            'ME' => 'Montenegro',
+            'MA' => 'Marruecos',
+            'MZ' => 'Mozambique',
+            'MM' => 'Myanmar',
+            'NA' => 'Namibia',
+            'NR' => 'Nauru',
+            'NP' => 'Nepal',
+            'NL' => 'Países Bajos',
+            'NZ' => 'Nueva Zelanda',
+            'NI' => 'Nicaragua',
+            'NE' => 'Níger',
+            'NG' => 'Nigeria',
+            'NO' => 'Noruega',
+            'OM' => 'Omán',
+            'PK' => 'Pakistán',
+            'PW' => 'Palau',
+            'PA' => 'Panamá',
+            'PG' => 'Papúa Nueva Guinea',
+            'PY' => 'Paraguay',
+            'PE' => 'Perú',
+            'PH' => 'Filipinas',
+            'PL' => 'Polonia',
+            'PT' => 'Portugal',
+            'QA' => 'Catar',
+            'RO' => 'Rumania',
+            'RU' => 'Rusia',
+            'RW' => 'Ruanda',
+            'KN' => 'San Cristóbal y Nieves',
+            'LC' => 'Santa Lucía',
+            'VC' => 'San Vicente y las Granadinas',
+            'WS' => 'Samoa',
+            'SM' => 'San Marino',
+            'ST' => 'Santo Tomé y Príncipe',
+            'SA' => 'Arabia Saudita',
+            'SN' => 'Senegal',
+            'RS' => 'Serbia',
+            'SC' => 'Seychelles',
+            'SL' => 'Sierra Leona',
+            'SG' => 'Singapur',
+            'SK' => 'Eslovaquia',
+            'SI' => 'Eslovenia',
+            'SB' => 'Islas Salomón',
+            'SO' => 'Somalia',
+            'ZA' => 'Sudáfrica',
+            'ES' => 'España',
+            'LK' => 'Sri Lanka',
+            'SD' => 'Sudán',
+            'SR' => 'Surinam',
+            'SE' => 'Suecia',
+            'CH' => 'Suiza',
+            'SY' => 'Siria',
+            'TW' => 'Taiwán',
+            'TJ' => 'Tayikistán',
+            'TZ' => 'Tanzania',
+            'TH' => 'Tailandia',
+            'TL' => 'Timor-Leste',
+            'TG' => 'Togo',
+            'TO' => 'Tonga',
+            'TT' => 'Trinidad y Tobago',
+            'TN' => 'Túnez',
+            'TR' => 'Turquía',
+            'TM' => 'Turkmenistán',
+            'TV' => 'Tuvalu',
+            'UG' => 'Uganda',
+            'UA' => 'Ucrania',
+            'AE' => 'Emiratos Árabes Unidos',
+            'GB' => 'Reino Unido',
+            'US' => 'Estados Unidos',
+            'UY' => 'Uruguay',
+            'UZ' => 'Uzbekistán',
+            'VU' => 'Vanuatu',
+            'VE' => 'Venezuela',
+            'VN' => 'Vietnam',
+            'YE' => 'Yemen',
+            'ZM' => 'Zambia',
+            'ZW' => 'Zimbabue'
         ];
 
-        //dd($this->correo, $data['correo_destinatario']); // 👈 esto mostrará lo que se va a guardar
 
+        $codigoUpper = strtoupper($codigo);
 
-        if ($this->paquete_id) {
-            // Edición
-            $model = Paquete::findOrFail($this->paquete_id);
-            $model->update($data);
-            session()->flash('message', 'Paquete actualizado.');
-
-            Evento::create([
-                'accion'      => 'EDICION',
-                'descripcion' => 'Paquete Editado',
-                'user_id'     => Auth::user()->name,
-                'codigo'      => $data['codigo'],
-            ]);
-        } else {
-            // Creación
-            $data['estado'] = 'RECIBIDO';
-            $data['user']   = Auth::user()->name;
-            $data['precio'] = 17; // <--- Precio fijo
-
-
-            Paquete::create($data);
-
-
-
-            session()->flash('message', 'Paquete registrado como RECIBIDO.');
-
-            Evento::create([
-                'accion'      => 'CREACION',
-                'descripcion' => 'Paquete Creado',
-                'user_id'     => Auth::user()->name,
-                'codigo'      => $data['codigo'],
-            ]);
+        if ($codigoUpper === 'SACA M') {
+            return 'SACA M';
         }
 
-        $this->cerrarModal();
-        $this->reset(['paquete_id', 'codigo', 'destinatario', 'cuidad', 'direccion_paquete', 'telefono', 'correo_destinatario', 'peso', 'casilla', 'observacion', 'aduana']);
+        if (strlen($codigoUpper) >= 2) {
+            $lastTwo = substr($codigoUpper, -2);
+            return $paises[$lastTwo] ?? 'N/A';
+        }
+
+        return 'N/A';
     }
 
-   /*  private function getCountryTranslation(string $iso): string
+    public function toggleSacaM()
     {
-        $translations = [
-            'AF' => 'AFGHANISTAN',
-            'AL' => 'ALBANIA',
-            'DZ' => 'ALGERIA',
-            'AS' => 'AMERICAN SAMOA',
-            'AD' => 'ANDORRA',
-            'AO' => 'ANGOLA',
-            'AQ' => 'ANTARCTICA',
-            'AG' => 'ANTIGUA AND BARBUDA',
-            'AR' => 'ARGENTINA',
-            'AM' => 'ARMENIA',
-            'AW' => 'ARUBA',
-            'AU' => 'AUSTRALIA',
-            'AT' => 'AUSTRIA',
-            'AZ' => 'AZERBAIJAN',
-            'BS' => 'BAHAMAS',
-            'BH' => 'BAHRAIN',
-            'BD' => 'BANGLADESH',
-            'BB' => 'BARBADOS',
-            'BY' => 'BELARUS',
-            'BE' => 'BELGIUM',
-            'BZ' => 'BELIZE',
-            'BJ' => 'BENIN',
-            'BM' => 'BERMUDA',
-            'BT' => 'BHUTAN',
-            'BO' => 'BOLIVIA',
-            'BA' => 'BOSNIA AND HERZEGOVINA',
-            'BW' => 'BOTSWANA',
-            'BV' => 'BOUVET ISLAND',
-            'BR' => 'BRAZIL',
-            'IO' => 'BRITISH INDIAN OCEAN TERRITORY',
-            'BN' => 'BRUNEI DARUSSALAM',
-            'BG' => 'BULGARIA',
-            'BF' => 'BURKINA FASO',
-            'BI' => 'BURUNDI',
-            'KH' => 'CAMBODIA',
-            'CM' => 'CAMEROON',
-            'CA' => 'CANADA',
-            'CV' => 'CAPE VERDE',
-            'KY' => 'CAYMAN ISLANDS',
-            'CF' => 'CENTRAL AFRICAN REPUBLIC',
-            'TD' => 'CHAD',
-            'CL' => 'CHILE',
-            'CN' => 'CHINA',
-            'CX' => 'CHRISTMAS ISLAND',
-            'CC' => 'COCOS (KEELING) ISLANDS',
-            'CO' => 'COLOMBIA',
-            'KM' => 'COMOROS',
-            'CG' => 'CONGO',
-            'CD' => 'CONGO, THE DEMOCRATIC REPUBLIC OF THE',
-            'CK' => 'COOK ISLANDS',
-            'CR' => 'COSTA RICA',
-            'CI' => "CÔTE D'IVOIRE",
-            'HR' => 'CROATIA',
-            'CU' => 'CUBA',
-            'CY' => 'CYPRUS',
-            'CZ' => 'CZECH REPUBLIC',
-            'DK' => 'DENMARK',
-            'DJ' => 'DJIBOUTI',
-            'DM' => 'DOMINICA',
-            'DO' => 'DOMINICAN REPUBLIC',
-            'EC' => 'ECUADOR',
-            'EG' => 'EGYPT',
-            'SV' => 'EL SALVADOR',
-            'GQ' => 'EQUATORIAL GUINEA',
-            'ER' => 'ERITREA',
-            'EE' => 'ESTONIA',
-            'ET' => 'ETHIOPIA',
-            'FK' => 'FALKLAND ISLANDS (MALVINAS)',
-            'FO' => 'FAROE ISLANDS',
-            'FJ' => 'FIJI',
-            'FI' => 'FINLAND',
-            'FR' => 'FRANCE',
-            'GF' => 'FRENCH GUIANA',
-            'PF' => 'FRENCH POLYNESIA',
-            'TF' => 'FRENCH SOUTHERN TERRITORIES',
-            'GA' => 'GABON',
-            'GM' => 'GAMBIA',
-            'GE' => 'GEORGIA',
-            'DE' => 'GERMANY',
-            'GH' => 'GHANA',
-            'GI' => 'GIBRALTAR',
-            'GR' => 'GREECE',
-            'GL' => 'GREENLAND',
-            'GD' => 'GRENADA',
-            'GP' => 'GUADELOUPE',
-            'GU' => 'GUAM',
-            'GT' => 'GUATEMALA',
-            'GN' => 'GUINEA',
-            'GW' => 'GUINEA-BISSAU',
-            'GY' => 'GUYANA',
-            'HT' => 'HAITI',
-            'HM' => 'HEARD ISLAND AND MCDONALD ISLANDS',
-            'HN' => 'HONDURAS',
-            'HK' => 'HONG KONG',
-            'HU' => 'HUNGARY',
-            'IS' => 'ICELAND',
-            'IN' => 'INDIA',
-            'ID' => 'INDONESIA',
-            'IR' => 'IRAN, ISLAMIC REPUBLIC OF',
-            'IQ' => 'IRAQ',
-            'IE' => 'IRELAND',
-            'IL' => 'ISRAEL',
-            'IT' => 'ITALY',
-            'JM' => 'JAMAICA',
-            'JP' => 'JAPAN',
-            'JO' => 'JORDAN',
-            'KZ' => 'KAZAKHSTAN',
-            'KE' => 'KENYA',
-            'KI' => 'KIRIBATI',
-            'KP' => 'KOREA, DEMOCRATIC PEOPLE\'S REPUBLIC OF',
-            'KR' => 'KOREA, REPUBLIC OF',
-            'KW' => 'KUWAIT',
-            'KG' => 'KYRGYZSTAN',
-            'LA' => 'LAO PEOPLE\'S DEMOCRATIC REPUBLIC',
-            'LV' => 'LATVIA',
-            'LB' => 'LEBANON',
-            'LS' => 'LESOTHO',
-            'LR' => 'LIBERIA',
-            'LY' => 'LIBYAN ARAB JAMAHIRIYA',
-            'LI' => 'LIECHTENSTEIN',
-            'LT' => 'LITHUANIA',
-            'LU' => 'LUXEMBOURG',
-            'MO' => 'MACAO',
-            'MK' => 'MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF',
-            'MG' => 'MADAGASCAR',
-            'MW' => 'MALAWI',
-            'MY' => 'MALAYSIA',
-            'MV' => 'MALDIVES',
-            'ML' => 'MALI',
-            'MT' => 'MALTA',
-            'MH' => 'MARSHALL ISLANDS',
-            'MQ' => 'MARTINIQUE',
-            'MR' => 'MAURITANIA',
-            'MU' => 'MAURITIUS',
-            'YT' => 'MAYOTTE',
-            'MX' => 'MEXICO',
-            'FM' => 'MICRONESIA, FEDERATED STATES OF',
-            'MD' => 'MOLDOVA, REPUBLIC OF',
-            'MC' => 'MONACO',
-            'MN' => 'MONGOLIA',
-            'MS' => 'MONTSERRAT',
-            'MA' => 'MOROCCO',
-            'MZ' => 'MOZAMBIQUE',
-            'MM' => 'MYANMAR',
-            'NA' => 'NAMIBIA',
-            'NR' => 'NAURU',
-            'NP' => 'NEPAL',
-            'NL' => 'NETHERLANDS',
-            'AN' => 'NETHERLANDS ANTILLES',
-            'NC' => 'NEW CALEDONIA',
-            'NZ' => 'NEW ZEALAND',
-            'NI' => 'NICARAGUA',
-            'NE' => 'NIGER',
-            'NG' => 'NIGERIA',
-            'NU' => 'NIUE',
-            'NF' => 'NORFOLK ISLAND',
-            'MP' => 'NORTHERN MARIANA ISLANDS',
-            'NO' => 'NORWAY',
-            'OM' => 'OMAN',
-            'PK' => 'PAKISTAN',
-            'PW' => 'PALAU',
-            'PS' => 'PALESTINIAN TERRITORY, OCCUPIED',
-            'PA' => 'PANAMA',
-            'PG' => 'PAPUA NEW GUINEA',
-            'PY' => 'PARAGUAY',
-            'PE' => 'PERU',
-            'PH' => 'PHILIPPINES',
-            'PN' => 'PITCAIRN',
-            'PL' => 'POLAND',
-            'PR' => 'PUERTO RICO',
-            'QA' => 'QATAR',
-            'RE' => 'RÉUNION',
-            'RO' => 'ROMANIA',
-            'RU' => 'RUSSIAN FEDERATION',
-            'RW' => 'RWANDA',
-            'SH' => 'SAINT HELENA',
-            'KN' => 'SAINT KITTS AND NEVIS',
-            'LC' => 'SAINT LUCIA',
-            'PM' => 'SAINT PIERRE AND MIQUELON',
-            'VC' => 'SAINT VINCENT AND THE GRENADINES',
-            'WS' => 'SAMOA',
-            'SM' => 'SAN MARINO',
-            'ST' => 'SAO TOME AND PRINCIPE',
-            'SA' => 'SAUDI ARABIA',
-            'SN' => 'SENEGAL',
-            'CS' => 'SERBIA AND MONTENEGRO',
-            'SC' => 'SEYCHELLES',
-            'SL' => 'SIERRA LEONE',
-            'SG' => 'SINGAPORE',
-            'SK' => 'SLOVAKIA',
-            'SI' => 'SLOVENIA',
-            'SB' => 'SOLOMON ISLANDS',
-            'SO' => 'SOMALIA',
-            'ZA' => 'SOUTH AFRICA',
-            'GS' => 'SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS',
-            'ES' => 'SPAIN',
-            'LK' => 'SRI LANKA',
-            'SD' => 'SUDAN',
-            'SR' => 'SURINAME',
-            'SJ' => 'SVALBARD AND JAN MAYEN',
-            'SZ' => 'SWAZILAND',
-            'SE' => 'SWEDEN',
-            'CH' => 'SWITZERLAND',
-            'SY' => 'SYRIAN ARAB REPUBLIC',
-            'TW' => 'TAIWAN, PROVINCE OF CHINA',
-            'TJ' => 'TAJIKISTAN',
-            'TZ' => 'TANZANIA, UNITED REPUBLIC OF',
-            'TH' => 'THAILAND',
-            'TL' => 'TIMOR-LESTE',
-            'TG' => 'TOGO',
-            'TK' => 'TOKELAU',
-            'TO' => 'TONGA',
-            'TT' => 'TRINIDAD AND TOBAGO',
-            'TN' => 'TUNISIA',
-            'TR' => 'TURKEY',
-            'TM' => 'TURKMENISTAN',
-            'TC' => 'TURKS AND CAICOS ISLANDS',
-            'TV' => 'TUVALU',
-            'UG' => 'UGANDA',
-            'UA' => 'UKRAINE',
-            'AE' => 'UNITED ARAB EMIRATES',
-            'GB' => 'UNITED KINGDOM',
-            'US' => 'UNITED STATES',
-            'UM' => 'UNITED STATES MINOR OUTLYING ISLANDS',
-            'UY' => 'URUGUAY',
-            'UZ' => 'UZBEKISTAN',
-            'VU' => 'VANUATU',
-            'VE' => 'VENEZUELA',
-            'VN' => 'VIET NAM',
-            'VG' => 'VIRGIN ISLANDS, BRITISH',
-            'VI' => 'VIRGIN ISLANDS, U.S.',
-            'WF' => 'WALLIS AND FUTUNA',
-            'EH' => 'WESTERN SAHARA',
-            'YE' => 'YEMEN',
-            'ZM' => 'ZAMBIA',
-            'ZW' => 'ZIMBABWE',
-        ];
+        $this->codigo = $this->isSacaM ? 'SACA M' : '';
+    }
 
-        // Normalizamos a mayúsculas
-        $iso = strtoupper($iso);
-
-        return $translations[$iso] ?? 'DESCONOCIDO';
-    } */
-
+    // ======================
+    // RENDER
+    // ======================
     public function render()
     {
         $paquetes = Paquete::where('estado', 'RECIBIDO')
@@ -579,7 +555,6 @@ class Recibir extends Component
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        // Carga todas las empresas ordenadas por nombre
         $empresas = Empresa::orderBy('nombre')->get();
 
         return view('livewire.recibir', compact('paquetes', 'empresas'));
