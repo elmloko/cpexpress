@@ -12,8 +12,10 @@ Route::get('/test', function () {
 });
 
 Route::get('/paquetes', [PaqueteApiController::class, 'index']);
+Route::get('/recibido', [PaqueteApiController::class, 'recibido']);
+Route::get('/almacen', [PaqueteApiController::class, 'almacen']);
+Route::get('/inventario', [PaqueteApiController::class, 'inventario']);
 Route::post('/paquetes/dar-baja', [PaqueteApiController::class, 'darBaja']);
-
 
 Route::get('/eventos', [EventoApiController::class, 'eventosPorCodigo']);
 

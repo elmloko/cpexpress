@@ -56,8 +56,6 @@ class PaqueteApiController extends Controller
         ]);
     }
 
-
-
     public function darBaja(Request $request)
     {
         $codigos = $request->input('codigos'); // Recibimos los códigos
@@ -114,5 +112,23 @@ class PaqueteApiController extends Controller
         }
 
         return response()->json(['message' => 'Paquetes dados de baja correctamente']);
+    }
+    public function almacen()
+    {
+        $paquetes = Paquete::where('estado', 'ALMACEN')->get();
+        return response()->json($paquetes);
+    }
+    public function recibido()
+    {
+        $paquetes = Paquete::where('estado', 'RECIBIDO')->get();
+        return response()->json($paquetes);
+    }
+    public function inventario()
+    {
+        $paquetes = Paquete::withTrashed()
+            ->where('estado', 'INVENTARIO')
+            ->get();
+
+        return response()->json($paquetes);
     }
 }
