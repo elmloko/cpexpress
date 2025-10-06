@@ -1,47 +1,113 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIREN | AGBC</title>
+        <link rel="icon" type="image/png" href="vendor/adminlte/dist/img/AGBClogo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+    <style>
+        body {
+            background: linear-gradient(135deg, #0056B3, #F39C12);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            color: #333;
+        }
+        .login-card {
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+        }
+        .logo {
+            width: 90px;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0056B3;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #F39C12;
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            font-weight: 600;
+            text-align: left;
+            display: block;
+        }
+        .btn-primary {
+            background-color: #0056B3;
+            border: none;
+            width: 100%;
+            padding: 0.75rem;
+            font-weight: 600;
+            border-radius: 8px;
+        }
+        .btn-primary:hover {
+            background-color: #004091;
+        }
+        .footer {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <!-- Logo -->
+        <img src="{{ asset('images/AGBClogo.png') }}" alt="Logo EMS" class="logo">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        <!-- Títulos del sistema -->
+        <h2>SISTEMA DE GESTIÓN DE PAQUETERÍA DE ENCOMIENDAS</h2>
+        <h3>"SIREN"</h3>
+
+        <!-- Estado de sesión -->
+        @if (session('status'))
+            <div class="alert alert-success text-center">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        <!-- Formulario -->
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            <div class="mb-3 text-start">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                @error('email')
+                    <div class="text-danger small mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Contraseña</label>
+                <input id="password" type="password" class="form-control" name="password" required>
+                @error('password')
+                    <div class="text-danger small mt-1">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Ingresar</button>
+        </form>
+
+        <div class="footer">
+            © {{ date('Y') }} Agencia Boliviana de Correos
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Contraseña')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        {{-- <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div> --}}
-
-        <div class="flex items-center justify-end mt-4">
-            {{-- @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif --}}
-
-            <x-primary-button class="ms-3">
-                {{ __('Ingresar') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+</body>
+</html>
